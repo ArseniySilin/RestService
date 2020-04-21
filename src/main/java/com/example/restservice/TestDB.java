@@ -10,6 +10,8 @@ public class TestDB {
         DB db = new DB();
         int foo = db.isUserExist("first", "first");
 
-        System.out.println("loginControllerMessages: " + Messages.loginControllerMessages.get(foo));
+        String message = Messages.getMessageByCode(foo);
+
+        System.out.println("message: " + message);
     }
 }

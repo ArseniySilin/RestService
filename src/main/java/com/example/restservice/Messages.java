@@ -1,10 +1,14 @@
 package com.example.restservice;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Messages {
+    private static int MINIMUM_FIELDS_NUMBER = 2;
+
     public static Map<Integer, String> loginControllerMessages = new HashMap<>();
+
     public static class SUCCESS {
         static final int code = 0;
         static final String message = "Success";
@@ -37,5 +41,57 @@ public class Messages {
 
     public static Messages getInstance() {
         return m;
+    }
+
+    static private String getMessageByCode(Class c, int code) {
+        Field[] allFields = c.getDeclaredFields();
+        Class[] allSubClasses = c.getDeclaredClasses();
+
+        if (allFields.length < MINIMUM_FIELDS_NUMBER) {
+            return null;
+        }
+
+        Field codeField = allFields[0];
+        Field messageField = allFields[1];
+
+        boolean doesFieldsHaveValidNames = codeField.getName().equals("code") &&
+                messageField.getName().equals("message");
+
+        if (!doesFieldsHaveValidNames) return null;
+
+        try {
+            Object value = codeField.get(getInstance()); // TODO: is it ok to pass this instance?
+            if (value.equals(code)) {
+                Object messageValue = messageField.get(getInstance());
+
+                return messageValue.toString();
+            }
+        } catch (IllegalAccessException e) {
+            System.out.println(e);
+        }
+
+        if (allSubClasses.length > 0) {
+            for (Class allSubClass : allSubClasses) {
+                String subClassMessage = getMessageByCode(allSubClass, code);
+
+                if (subClassMessage != null) return subClassMessage;
+            }
+        }
+
+        return null;
+    }
+
+    public static String getMessageByCode(int code) {
+        Class[] allClasses = Messages.class.getDeclaredClasses();
+
+        for (Class allClass : allClasses) {
+            String message = getMessageByCode(allClass, code);
+
+            if (message != null) {
+                return message;
+            }
+        }
+
+        return null;
     }
 }

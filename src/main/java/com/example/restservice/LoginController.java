@@ -12,14 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LoginController {
-    Map<Integer, String> messagesByCode = new HashMap<>();
-
-    public LoginController() {
-        messagesByCode.put(0, "Success");
-        messagesByCode.put(1, "Technical error");
-        messagesByCode.put(2, "Username do not exist");
-        messagesByCode.put(3, "Incorrect password");
-    }
+    public LoginController() {}
 
     private boolean isUserExist(String username) {
         String validUsername = "test";
@@ -34,28 +27,7 @@ public class LoginController {
     }
 
     private int login(User user) {
-//        try {
-//            Connection conn = null;
-////            String db = "jdbc:hsqldb:hsql://localhost/sampledb;ifexists=true";
-//
-//            // TODO: remove hardcode
-//            String username = "admin";
-//            String password = "admin";
-//            conn = DriverManager.getConnection("jdbc:", username, password);
-//
-//            if (!isUserExist(user.getUsername())) {
-//                return 3;
-//            }
-//
-//            if (!isPasswordCorrect(user.getUsername())) {
-//                return 4;
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e);
-//            return 2;
-//        }
-
-        return 0;
+        return DB.isUserExist(user.getUsername(), user.getPassword());
     }
 
     @PostMapping(
@@ -66,6 +38,6 @@ public class LoginController {
     public Response response(@RequestBody User user) {
         int resultCode = login(user);
 
-        return new Response(resultCode, messagesByCode.get(resultCode));
+        return new Response(resultCode, "I should find message by its code");
     }
 }
