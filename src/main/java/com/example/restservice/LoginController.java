@@ -16,9 +16,9 @@ public class LoginController {
 
     public LoginController() {
         messagesByCode.put(0, "Success");
-        messagesByCode.put(2, "Technical error");
-        messagesByCode.put(3, "Username do not exist");
-        messagesByCode.put(4, "Incorrect password");
+        messagesByCode.put(1, "Technical error");
+        messagesByCode.put(2, "Username do not exist");
+        messagesByCode.put(3, "Incorrect password");
     }
 
     private boolean isUserExist(String username) {

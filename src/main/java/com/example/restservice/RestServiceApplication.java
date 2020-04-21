@@ -18,6 +18,7 @@ public class RestServiceApplication {
 //		 dpConnectionPool.getConnection();
 
 		TestDB db = new TestDB();
+
 //		db.test();
 //		SpringApplication.run(RestServiceApplication.class, args);
 	}

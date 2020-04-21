@@ -3,26 +3,30 @@ package com.example.restservice;
 import java.sql.*;
 
 public class DB {
-    public boolean isUserExist(String login, String password) {
+    public static int isUserExist(String login, String password) {
         try {
             Connection con = DBCPDataSource.getConnection();
             Statement stmt = con.createStatement();
-            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ? AND password = ?");
+            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
             pstmt.setString(1, login);
-            pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
+            boolean isExist = rs.next();
 
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                System.out.println("id: " + id);
+            if (isExist) {
+                String userPassword = rs.getString("password");
 
+                if (password.equals(userPassword)) {
+                    return Messages.SUCCESS.code;
+                }
+
+                return Messages.ERROR.INCORRECT_PASSWORD.code;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return Messages.ERROR.code;
         }
 
-        return false;
+        return Messages.ERROR.USERNAME_DO_NOT_EXIST.code;
     }
 
     public void test() {
