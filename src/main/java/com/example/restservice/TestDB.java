@@ -13,6 +13,9 @@ public class TestDB {
         String message = Messages.getMessageByCode(foo);
 
         System.out.println("message: " + message);
+//
+//        Token t = new Token();
+//        t.test();
 
 //        String password = "first";
 //        System.out.println("Test hashing...");

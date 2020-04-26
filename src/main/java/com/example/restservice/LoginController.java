@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gson.Gson;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +39,14 @@ public class LoginController {
     public Response response(@RequestBody User user) {
         int resultCode = login(user);
         String message = Messages.getMessageByCode(resultCode);
+
+        if (resultCode == Messages.SUCCESS.code) {
+            Token token = Tokenize.getToken(user);
+            Gson gson = new Gson();
+            String data = gson.toJson(token);
+
+            return new Response(resultCode, message, data);
+        }
 
         return new Response(resultCode, message);
     }
