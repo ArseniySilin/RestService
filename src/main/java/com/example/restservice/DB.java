@@ -3,7 +3,20 @@ package com.example.restservice;
 import java.sql.*;
 
 public class DB {
-    public static int isUserExist(String login, String password) {
+    private static boolean updateUserTokens(Connection con, int userId, String login)
+        throws SQLException {
+            PreparedStatement pstmt =
+                con.prepareStatement("UPDATE users SET access_token = ?, refresh_token = ? WHERE id = ?");
+            pstmt.setString(1, Tokenize.generateAccessToken(login));
+            pstmt.setString(2, Tokenize.generateRefreshToken());
+            pstmt.setInt(3, userId);
+
+            boolean didUpdateSuccessfully = pstmt.executeUpdate() == 1;
+
+            return didUpdateSuccessfully;
+    }
+
+    public static int loginUser(String login, String password) {
         try {
             Connection con = DBCPDataSource.getConnection();
             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
@@ -13,10 +26,14 @@ public class DB {
 
             if (isExist) {
                 String userPasswordHash = rs.getString("password");
+                int userId = rs.getInt("id");
                 HashString hasher = new HashString();
                 boolean isPasswordMatches = hasher.isMatches(userPasswordHash, password);
 
                 if (isPasswordMatches) {
+                    // update user tokens in DB
+                    updateUserTokens(con, userId, login);
+
                     return Messages.SUCCESS.code;
                 }
 
@@ -30,20 +47,20 @@ public class DB {
         return Messages.ERROR.USERNAME_DO_NOT_EXIST.code;
     }
 
-    public void test() {
-        try {
-            Connection con = DBCPDataSource.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM users;");
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String login = rs.getString("login");
-                System.out.println("id: " + id + " login: " + login);
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void test() {
+//        try {
+//            Connection con = DBCPDataSource.getConnection();
+//            Statement stmt = con.createStatement();
+//            ResultSet rs = stmt.executeQuery("SELECT * FROM users;");
+//
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                String login = rs.getString("login");
+//                System.out.println("id: " + id + " login: " + login);
+//
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

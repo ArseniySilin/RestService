@@ -6,9 +6,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Calendar;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
+import java.util.UUID;
 
 public class Tokenize {
-    public static String getAccessToken(String username) {
+    public static String generateAccessToken(String username) {
         Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, 1);
@@ -22,8 +23,15 @@ public class Tokenize {
         return jws;
     }
 
-    public static Token getToken(User user) {
-        Token token = new Token(getAccessToken(user.getUsername()), "refersh_token");
+    public static String generateRefreshToken() {
+        String refreshTokenUUID = UUID.randomUUID().toString();
+        return refreshTokenUUID;
+    }
+
+
+
+    public static Token generateToken(User user) {
+        Token token = new Token(generateAccessToken(user.getUsername()), generateRefreshToken());
 
         return token;
     }
