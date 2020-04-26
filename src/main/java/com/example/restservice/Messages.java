@@ -25,6 +25,11 @@ public class Messages {
             static final int code = 3;
             static final String message = "Incorrect password";
         }
+
+        public static class INVALID_TOKEN {
+            static final int code = 4;
+            static final String message = "Invalid token";
+        }
     }
 
     private static final Messages m = new Messages();

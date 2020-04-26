@@ -1,6 +1,7 @@
 package com.example.restservice;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.Calendar;
@@ -9,11 +10,16 @@ import java.security.Key;
 import java.util.UUID;
 
 public class Tokenize {
+    private static Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+
+    public static Key getKey() {
+        return key;
+    }
+
     public static String generateAccessToken(String username) {
-        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, 1);
-
         String jws = Jwts.builder()
             .setSubject(username)
             .setExpiration(calendar.getTime())
