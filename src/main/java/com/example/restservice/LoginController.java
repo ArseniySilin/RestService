@@ -37,7 +37,8 @@ public class LoginController {
     )
     public Response response(@RequestBody User user) {
         int resultCode = login(user);
+        String message = Messages.getMessageByCode(resultCode);
 
-        return new Response(resultCode, "I should find message by its code");
+        return new Response(resultCode, message);
     }
 }

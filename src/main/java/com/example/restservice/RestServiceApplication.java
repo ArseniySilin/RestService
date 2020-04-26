@@ -20,7 +20,7 @@ public class RestServiceApplication {
 		TestDB db = new TestDB();
 
 //		db.test();
-//		SpringApplication.run(RestServiceApplication.class, args);
+		SpringApplication.run(RestServiceApplication.class, args);
 	}
 
 }

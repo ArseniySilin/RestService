@@ -7,6 +7,7 @@ com/example/restservice/RegistrationController.class
 com/example/restservice/RestServiceApplication.class
 com/example/restservice/Messages$ERROR$USERNAME_DO_NOT_EXIST.class
 com/example/restservice/LoginController.class
+com/example/restservice/HashString.class
 com/example/restservice/DBCPDataSource.class
 com/example/restservice/Messages$SUCCESS.class
 com/example/restservice/Messages.class

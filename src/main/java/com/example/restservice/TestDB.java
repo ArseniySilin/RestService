@@ -13,5 +13,13 @@ public class TestDB {
         String message = Messages.getMessageByCode(foo);
 
         System.out.println("message: " + message);
+
+//        String password = "first";
+//        System.out.println("Test hashing...");
+//        HashString h = new HashString();
+//        String hashedPassword = h.getHash(password);
+//
+//        System.out.println("hashedPassword: " + hashedPassword);
+//        System.out.println("isMatches: " + h.isMatches(hashedPassword, "passwor"));
     }
 }

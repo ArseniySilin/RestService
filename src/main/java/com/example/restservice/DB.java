@@ -6,16 +6,17 @@ public class DB {
     public static int isUserExist(String login, String password) {
         try {
             Connection con = DBCPDataSource.getConnection();
-            Statement stmt = con.createStatement();
             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
             pstmt.setString(1, login);
             ResultSet rs = pstmt.executeQuery();
             boolean isExist = rs.next();
 
             if (isExist) {
-                String userPassword = rs.getString("password");
+                String userPasswordHash = rs.getString("password");
+                HashString hasher = new HashString();
+                boolean isPasswordMatches = hasher.isMatches(userPasswordHash, password);
 
-                if (password.equals(userPassword)) {
+                if (isPasswordMatches) {
                     return Messages.SUCCESS.code;
                 }
 

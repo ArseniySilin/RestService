@@ -31,8 +31,7 @@ public class Messages {
 
 
     private Messages() {
-        System.out.println("Messages constructor");
-
+        // add all necessary messages
         loginControllerMessages.put(SUCCESS.code, SUCCESS.message);
         loginControllerMessages.put(ERROR.code, ERROR.message);
         loginControllerMessages.put(ERROR.USERNAME_DO_NOT_EXIST.code, ERROR.USERNAME_DO_NOT_EXIST.message);
