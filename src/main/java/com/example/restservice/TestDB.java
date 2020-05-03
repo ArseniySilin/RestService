@@ -19,6 +19,7 @@ public class TestDB {
 
         String uniqueID = UUID.randomUUID().toString();
         System.out.println("UUID: " + uniqueID);
+
 //
 //        Token t = new Token();
 //        t.test();

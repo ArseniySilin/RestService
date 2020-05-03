@@ -20,22 +20,28 @@ public class RefershTokenController {
     String accessToken = token.accessToken;
     String refreshToken = token.refershToken;
     String username;
+    String data = null;
 
     try {
+      // TODO: replace deprecated methods
       Claims claims = Jwts.parser().setSigningKey(Tokenize.getKey())
         .parseClaimsJws(accessToken).getBody();
 
-      System.out.println(claims.getExpiration());
+      System.out.println("EXP: " + claims.getExpiration());
       username = claims.getSubject();
+      boolean isValidDate = Tokenize.validateDate(claims.getExpiration());
 
-      // TODO: validate exp data
+      // TODO: remove println
+      System.out.println("isValidDate: " + isValidDate);
+
+      if (isValidDate) {
+        Token refreshedToken = new Token(Tokenize.generateAccessToken(username), Tokenize.generateRefreshToken());
+        Gson gson = new Gson();
+        data = gson.toJson(refreshedToken);
+      }
     } catch (SignatureException e) {
       return new Response(Messages.ERROR.INVALID_TOKEN.code, Messages.ERROR.INVALID_TOKEN.message);
     }
-
-    Token refreshedToken = new Token(Tokenize.generateAccessToken(username), Tokenize.generateRefreshToken());
-    Gson gson = new Gson();
-    String data = gson.toJson(refreshedToken);
 
     return new Response(Messages.SUCCESS.code, data);
   }
