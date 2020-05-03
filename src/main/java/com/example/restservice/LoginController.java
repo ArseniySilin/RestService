@@ -15,32 +15,38 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 public class LoginController {
-    @Autowired
-    private AuthenticationManager authenticationManager;
+  public static final String path = "/login";
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+  @Autowired
+  private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtUserDetailsService userDetailsService;
+  @Autowired
+  private JwtTokenUtil jwtTokenUtil;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody User user) throws Exception {
-      int resultCode = DB.loginUser(user.getUsername(), user.getPassword());
-      String message = Messages.getMessageByCode(resultCode);
-      Response r;
+  @Autowired
+  private JwtUserDetailsService userDetailsService;
 
-      if (resultCode != Messages.SUCCESS.code) {
-          r = new Response(resultCode, message);
-      } else {
-        Token token = Tokenize.generateToken(user);
-        Gson gson = new Gson();
-        String data = gson.toJson(token);
-        r =  new Response(resultCode, message, data);
-      }
+  @RequestMapping(value = "/login", method = RequestMethod.POST)
+  public ResponseEntity<?> createAuthenticationToken(@RequestBody User user) throws Exception {
+    int resultCode = DB.loginUser(user.getUsername(), user.getPassword());
+    String message = Messages.getMessageByCode(resultCode);
+    Response r;
 
-      return ResponseEntity.ok(r);
+    if (resultCode != Messages.SUCCESS.code) {
+        r = new Response(resultCode, message);
+    } else {
+//        Token token = Tokenize.generateToken(user);
+
+      String accessToken  = jwtTokenUtil.generateAccessToken(user.getUsername());
+      String refreshToken  = jwtTokenUtil.generateRefreshToken();
+      Token token = new Token(accessToken, refreshToken);
+      Gson gson = new Gson();
+      String data = gson.toJson(token);
+      r =  new Response(resultCode, message, data);
     }
+
+    return ResponseEntity.ok(r);
+  }
 
 //    @PostMapping(
 //            path = "/login",

@@ -16,11 +16,11 @@ public class Tokenize {
     @Value("${jwt.secret}")
     private static String secret;
 
-    private static Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-
-    public static Key getKey() {
-        return key;
-    }
+//    private static Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+//
+//    public static Key getKey() {
+//        return key;
+//    }
 
     public static boolean validateDate(Date date) {
         Date now = new Date();
@@ -46,8 +46,7 @@ public class Tokenize {
     }
 
     public static String generateRefreshToken() {
-        String refreshTokenUUID = UUID.randomUUID().toString();
-        return refreshTokenUUID;
+        return UUID.randomUUID().toString();
     }
 
 
