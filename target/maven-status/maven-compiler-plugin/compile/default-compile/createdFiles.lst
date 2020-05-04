@@ -2,7 +2,6 @@ com/example/restservice/DB.class
 com/example/restservice/JwtRequestFilter.class
 com/example/restservice/Messages$ERROR$INVALID_TOKEN.class
 com/example/restservice/JwtUserDetailsService.class
-com/example/restservice/Tokenize.class
 com/example/restservice/RestServiceApplication.class
 com/example/restservice/LoginController.class
 com/example/restservice/HashString.class
@@ -24,4 +23,3 @@ com/example/restservice/JwtAuthenticationEntryPoint.class
 com/example/restservice/DBCPDataSource.class
 com/example/restservice/Messages$SUCCESS.class
 com/example/restservice/Messages$ERROR$INCORRECT_PASSWORD.class
-com/example/restservice/Foo.class

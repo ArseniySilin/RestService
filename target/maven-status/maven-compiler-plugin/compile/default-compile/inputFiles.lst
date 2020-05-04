@@ -1,8 +1,8 @@
+/Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/TestController.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/JwtAuthenticationEntryPoint.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/JwtRequestFilter.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/User.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/Greeting.java
-/Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/Tokenize.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/RestServiceApplication.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/JwtUserDetailsService.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/TestDB.java
@@ -18,5 +18,5 @@
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/GreetingController.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/JwtTokenUtil.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/RefershTokenController.java
-/Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/Foo.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/RegistrationController.java
+/Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/Test.java

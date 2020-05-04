@@ -1,13 +1,7 @@
 package com.example.restservice;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
@@ -30,41 +24,27 @@ public class LoginController {
   public ResponseEntity<?> createAuthenticationToken(@RequestBody User user) throws Exception {
     int resultCode = DB.loginUser(user.getUsername(), user.getPassword());
     String message = Messages.getMessageByCode(resultCode);
-    Response r;
+    Response response;
 
     if (resultCode != Messages.SUCCESS.code) {
-        r = new Response(resultCode, message);
-    } else {
-//        Token token = Tokenize.generateToken(user);
-
-      String accessToken  = jwtTokenUtil.generateAccessToken(user.getUsername());
-      String refreshToken  = jwtTokenUtil.generateRefreshToken();
-      Token token = new Token(accessToken, refreshToken);
-      Gson gson = new Gson();
-      String data = gson.toJson(token);
-      r =  new Response(resultCode, message, data);
+        response = new Response(resultCode, message);
+        return ResponseEntity.ok(response);
     }
 
-    return ResponseEntity.ok(r);
-  }
+    String accessToken  = jwtTokenUtil.generateAccessToken(user.getUsername());
+    String refreshToken  = jwtTokenUtil.generateRefreshToken();
+    Token token = new Token(accessToken, refreshToken);
+    Gson gson = new Gson();
+    String data = gson.toJson(token);
+    response =  new Response(resultCode, message, data);
 
-//    @PostMapping(
-//            path = "/login",
-//            consumes = MediaType.APPLICATION_JSON_VALUE,
-//            produces = MediaType.APPLICATION_JSON_VALUE
-//    )
-//    public Response response(@RequestBody User user) throws Exception {
-//        int resultCode = DB.loginUser(user.getUsername(), user.getPassword());
-//        String message = Messages.getMessageByCode(resultCode);
-//
-//        if (resultCode != Messages.SUCCESS.code) {
-//            return new Response(resultCode, message);
-//        }
-//
-//        Token token = Tokenize.generateToken(user);
-//        Gson gson = new Gson();
-//        String data = gson.toJson(token);
-//
-//        return new Response(resultCode, message, data);
-//    }
+    boolean didTokensUpdateSuccessfully = DB.updateUserTokens(user, accessToken, refreshToken);
+
+    if (!didTokensUpdateSuccessfully) {
+      // TODO: add custom error messages
+      response = new Response(Messages.ERROR.code, Messages.ERROR.message);
+    }
+
+    return ResponseEntity.ok(response);
+  }
 }
