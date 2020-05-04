@@ -10,6 +10,8 @@ import java.util.Map;
 
 @RestController
 public class RegistrationController {
+    public static final String path = "/register";
+
     Map<Integer, String> messagesByCode = new HashMap<>();
 
     public RegistrationController() {

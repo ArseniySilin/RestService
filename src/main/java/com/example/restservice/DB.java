@@ -76,4 +76,27 @@ public class DB {
 
         return Messages.ERROR.USERNAME_DO_NOT_EXIST.code;
     }
+
+    public static User getUserByUserName(String username) {
+        User user = null;
+
+        try {
+            Connection con = DBCPDataSource.getConnection();
+            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int userId = rs.getInt("id");
+                String userPassword = rs.getString("password");
+
+                user = new User(userId, username, userPassword);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
 }

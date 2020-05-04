@@ -13,9 +13,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    if ("first".equals(username)) {
-      return new User("first", "first",
-        new ArrayList<>());
+    com.example.restservice.User user = DB.getUserByUserName(username); // TODO: unify user classes
+
+    if (user != null) {
+      return new User(user.getUsername(), user.getPassword(), new ArrayList<>());
     } else {
       throw new UsernameNotFoundException("User not found with username: " + username);
     }
