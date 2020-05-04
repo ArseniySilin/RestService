@@ -24,21 +24,29 @@ public class RefershTokenController {
 
     try {
       String accessToken = jwtTokenUtil.getAccessTokenWithoutHeader(token.accessToken);
+      String refreshToken = token.refershToken;
       String username = jwtTokenUtil.getUsernameFromToken(accessToken);
 
-      // TODO: verify user by access and refresh token
+      // verify user by access and refresh token
+      int isUserExist = DB.isUserExist(username, accessToken, refreshToken);
 
-      boolean isVerified = true;
-
-      if (isVerified) {
-        Token refreshedToken = new Token(jwtTokenUtil.generateAccessToken(username), jwtTokenUtil.generateRefreshToken());
-        Gson gson = new Gson();
-        data = gson.toJson(refreshedToken);
-
-        // TODO: update user in db with new tokens
-      } else {
+      if (Messages.SUCCESS.code != isUserExist) {
         return new Response(Messages.ERROR.INVALID_TOKEN.code, Messages.ERROR.INVALID_TOKEN.message);
       }
+
+      Token refreshedToken = new Token(jwtTokenUtil.generateAccessToken(username), jwtTokenUtil.generateRefreshToken());
+      Gson gson = new Gson();
+      data = gson.toJson(refreshedToken);
+
+      // update user tokens
+      boolean areUserTokenUpdatedSuccessfully =
+        DB.updateUserTokens(username, refreshedToken.accessToken, refreshedToken.refershToken);
+
+      if (!areUserTokenUpdatedSuccessfully) {
+        // TODO: add custom messages
+        return new Response(Messages.ERROR.code, Messages.ERROR.message);
+      }
+
     } catch (SignatureException e) {
       return new Response(Messages.ERROR.INVALID_TOKEN.code, Messages.ERROR.INVALID_TOKEN.message);
     }

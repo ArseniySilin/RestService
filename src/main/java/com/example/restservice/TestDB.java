@@ -10,7 +10,7 @@ public class TestDB {
 
     public void test()  {
         DB db = new DB();
-//        int foo = db.loginUser("first", "first");
+//        int foo = db.isUserExist("first", "first");
 
 //        String message = Messages.getMessageByCode(foo);
 

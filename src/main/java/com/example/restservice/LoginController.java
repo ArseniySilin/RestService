@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 public class LoginController {
-  public static final String path = "/login";
+  public static final String path = "/login"; // TODO: use enums?
 
   @Autowired
   private AuthenticationManager authenticationManager;
@@ -22,7 +22,7 @@ public class LoginController {
 
   @RequestMapping(value = "/login", method = RequestMethod.POST)
   public ResponseEntity<?> createAuthenticationToken(@RequestBody User user) throws Exception {
-    int resultCode = DB.loginUser(user.getUsername(), user.getPassword());
+    int resultCode = DB.isUserExist(user.getUsername(), user.getPassword());
     String message = Messages.getMessageByCode(resultCode);
     Response response;
 
@@ -38,7 +38,7 @@ public class LoginController {
     String data = gson.toJson(token);
     response =  new Response(resultCode, message, data);
 
-    boolean didTokensUpdateSuccessfully = DB.updateUserTokens(user, accessToken, refreshToken);
+    boolean didTokensUpdateSuccessfully = DB.updateUserTokens(user.getUsername(), accessToken, refreshToken);
 
     if (!didTokensUpdateSuccessfully) {
       // TODO: add custom error messages
