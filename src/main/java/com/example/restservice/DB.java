@@ -1,6 +1,9 @@
 package com.example.restservice;
 
 import java.sql.*;
+import java.util.ArrayList;
+
+import org.springframework.security.core.userdetails.User;
 
 public class DB {
     public static boolean updateUserTokens(String username, String accessToken, String refreshToken) {
@@ -90,7 +93,7 @@ public class DB {
                 int userId = rs.getInt("id");
                 String userPassword = rs.getString("password");
 
-                user = new User(userId, username, userPassword);
+                user = new User(username, userPassword, new ArrayList<>());
             }
 
         } catch (SQLException e) {
