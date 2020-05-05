@@ -14,12 +14,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtTokenUtil implements Serializable {
   private static final long serialVersionUID = -7496936772985883565L;
 
-  private String tokenHeader = "Bearer ";
-
   @Value("${jwt.secret}")
   private String secret;
 
   public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+
+  public String tokenHeader = "Bearer ";
 
   public String getAccessTokenWithoutHeader (String accessToken) {
     if (accessToken.startsWith(tokenHeader)) return accessToken.substring(tokenHeader.length());

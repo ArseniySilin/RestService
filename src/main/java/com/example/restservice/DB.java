@@ -2,6 +2,7 @@ package com.example.restservice;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.security.core.userdetails.User;
 
@@ -15,7 +16,7 @@ public class DB {
               con.prepareStatement("UPDATE users SET access_token = ?, refresh_token = ? WHERE login = ?");
             pstmt.setString(1, accessToken);
             pstmt.setString(2, refreshToken);
-            pstmt.setString(3, username); // TODO: refactor login to username in DB
+            pstmt.setString(3, username); // TODO: rename login to username in DB
 
             didUpdateSuccessfully = pstmt.executeUpdate() == 1;
         } catch (SQLException e) {
@@ -92,8 +93,8 @@ public class DB {
             if (rs.next()) {
                 int userId = rs.getInt("id");
                 String userPassword = rs.getString("password");
-
-                user = new User(username, userPassword, new ArrayList<>());
+                List authorities = new ArrayList<>();
+                user = new User(username, userPassword, authorities);
             }
 
         } catch (SQLException e) {
