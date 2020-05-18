@@ -14,23 +14,6 @@ public class RegistrationController {
 
     public RegistrationController() {}
 
-    private boolean isExist(String username) {
-        String existingUsername = "test";
-
-        return username.equals(existingUsername);
-    }
-
-    private int addUser(User user) {
-        try {
-            // add to db
-
-        } catch (Exception e) {
-            return 2;
-        }
-
-        return 0;
-    }
-
     boolean getPasswordSafety(String password) {
         // TODO: add more checks
         return hasMinimumSafetyLength(password);
@@ -51,18 +34,13 @@ public class RegistrationController {
         if (!hasMinimumSafetyLength(username)) {
             return new Response(Messages.ERROR.UNSAFE_USERNAME.code, Messages.ERROR.UNSAFE_USERNAME.message);
         }
-        int userExistCode = DB.isUserExist(username);
-
-        if (userExistCode != Messages.SUCCESS.code) {
-            return new Response(userExistCode, Messages.getMessageByCode(userExistCode));
-        }
 
         boolean isPasswordSafe = getPasswordSafety(user.getPassword());
         if (!isPasswordSafe) {
             return new Response(Messages.ERROR.UNSAFE_PASSWORD.code, Messages.ERROR.UNSAFE_PASSWORD.message);
         }
 
-        int resultCode = addUser(user);
+        int resultCode = DB.addUser(user);
         return new Response(resultCode, Messages.getMessageByCode(resultCode));
     }
 }

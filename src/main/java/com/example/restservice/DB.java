@@ -122,4 +122,30 @@ public class DB {
 
         return user;
     }
+
+    public static int addUser(com.example.restservice.User user) { // TODO: unify users classes
+        PreparedStatement pstmt;
+
+        try {
+            Connection con = DBCPDataSource.getConnection();
+            pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
+            pstmt.setString(1, user.getUsername());
+            ResultSet rs = pstmt.executeQuery();
+            boolean isExist = rs.next();
+
+            if (isExist) return Messages.ERROR.USER_ALREADY_EXISTS.code;
+
+            pstmt = con.prepareStatement("INSERT INTO users (login, password, created_on) VALUES (?, ?, ?)");
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, new HashString().getHash(user.getPassword()));
+            pstmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return Messages.ERROR.code;
+        }
+
+        return Messages.SUCCESS.code;
+    }
 }

@@ -6,6 +6,7 @@ public class HashString {
     Pbkdf2PasswordEncoder encoder;
 
     HashString() {
+        // TODO: read secret from app properties
         encoder = new Pbkdf2PasswordEncoder("secret", 10000, 128);
     }
 
