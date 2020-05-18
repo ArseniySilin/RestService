@@ -1,3 +1,4 @@
+com/example/restservice/Messages$ERROR$USER_ALREADY_EXISTS.class
 com/example/restservice/DB.class
 com/example/restservice/JwtRequestFilter.class
 com/example/restservice/Messages$ERROR$INVALID_TOKEN.class
@@ -6,6 +7,7 @@ com/example/restservice/RestServiceApplication.class
 com/example/restservice/LoginController.class
 com/example/restservice/HashString.class
 com/example/restservice/Messages.class
+com/example/restservice/Messages$ERROR$UNSAFE_PASSWORD.class
 com/example/restservice/JwtTokenUtil.class
 com/example/restservice/Response.class
 com/example/restservice/ConnectionPool.class

@@ -30,6 +30,21 @@ public class Messages {
             static final int code = 4;
             static final String message = "Invalid token";
         }
+
+        public static class USER_ALREADY_EXISTS {
+            static final int code = 5;
+            static final String message = "User already exists";
+        }
+
+        public static class UNSAFE_PASSWORD {
+            static final int code = 6;
+            static final String message = "Password is not safe enough";
+        }
+
+        public static class UNSAFE_USERNAME {
+            static final int code = 7;
+            static final String message = "Username is not safe enough";
+        }
     }
 
     private static final Messages m = new Messages();

@@ -53,6 +53,25 @@ public class DB {
         return Messages.ERROR.USERNAME_DO_NOT_EXIST.code;
     }
 
+    public static int isUserExist(String login) {
+        try {
+            Connection con = DBCPDataSource.getConnection();
+            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
+            pstmt.setString(1, login);
+            ResultSet rs = pstmt.executeQuery();
+            boolean isExist = rs.next();
+
+            if (isExist) {
+                return Messages.SUCCESS.code;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Messages.ERROR.code;
+        }
+
+        return Messages.ERROR.USERNAME_DO_NOT_EXIST.code;
+    }
+
     public static int isUserExist(String username, String accessToken, String refreshToken) {
         try {
             Connection con = DBCPDataSource.getConnection();
