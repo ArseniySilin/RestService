@@ -10,6 +10,7 @@ public class DBCPDataSource {
     private static BasicDataSource ds = new BasicDataSource();
 
     static {
+        // TODO: fix hardcode
         ds.setUrl("jdbc:postgresql://127.0.0.1:5432/test");
         ds.setUsername("admin");
         ds.setPassword("admin");
@@ -22,5 +23,5 @@ public class DBCPDataSource {
         return ds.getConnection();
     }
 
-    private DBCPDataSource(){ }
+    private DBCPDataSource() {}
 }

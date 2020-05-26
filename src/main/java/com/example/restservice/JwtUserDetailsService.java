@@ -1,5 +1,6 @@
 package com.example.restservice;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,10 +9,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
+  @Autowired
+  private UsersRepository usersRepository;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = DB.getUserByUserName(username);
+    User user = usersRepository.getUserByUserName(username);
 
     if (user != null) {
       return user;

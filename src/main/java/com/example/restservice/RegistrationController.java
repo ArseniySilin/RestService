@@ -1,15 +1,16 @@
 package com.example.restservice;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
 public class RegistrationController {
+    @Autowired
+    private UsersRepository usersRepository;
+
     public static final String path = "/register";
 
     public RegistrationController() {}
@@ -40,7 +41,7 @@ public class RegistrationController {
             return new Response(Messages.ERROR.UNSAFE_PASSWORD.code, Messages.ERROR.UNSAFE_PASSWORD.message);
         }
 
-        int resultCode = DB.addUser(user);
+        int resultCode = usersRepository.addUser(user);
         return new Response(resultCode, Messages.getMessageByCode(resultCode));
     }
 }

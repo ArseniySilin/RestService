@@ -13,6 +13,7 @@ public class Messages {
         static final int code = 0;
         static final String message = "Success";
     }
+
     public static class ERROR {
         static final int code = 1;
         static final String message = "Technical error";
@@ -44,6 +45,11 @@ public class Messages {
         public static class UNSAFE_USERNAME {
             static final int code = 7;
             static final String message = "Username is not safe enough";
+        }
+
+        public static class DATABASE_ERROR {
+            static final int code = 8;
+            static final String message = "Database error";
         }
     }
 

@@ -14,39 +14,44 @@ public class RefershTokenController {
   @Autowired
   private JwtTokenUtil jwtTokenUtil;
 
+  @Autowired
+  private UsersRepository usersRepository;
+
   @PostMapping(
     path = "/refresh",
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public Response response(@RequestBody Token token) {
-    String data = null;
+  public Response response(@RequestBody UserTokens userTokens) {
+    String data;
 
     try {
-      String accessToken = jwtTokenUtil.getAccessTokenWithoutHeader(token.accessToken);
-      String refreshToken = token.refershToken;
+      String accessToken = jwtTokenUtil.getAccessTokenWithoutHeader(userTokens.accessToken);
+      String refreshToken = userTokens.refreshToken;
       String username = jwtTokenUtil.getUsernameFromToken(accessToken);
 
-      // verify user by access and refresh token
-      int isUserExist = DB.isUserExist(username, accessToken, refreshToken);
+      // validate tokens
+      int tokensValidationResultCode = usersRepository.validateUserTokens(username, accessToken, refreshToken);
 
-      if (Messages.SUCCESS.code != isUserExist) {
+      if (tokensValidationResultCode != Messages.SUCCESS.code) {
         return new Response(Messages.ERROR.INVALID_TOKEN.code, Messages.ERROR.INVALID_TOKEN.message);
       }
 
-      Token refreshedToken = new Token(jwtTokenUtil.generateAccessToken(username), jwtTokenUtil.generateRefreshToken());
-      Gson gson = new Gson();
-      data = gson.toJson(refreshedToken);
-
       // update user tokens
-      boolean areUserTokenUpdatedSuccessfully =
-        DB.updateUserTokens(username, refreshedToken.accessToken, refreshedToken.refershToken);
+      UserTokens refreshedUserTokens = new UserTokens(
+        jwtTokenUtil.generateAccessToken(username),
+        jwtTokenUtil.generateRefreshToken()
+      );
 
-      if (!areUserTokenUpdatedSuccessfully) {
-        // TODO: add custom messages
-        return new Response(Messages.ERROR.code, Messages.ERROR.message);
+      Gson gson = new Gson();
+      data = gson.toJson(refreshedUserTokens);
+
+      int tokensUpdateResultCode =
+        usersRepository.updateUserTokens(username, refreshedUserTokens.accessToken, refreshedUserTokens.refreshToken);
+
+      if (tokensUpdateResultCode != Messages.SUCCESS.code) {
+        return new Response(Messages.ERROR.DATABASE_ERROR.code, Messages.ERROR.DATABASE_ERROR.message);
       }
-
     } catch (SignatureException e) {
       return new Response(Messages.ERROR.INVALID_TOKEN.code, Messages.ERROR.INVALID_TOKEN.message);
     }
