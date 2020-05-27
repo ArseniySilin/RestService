@@ -14,7 +14,6 @@ com/example/restservice/ConnectionPool.class
 com/example/restservice/GreetingController.class
 com/example/restservice/Greeting.class
 com/example/restservice/Messages$ERROR$UNSAFE_USERNAME.class
-com/example/restservice/User.class
 com/example/restservice/WebSecurityConfig.class
 com/example/restservice/Messages$ERROR.class
 com/example/restservice/RegistrationController.class

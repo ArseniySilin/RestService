@@ -115,7 +115,7 @@ public class UsersRepository {
         return user;
     }
 
-    public int addUser(com.example.restservice.User user) { // TODO: unify users classes
+    public int addUser(User user) { // TODO: unify users classes
         PreparedStatement pstmt;
 
         try {
