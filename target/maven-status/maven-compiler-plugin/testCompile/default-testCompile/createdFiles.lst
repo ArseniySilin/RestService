@@ -1,1 +1,3 @@
-com/example/restservice/RestServiceApplicationTests.class
+com/example/restservice/TestingRestServiceApplicationTests.class
+com/example/restservice/UsersRepositoryTest.class
+com/example/restservice/FirstTests.class
