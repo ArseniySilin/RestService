@@ -1,4 +1,6 @@
+com/example/restservice/GenerateURLController.class
 com/example/restservice/Messages$ERROR$USER_ALREADY_EXISTS.class
+com/example/restservice/GeneratedURL.class
 com/example/restservice/JwtRequestFilter.class
 com/example/restservice/Messages$ERROR$INVALID_TOKEN.class
 com/example/restservice/JwtUserDetailsService.class
