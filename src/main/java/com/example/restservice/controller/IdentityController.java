@@ -1,24 +1,59 @@
-package com.example.restservice;
+package com.example.restservice.controller;
 
+import com.example.restservice.*;
 import com.google.gson.Gson;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import io.jsonwebtoken.security.SignatureException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class RefershTokenController {
+@CrossOrigin
+public class IdentityController {
+  @Autowired
+  private UsersRepository usersRepository;
 
   @Autowired
   private JwtTokenUtil jwtTokenUtil;
 
-  @Autowired
-  private UsersRepository usersRepository;
+  public static final String tokenPath = "/identity/token";
+
+  @RequestMapping(value = "/identity/token", method = RequestMethod.POST)
+  public ResponseEntity<?> loginUser(@RequestBody User user) throws Exception {
+    // authorize user
+    int authorizeUserResultCode = usersRepository.authorizeUser(user.getUsername(), user.getPassword());
+    String message = Messages.getMessageByCode(authorizeUserResultCode);
+    Response response;
+
+    if (authorizeUserResultCode != Messages.SUCCESS.code) {
+      response = new Response(authorizeUserResultCode, message);
+      return ResponseEntity.ok(response);
+    }
+
+    // generate user tokens
+    Gson gson = new Gson();
+    UserTokens userTokens = usersRepository.generateUserTokens(user.getUsername());
+    String data = gson.toJson(userTokens);
+
+    response =  new Response(authorizeUserResultCode, message, data);
+
+    // update user tokens
+    int tokensUpdateResultCode = usersRepository.updateUserTokens(
+      user.getUsername(),
+      userTokens.accessToken,
+      userTokens.refreshToken
+    );
+
+    if (tokensUpdateResultCode != Messages.SUCCESS.code) {
+      response = new Response(Messages.ERROR.DATABASE_ERROR.code, Messages.ERROR.DATABASE_ERROR.message);
+    }
+
+    return ResponseEntity.ok(response);
+  }
 
   @PostMapping(
-    path = "/refresh",
+    path = "/identity/refreshtoken",
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE
   )

@@ -1,6 +1,7 @@
 package com.example.restservice;
 
 import com.example.restservice.controller.AccountsController;
+import com.example.restservice.controller.IdentityController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // We don't need CSRF for this example
     httpSecurity.csrf().disable()
       // dont authenticate this particular request
-      .authorizeRequests().antMatchers(LoginController.path, AccountsController.path).permitAll().
+      .authorizeRequests().antMatchers(IdentityController.tokenPath, AccountsController.registrationPath).permitAll().
       // all other requests need to be authenticated
       anyRequest().authenticated().and().
       // make sure we use stateless session; session won't be used to

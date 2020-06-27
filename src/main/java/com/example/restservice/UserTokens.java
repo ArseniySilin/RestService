@@ -6,7 +6,7 @@ public class UserTokens {
     public String accessToken; // TODO: make private and use get/set?
     public String refreshToken;
 
-    UserTokens(String accessToken, String refreshToken) {
+    public UserTokens(String accessToken, String refreshToken) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }

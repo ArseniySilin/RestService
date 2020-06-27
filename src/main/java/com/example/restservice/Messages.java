@@ -10,13 +10,13 @@ public class Messages {
     public static Map<Integer, String> loginControllerMessages = new HashMap<>();
 
     public static class SUCCESS {
-        static final int code = 0;
-        static final String message = "Success";
+        public static final int code = 0;
+        public static final String message = "Success";
     }
 
     public static class ERROR {
-        static final int code = 1;
-        static final String message = "Technical error";
+        public static final int code = 1;
+        public static final String message = "Technical error";
 
         public static class USERNAME_DO_NOT_EXIST {
             public static final int code = 2;

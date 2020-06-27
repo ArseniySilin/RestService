@@ -1,15 +1,11 @@
 package com.example.restservice.controller;
 
-import com.example.restservice.Messages;
-import com.example.restservice.Response;
-import com.example.restservice.UsersRepository;
+import com.example.restservice.*;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import com.example.restservice.User;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -17,7 +13,7 @@ public class AccountsController {
   @Autowired
   private UsersRepository usersRepository;
 
-  public static final String path = "/Accounts/Registration";
+  public static final String registrationPath = "/Accounts/Registration";
 
   public AccountsController() {}
 
@@ -35,7 +31,7 @@ public class AccountsController {
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public Response response(@RequestBody User user) {
+  public Response registerUser(@RequestBody User user) {
     String username = user.getUsername();
 
     if (!hasMinimumSafetyLength(username)) {
