@@ -1,10 +1,14 @@
 com/example/restservice/GenerateURLController.class
 com/example/restservice/Messages$ERROR$USER_ALREADY_EXISTS.class
 com/example/restservice/GeneratedURL.class
+com/example/restservice/model/ChatMessage.class
+com/example/restservice/controller/AccountsController.class
+com/example/restservice/WebSocketConfig.class
 com/example/restservice/JwtRequestFilter.class
 com/example/restservice/Messages$ERROR$INVALID_TOKEN.class
 com/example/restservice/JwtUserDetailsService.class
 com/example/restservice/RestServiceApplication.class
+com/example/restservice/controller/ChatController.class
 com/example/restservice/LoginController.class
 com/example/restservice/HashString.class
 com/example/restservice/Messages.class
@@ -17,8 +21,10 @@ com/example/restservice/GreetingController.class
 com/example/restservice/Greeting.class
 com/example/restservice/Messages$ERROR$UNSAFE_USERNAME.class
 com/example/restservice/User.class
+com/example/restservice/model/ChatMessage$MessageType.class
 com/example/restservice/WebSecurityConfig.class
 com/example/restservice/Messages$ERROR.class
+com/example/restservice/WebSocketEventListener.class
 com/example/restservice/RegistrationController.class
 com/example/restservice/UserTokens.class
 com/example/restservice/RefershTokenController.class

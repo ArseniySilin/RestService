@@ -19,37 +19,37 @@ public class Messages {
         static final String message = "Technical error";
 
         public static class USERNAME_DO_NOT_EXIST {
-            static final int code = 2;
-            static final String message = "Username do not exist";
+            public static final int code = 2;
+            public static final String message = "Username do not exist";
         }
         public static class INCORRECT_PASSWORD {
-            static final int code = 3;
-            static final String message = "Incorrect password";
+            public static final int code = 3;
+            public static final String message = "Incorrect password";
         }
 
         public static class INVALID_TOKEN {
-            static final int code = 4;
-            static final String message = "Invalid token";
+            public static final int code = 4;
+            public static final String message = "Invalid token";
         }
 
         public static class USER_ALREADY_EXISTS {
-            static final int code = 5;
-            static final String message = "User already exists";
+            public static final int code = 5;
+            public static final String message = "User already exists";
         }
 
         public static class UNSAFE_PASSWORD {
-            static final int code = 6;
-            static final String message = "Password is not safe enough";
+            public static final int code = 6;
+            public static final String message = "Password is not safe enough";
         }
 
         public static class UNSAFE_USERNAME {
-            static final int code = 7;
-            static final String message = "Username is not safe enough";
+            public static final int code = 7;
+            public static final String message = "Username is not safe enough";
         }
 
         public static class DATABASE_ERROR {
-            static final int code = 8;
-            static final String message = "Database error";
+            public static final int code = 8;
+            public static final String message = "Database error";
         }
     }
 
