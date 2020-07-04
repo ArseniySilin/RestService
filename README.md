@@ -18,3 +18,6 @@ TemplateFolders {
 
 TODO #2:
 unify RestExceptionHandler errors
+
+TODO #3:
+unify Responses

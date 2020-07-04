@@ -61,11 +61,36 @@ public class UsersRepository {
     }
 
     public UserTokens generateUserTokens(String username) {
-        String accessToken = jwtTokenUtil.generateAccessToken(username);
+        com.example.restservice.User user = getUser(username);
+        String accessToken = jwtTokenUtil.generateAccessToken(username, user.getId());
         String refreshToken  = jwtTokenUtil.generateRefreshToken();
         UserTokens userToken = new UserTokens(accessToken, refreshToken);
 
         return userToken;
+    }
+
+    public com.example.restservice.User getUser(String username) {
+        com.example.restservice.User user = null;
+
+        try {
+            Connection con = DBCPDataSource.getConnection();
+            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            boolean isExist = rs.next();
+
+            if (isExist) {
+                String id = rs.getString("id");
+                String password = rs.getString("password");
+
+                user = new com.example.restservice.User(id, username, password);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // throw not found exception
+        }
+
+        return user;
     }
 
     public int validateUserTokens(String username, String accessToken, String refreshToken) {
