@@ -1,5 +1,6 @@
 com/example/restservice/GenerateURLController.class
 com/example/restservice/apierror/ApiSubError.class
+com/example/restservice/workgroups/WorkgroupsService.class
 com/example/restservice/Messages$ERROR$USER_ALREADY_EXISTS.class
 com/example/restservice/RestExceptionHandler.class
 com/example/restservice/GeneratedURL.class
@@ -18,12 +19,13 @@ com/example/restservice/Messages.class
 com/example/restservice/Messages$ERROR$UNSAFE_PASSWORD.class
 com/example/restservice/JwtTokenUtil.class
 com/example/restservice/Messages$ERROR$DATABASE_ERROR.class
-com/example/restservice/repository/WorkgroupsRepository.class
 com/example/restservice/Response.class
 com/example/restservice/ConnectionPool.class
 com/example/restservice/GreetingController.class
 com/example/restservice/CommonResponse.class
+com/example/restservice/workgroups/WorkgroupsRepository.class
 com/example/restservice/Greeting.class
+com/example/restservice/execptions/EntityNotFoundException.class
 com/example/restservice/controller/WorkgroupsController.class
 com/example/restservice/Messages$ERROR$UNSAFE_USERNAME.class
 com/example/restservice/User.class

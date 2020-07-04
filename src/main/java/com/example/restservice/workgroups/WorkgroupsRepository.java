@@ -1,4 +1,4 @@
-package com.example.restservice.repository;
+package com.example.restservice.workgroups;
 
 import org.springframework.stereotype.Repository;
 import com.example.restservice.model.Workgroup;

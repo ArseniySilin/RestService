@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+//@RequestMapping("/Accounts")
 public class AccountsController {
   @Autowired
   private UsersRepository usersRepository;

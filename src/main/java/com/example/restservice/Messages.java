@@ -11,12 +11,12 @@ public class Messages {
 
     public static class SUCCESS {
         public static final int code = 0;
-        public static final String message = "Success";
+        public static final String message = "SUCCESS";
     }
 
     public static class ERROR {
         public static final int code = 1;
-        public static final String message = "Technical error";
+        public static final String message = "FAILURE";
 
         public static class USERNAME_DO_NOT_EXIST {
             public static final int code = 2;
