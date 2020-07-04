@@ -42,7 +42,7 @@ public class JwtTokenUtil implements Serializable {
     return claimsResolver.apply(claims);
   }
 
-  //for retrieveing any information from token we will need the secret key
+  // for retrieveing any information from token we will need the secret key
   private Claims getAllClaimsFromToken(String token) {
     return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
   }
@@ -59,6 +59,20 @@ public class JwtTokenUtil implements Serializable {
     String jws = Jwts.builder()
       .setClaims(claims)
       .setSubject(username)
+      .setIssuedAt(new Date(System.currentTimeMillis()))
+      .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+      .signWith(SignatureAlgorithm.HS256, secret).compact();
+
+    return jws;
+  }
+
+  public String generateAccessToken(String username, String id) {
+    Map<String, Object> claims = new HashMap<>();
+
+    String jws = Jwts.builder()
+      .setClaims(claims)
+      .setSubject(username)
+      .setId(id)
       .setIssuedAt(new Date(System.currentTimeMillis()))
       .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
       .signWith(SignatureAlgorithm.HS256, secret).compact();

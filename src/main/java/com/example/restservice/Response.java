@@ -17,6 +17,12 @@ public class Response {
         this.data = data;
     }
 
+//    public <T> Response(int code, String message, T data) {
+//        this.code = code;
+//        this.message = message;
+//        this.data = data;
+//    }
+
     public int getCode() {
         return code;
     }

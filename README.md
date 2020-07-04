@@ -2,7 +2,19 @@
 
 TODO:
 
-+ Add tests
-+ Refactor. Replace controllers, repos to separate folders
-+ Add endpoint for link generation
+Workgroups {
+    CRUD
+}
 
+Templates {
+	CRUD Template
+	Templates/AllWithFolders
+}
+
+
+TemplateFolders {
+	CRUD
+}
+
+TODO #2:
+unify RestExceptionHandler errors
