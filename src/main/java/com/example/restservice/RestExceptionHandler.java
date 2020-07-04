@@ -26,7 +26,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     HttpStatus status,
     WebRequest request) {
     String error = "Malformed JSON request";
-    System.out.println("HERE !!!!!!!!!!_______2____________________");
     return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex));
   }
 
@@ -34,19 +33,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     return new ResponseEntity<>(apiError, apiError.getStatus());
   }
 
-//  @ExceptionHandler(EntityNotFoundException.class)
-//  protected ResponseEntity<Object> handleEntityNotFound(
-//    EntityNotFoundException ex) {
-//    ApiError apiError = new ApiError(NOT_FOUND);
-//    apiError.setMessage(ex.getMessage());
-//    return buildResponseEntity(apiError);
-//  }
 
   @ExceptionHandler(EntityNotFoundException.class)
   protected ResponseEntity<Object> handleEntityNotFound(
     EntityNotFoundException ex) {
-    ApiError apiError = new ApiError(NOT_FOUND, Messages.ERROR.message, Messages.ERROR.code);
-    apiError.setMessage(ex.getMessage());
+    ApiError apiError = new ApiError(NOT_FOUND, Messages.ERROR.code, ex.getMessage());
 
     return buildResponseEntity(apiError);
   }
