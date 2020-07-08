@@ -15,7 +15,6 @@ public class Template {
   private boolean isPart;
   private String workGroupKey;
 
-
   public Template(
     String key,
     String name,
