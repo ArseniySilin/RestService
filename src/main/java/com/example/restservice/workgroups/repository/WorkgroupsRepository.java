@@ -1,7 +1,6 @@
 package com.example.restservice.workgroups.repository;
 
 import com.example.restservice.DBCPDataSource;
-import com.example.restservice.Messages;
 import com.example.restservice.workgroups.model.Workgroup;
 import org.springframework.stereotype.Repository;
 
@@ -15,10 +14,6 @@ import java.util.List;
 
 @Repository
 public class WorkgroupsRepository {
-  public Workgroup getWorkgroup(String key) {
-    return new Workgroup(key, "name", "publicId", "userKey");
-  }
-
   public List<Workgroup> getWorkgroups(String userKey) {
     List<Workgroup> workgroups = new ArrayList<>();
 

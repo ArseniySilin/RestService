@@ -3,7 +3,6 @@ package com.example.restservice.workgroups.controller;
 import com.example.restservice.CommonResponse;
 import com.example.restservice.JwtTokenUtil;
 import com.example.restservice.Messages;
-import com.example.restservice.workgroups.repository.WorkgroupsRepository;
 import com.example.restservice.workgroups.service.WorkgroupsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.restservice.workgroups.model.Workgroup;
 import com.example.restservice.execptions.EntityNotFoundException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

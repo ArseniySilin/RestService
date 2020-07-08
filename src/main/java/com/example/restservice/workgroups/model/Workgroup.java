@@ -1,6 +1,5 @@
 package com.example.restservice.workgroups.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Workgroup {
