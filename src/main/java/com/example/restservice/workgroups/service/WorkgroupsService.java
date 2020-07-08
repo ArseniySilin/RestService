@@ -1,6 +1,7 @@
-package com.example.restservice.workgroups;
+package com.example.restservice.workgroups.service;
 
-import com.example.restservice.model.Workgroup;
+import com.example.restservice.workgroups.repository.WorkgroupsRepository;
+import com.example.restservice.workgroups.model.Workgroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +18,6 @@ public class WorkgroupsService {
     List<Workgroup> workgroups = workgroupsRepository.getWorkgroups(userId);
 
     if (workgroups.isEmpty()) {
-      throw new EntityNotFoundException(Workgroup.class, "userId", userId);
-    }
-
-    if (true) {
       throw new EntityNotFoundException(Workgroup.class, "userId", userId);
     }
 

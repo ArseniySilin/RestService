@@ -1,5 +1,6 @@
-package com.example.restservice.model;
+package com.example.restservice.workgroups.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Workgroup {
@@ -16,6 +17,14 @@ public class Workgroup {
     this.key = key;
     this.name = name;
     this.publicId = publicId;
+    this.createdUserKey = createdUserKey;
+  }
+
+  public Workgroup(String key, String name, String publicId, LocalDateTime createdDateTimeUtc, String createdUserKey) {
+    this.key = key;
+    this.name = name;
+    this.publicId = publicId;
+    this.createdDateTimeUtc = createdDateTimeUtc;
     this.createdUserKey = createdUserKey;
   }
 
