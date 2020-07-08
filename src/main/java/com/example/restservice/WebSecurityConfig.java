@@ -1,7 +1,7 @@
 package com.example.restservice;
 
-import com.example.restservice.controller.AccountsController;
-import com.example.restservice.controller.IdentityController;
+import com.example.restservice.accounts.controller.AccountsController;
+import com.example.restservice.Identity.controller.IdentityController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

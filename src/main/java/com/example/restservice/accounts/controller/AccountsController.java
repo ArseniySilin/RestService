@@ -1,15 +1,13 @@
-package com.example.restservice.controller;
+package com.example.restservice.accounts.controller;
 
 import com.example.restservice.*;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-//@RequestMapping("/Accounts")
+@RequestMapping("/Accounts")
 public class AccountsController {
   @Autowired
   private UsersRepository usersRepository;
@@ -28,7 +26,7 @@ public class AccountsController {
   }
 
   @PostMapping(
-    path = "/Accounts/Registration",
+    path = "/Registration",
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE
   )

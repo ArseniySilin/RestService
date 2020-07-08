@@ -1,4 +1,4 @@
-package com.example.restservice.controller;
+package com.example.restservice.Identity.controller;
 
 import com.example.restservice.*;
 import com.google.gson.Gson;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/identity")
 public class IdentityController {
   @Autowired
   private UsersRepository usersRepository;
@@ -19,7 +20,7 @@ public class IdentityController {
 
   public static final String tokenPath = "/identity/token";
 
-  @RequestMapping(value = "/identity/token", method = RequestMethod.POST)
+  @RequestMapping(value = "/token", method = RequestMethod.POST)
   public ResponseEntity<?> loginUser(@RequestBody User user) throws Exception {
     // authorize user
     int authorizeUserResultCode = usersRepository.authorizeUser(user.getUsername(), user.getPassword());
@@ -53,7 +54,7 @@ public class IdentityController {
   }
 
   @PostMapping(
-    path = "/identity/refreshtoken",
+    path = "/refreshtoken",
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
