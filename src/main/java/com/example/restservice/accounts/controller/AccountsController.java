@@ -16,7 +16,7 @@ public class AccountsController {
 
   public AccountsController() {}
 
-  boolean getPasswordSafety(String password) {
+  private boolean getPasswordSafetiness(String password) {
     // TODO: add more checks
     return hasMinimumSafetyLength(password);
   }
@@ -37,7 +37,7 @@ public class AccountsController {
       return new Response(Messages.ERROR.UNSAFE_USERNAME.code, Messages.ERROR.UNSAFE_USERNAME.message);
     }
 
-    boolean isPasswordSafe = getPasswordSafety(user.getPassword());
+    boolean isPasswordSafe = getPasswordSafetiness(user.getPassword());
     if (!isPasswordSafe) {
       return new Response(Messages.ERROR.UNSAFE_PASSWORD.code, Messages.ERROR.UNSAFE_PASSWORD.message);
     }
