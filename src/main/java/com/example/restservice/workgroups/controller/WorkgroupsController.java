@@ -1,7 +1,6 @@
 package com.example.restservice.workgroups.controller;
 
 import com.example.restservice.CommonResponse;
-import com.example.restservice.JwtTokenUtil;
 import com.example.restservice.Messages;
 import com.example.restservice.workgroups.service.WorkgroupsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +17,6 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class WorkgroupsController {
-
-  @Autowired
-  private JwtTokenUtil jwtTokenUtil;
-
   @Autowired
   private WorkgroupsService workgroupsService;
 
@@ -29,13 +24,7 @@ public class WorkgroupsController {
   public ResponseEntity<CommonResponse> getWorkgroups(@RequestHeader("authorization") String token)
     throws EntityNotFoundException {
 
-    String userKey = jwtTokenUtil.getUserIdFromBearerToken(token);
-
-    if (userKey == null) {
-      throw new EntityNotFoundException(com.example.restservice.User.class);
-    }
-
-    List<Workgroup> workgroups = workgroupsService.getWorkgroups(userKey);
+    List<Workgroup> workgroups = workgroupsService.getWorkgroups(token);
 
     return ResponseEntity.ok(new CommonResponse(
       Messages.SUCCESS.message,

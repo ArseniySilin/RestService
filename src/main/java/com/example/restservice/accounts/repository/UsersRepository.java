@@ -1,9 +1,12 @@
-package com.example.restservice;
+package com.example.restservice.accounts.repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import com.example.restservice.*;
+import com.example.restservice.accounts.exceptions.AccountsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
@@ -61,7 +64,7 @@ public class UsersRepository {
     }
 
     public UserTokens generateUserTokens(String username) {
-        com.example.restservice.User user = getUser(username);
+        com.example.restservice.accounts.model.User user = getUser(username);
         String accessToken = jwtTokenUtil.generateAccessToken(username, user.getId());
         String refreshToken  = jwtTokenUtil.generateRefreshToken();
         UserTokens userToken = new UserTokens(accessToken, refreshToken);
@@ -69,8 +72,8 @@ public class UsersRepository {
         return userToken;
     }
 
-    public com.example.restservice.User getUser(String username) {
-        com.example.restservice.User user = null;
+    public com.example.restservice.accounts.model.User getUser(String username) {
+        com.example.restservice.accounts.model.User user = null;
 
         try {
             Connection con = DBCPDataSource.getConnection();
@@ -83,7 +86,7 @@ public class UsersRepository {
                 String id = rs.getString("id");
                 String password = rs.getString("password");
 
-                user = new com.example.restservice.User(id, username, password);
+                user = new com.example.restservice.accounts.model.User(id, username, password);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -142,29 +145,25 @@ public class UsersRepository {
         return user;
     }
 
-    public int addUser(String userName, String password) {
-        PreparedStatement pstmt;
+    public void addUser(com.example.restservice.accounts.model.User user) throws AccountsException {
+        String userName = user.getUsername();
+        String password = user.getPassword();
 
         try {
             Connection con = DBCPDataSource.getConnection();
-            pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
-            pstmt.setString(1, userName);
-            ResultSet rs = pstmt.executeQuery();
-            boolean isExist = rs.next();
 
-            if (isExist) return Messages.ERROR.USER_ALREADY_EXISTS.code;
-
-            pstmt = con.prepareStatement("INSERT INTO users (login, password, created_on) VALUES (?, ?, ?)");
+            String query = "INSERT INTO users (login, password, created_on, key) VALUES (?, ?, ?, ?)";
+            PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, userName);
             pstmt.setString(2, new HashString().getHash(password));
             pstmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            pstmt.setString(4, UUID.randomUUID().toString());
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
 
-            return Messages.ERROR.code;
+            throw new AccountsException(e);
         }
-
-        return Messages.SUCCESS.code;
     }
 }

@@ -1,6 +1,8 @@
 package com.example.restservice;
 
+import com.example.restservice.accounts.exceptions.AccountsException;
 import com.example.restservice.apierror.ApiError;
+import com.example.restservice.execptions.EntityAlreadyExistsException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -13,7 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 //import javax.persistence.EntityNotFoundException;
 import com.example.restservice.execptions.EntityNotFoundException;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
@@ -33,11 +35,26 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     return new ResponseEntity<>(apiError, apiError.getStatus());
   }
 
-
   @ExceptionHandler(EntityNotFoundException.class)
   protected ResponseEntity<Object> handleEntityNotFound(
     EntityNotFoundException ex) {
     ApiError apiError = new ApiError(NOT_FOUND, Messages.ERROR.code, ex.getMessage());
+
+    return buildResponseEntity(apiError);
+  }
+
+  @ExceptionHandler(EntityAlreadyExistsException.class)
+  protected ResponseEntity<Object> handleEntityAlreadyExists(
+    EntityAlreadyExistsException ex) {
+    ApiError apiError = new ApiError(BAD_REQUEST, Messages.ERROR.ENTITY_ALREADY_EXISTS.code, ex.getMessage());
+
+    return buildResponseEntity(apiError);
+  }
+
+  @ExceptionHandler(AccountsException.class)
+  protected ResponseEntity<Object> handleAccountsException(
+    AccountsException ex) {
+    ApiError apiError = new ApiError(INTERNAL_SERVER_ERROR, Messages.ERROR.code, ex.getMessage());
 
     return buildResponseEntity(apiError);
   }

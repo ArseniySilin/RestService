@@ -1,12 +1,10 @@
-package com.example.restservice;
+package com.example.restservice.accounts.model;
 
-public class User {
-  private final String id;
+public class Account {
   private final String username;
   private final String password;
 
-  User(String id, String username, String password) {
-    this.id = id;
+  public Account(String username, String password) {
     this.username = username;
     this.password = password;
   }
@@ -14,10 +12,8 @@ public class User {
   public String getUsername() {
     return this.username;
   }
-
   public String getPassword() {
     return this.password;
   }
-
-  public String getId() { return this.id; }
 }
+

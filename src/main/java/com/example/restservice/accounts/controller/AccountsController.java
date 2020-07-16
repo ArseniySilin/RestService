@@ -1,8 +1,12 @@
 package com.example.restservice.accounts.controller;
 
 import com.example.restservice.*;
+import com.example.restservice.accounts.model.User;
+import com.example.restservice.accounts.model.Account;
+import com.example.restservice.accounts.service.AccountsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,39 +14,26 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/Accounts")
 public class AccountsController {
   @Autowired
-  private UsersRepository usersRepository;
+  private AccountsService accountsService;
 
   public static final String registrationPath = "/Accounts/Registration";
 
   public AccountsController() {}
-
-  private boolean getPasswordSafetiness(String password) {
-    // TODO: add more checks
-    return hasMinimumSafetyLength(password);
-  }
-
-  boolean hasMinimumSafetyLength(String str) {
-    return str != null && str.length() >= 6;
-  }
 
   @PostMapping(
     path = "/Registration",
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public Response registerUser(@RequestBody User user) {
-    String username = user.getUsername();
+  public ResponseEntity<CommonResponse> registerAccount(@RequestBody Account account) {
+    User user = new User(account.getUsername(), account.getPassword());
+    accountsService.addUser(user);
 
-    if (!hasMinimumSafetyLength(username)) {
-      return new Response(Messages.ERROR.UNSAFE_USERNAME.code, Messages.ERROR.UNSAFE_USERNAME.message);
-    }
-
-    boolean isPasswordSafe = getPasswordSafetiness(user.getPassword());
-    if (!isPasswordSafe) {
-      return new Response(Messages.ERROR.UNSAFE_PASSWORD.code, Messages.ERROR.UNSAFE_PASSWORD.message);
-    }
-
-    int resultCode = usersRepository.addUser(user.getUsername(), user.getPassword());
-    return new Response(resultCode, Messages.getMessageByCode(resultCode));
+    return ResponseEntity.ok(new CommonResponse(
+      Messages.SUCCESS.message,
+      Messages.SUCCESS.code,
+      null,
+      null
+    ));
   }
 }

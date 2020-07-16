@@ -22,6 +22,7 @@ public class Messages {
             public static final int code = 2;
             public static final String message = "Username do not exist";
         }
+
         public static class INCORRECT_PASSWORD {
             public static final int code = 3;
             public static final String message = "Incorrect password";
@@ -50,6 +51,11 @@ public class Messages {
         public static class DATABASE_ERROR {
             public static final int code = 8;
             public static final String message = "Database error";
+        }
+
+        public static class ENTITY_ALREADY_EXISTS {
+            public static final int code = 9;
+            public static final String message = "Entity already exists";
         }
     }
 

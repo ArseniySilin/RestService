@@ -18,30 +18,36 @@ public class ApiError {
   }
 
   public ApiError(HttpStatus status) {
-    this();
+//    this();
     this.status = status;
   }
 
+  public ApiError(HttpStatus status, String messages) {
+//    this();
+    this.status = status;
+    this.message = messages;
+  }
+
   public ApiError(HttpStatus status, Throwable ex) {
-    this();
+//    this();
     this.status = status;
     this.message = "Unexpected error";
   }
 
   public ApiError(HttpStatus status, String message, Throwable ex) {
-    this();
+//    this();
     this.status = status;
     this.message = message;
   }
 
   public ApiError(HttpStatus status, int code) {
-    this();
+//    this();
     this.status = status;
     this.code = code;
   }
 
   public ApiError(HttpStatus status, int code, String message) {
-    this();
+//    this();
     this.status = status;
     this.code = code;
     this.message = message;

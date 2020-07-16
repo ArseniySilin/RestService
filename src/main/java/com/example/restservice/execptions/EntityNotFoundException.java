@@ -1,6 +1,6 @@
 package com.example.restservice.execptions;
 
-public class EntityNotFoundException extends RuntimeException{
+public class EntityNotFoundException extends RuntimeException {
   public EntityNotFoundException(Class clazz, String... searchParamsMap) {
     super(clazz.getSimpleName() + " not found");
   }

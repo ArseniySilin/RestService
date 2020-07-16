@@ -1,5 +1,6 @@
 package com.example.restservice;
 
+import com.example.restservice.accounts.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

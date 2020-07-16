@@ -1,6 +1,8 @@
 package com.example.restservice.Identity.controller;
 
 import com.example.restservice.*;
+import com.example.restservice.accounts.model.User;
+import com.example.restservice.accounts.repository.UsersRepository;
 import com.google.gson.Gson;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
