@@ -1,4 +1,4 @@
-package com.example.restservice.accounts.model;
+package com.example.restservice.users.model;
 
 public class Account {
   private final String username;

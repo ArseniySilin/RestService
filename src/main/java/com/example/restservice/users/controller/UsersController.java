@@ -1,9 +1,9 @@
-package com.example.restservice.accounts.controller;
+package com.example.restservice.users.controller;
 
 import com.example.restservice.*;
-import com.example.restservice.accounts.model.User;
-import com.example.restservice.accounts.model.Account;
-import com.example.restservice.accounts.service.AccountsService;
+import com.example.restservice.users.model.User;
+import com.example.restservice.users.model.Account;
+import com.example.restservice.users.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,23 +11,25 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/Accounts")
-public class AccountsController {
+@RequestMapping("/users")
+public class UsersController {
   @Autowired
-  private AccountsService accountsService;
+  private UsersService usersService;
 
-  public static final String registrationPath = "/Accounts/Registration";
+  public static final String registrationPath = "/users/registration";
+  public static final String tokenPath = "/users/token";
+  public static final String refreshTokenPath = "/users/refreshtoken";
 
-  public AccountsController() {}
+  public UsersController() {}
 
   @PostMapping(
-    path = "/Registration",
+    path = "/registration",
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<CommonResponse> registerAccount(@RequestBody Account account) {
     User user = new User(account.getUsername(), account.getPassword());
-    accountsService.addUser(user);
+    usersService.addUser(user);
 
     return ResponseEntity.ok(new CommonResponse(
       Messages.SUCCESS.message,
@@ -43,7 +45,7 @@ public class AccountsController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<CommonResponse> login(@RequestBody Account account) throws Exception {
-    UserTokens tokens = accountsService.getTokens(account);
+    UserTokens tokens = usersService.getTokens(account);
 
     return ResponseEntity.ok(new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, tokens));
   }
@@ -54,7 +56,7 @@ public class AccountsController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<CommonResponse> refreshToken(@RequestBody UserTokens userTokens) {
-    UserTokens tokens = accountsService.refreshTokens(userTokens);
+    UserTokens tokens = usersService.refreshTokens(userTokens);
 
     return ResponseEntity.ok(new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, tokens));
   }

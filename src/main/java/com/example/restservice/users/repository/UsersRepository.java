@@ -1,4 +1,4 @@
-package com.example.restservice.accounts.repository;
+package com.example.restservice.users.repository;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.example.restservice.*;
-import com.example.restservice.accounts.exceptions.AccountsException;
+import com.example.restservice.users.exceptions.UsersException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
@@ -18,7 +18,7 @@ public class UsersRepository {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    public int updateUserTokens(String username, String accessToken, String refreshToken) throws AccountsException {
+    public int updateUserTokens(String username, String accessToken, String refreshToken) throws UsersException {
         try {
             Connection con = DBCPDataSource.getConnection();
             PreparedStatement pstmt =
@@ -27,16 +27,16 @@ public class UsersRepository {
             pstmt.setString(2, refreshToken);
             pstmt.setString(3, username);
 
-            if (pstmt.executeUpdate() != 1) throw new AccountsException(Messages.ERROR.message);
+            if (pstmt.executeUpdate() != 1) throw new UsersException(Messages.ERROR.message);
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new AccountsException(e.getMessage());
+            throw new UsersException(e.getMessage());
         }
 
         return Messages.SUCCESS.code;
     }
 
-    public int authorizeUser(String login, String password) throws AccountsException {
+    public int authorizeUser(String login, String password) throws UsersException {
         try {
             Connection con = DBCPDataSource.getConnection();
             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
@@ -50,21 +50,21 @@ public class UsersRepository {
                 boolean isPasswordMatches = hasher.isMatches(userPasswordHash, password);
 
                 if (!isPasswordMatches) {
-                    throw new AccountsException(Messages.ERROR.INCORRECT_PASSWORD.message);
+                    throw new UsersException(Messages.ERROR.INCORRECT_PASSWORD.message);
                 }
 
                 return Messages.SUCCESS.code;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new AccountsException(Messages.ERROR.message);
+            throw new UsersException(Messages.ERROR.message);
         }
 
-        throw new AccountsException(Messages.ERROR.USERNAME_DO_NOT_EXIST.message);
+        throw new UsersException(Messages.ERROR.USERNAME_DO_NOT_EXIST.message);
     }
 
     public UserTokens generateUserTokens(String username) {
-        com.example.restservice.accounts.model.User user = getUser(username);
+        com.example.restservice.users.model.User user = getUser(username);
         String accessToken = jwtTokenUtil.generateAccessToken(username, user.getId());
         String refreshToken  = jwtTokenUtil.generateRefreshToken();
         UserTokens userToken = new UserTokens(accessToken, refreshToken);
@@ -72,8 +72,8 @@ public class UsersRepository {
         return userToken;
     }
 
-    public com.example.restservice.accounts.model.User getUser(String username) {
-        com.example.restservice.accounts.model.User user = null;
+    public com.example.restservice.users.model.User getUser(String username) {
+        com.example.restservice.users.model.User user = null;
 
         try {
             Connection con = DBCPDataSource.getConnection();
@@ -86,7 +86,7 @@ public class UsersRepository {
                 String id = rs.getString("id");
                 String password = rs.getString("password");
 
-                user = new com.example.restservice.accounts.model.User(id, username, password);
+                user = new com.example.restservice.users.model.User(id, username, password);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -96,7 +96,7 @@ public class UsersRepository {
         return user;
     }
 
-    public int validateUserTokens(String username, String accessToken, String refreshToken) throws AccountsException {
+    public int validateUserTokens(String username, String accessToken, String refreshToken) throws UsersException {
         try {
             Connection con = DBCPDataSource.getConnection();
             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
@@ -113,13 +113,13 @@ public class UsersRepository {
                     return Messages.SUCCESS.code;
                 }
 
-                throw new AccountsException(Messages.ERROR.INVALID_TOKEN.message);
+                throw new UsersException(Messages.ERROR.INVALID_TOKEN.message);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new AccountsException(e.getMessage());
+            throw new UsersException(e.getMessage());
         }
-        throw new AccountsException(Messages.ERROR.USERNAME_DO_NOT_EXIST.message);
+        throw new UsersException(Messages.ERROR.USERNAME_DO_NOT_EXIST.message);
     }
 
     public User getUserByUserName(String username) {
@@ -144,7 +144,7 @@ public class UsersRepository {
         return user;
     }
 
-    public void addUser(com.example.restservice.accounts.model.User user) throws AccountsException {
+    public void addUser(com.example.restservice.users.model.User user) throws UsersException {
         String userName = user.getUsername();
         String password = user.getPassword();
 
@@ -162,7 +162,7 @@ public class UsersRepository {
         } catch (SQLException e) {
             e.printStackTrace();
 
-            throw new AccountsException(e);
+            throw new UsersException(e);
         }
     }
 }

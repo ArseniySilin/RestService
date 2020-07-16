@@ -1,7 +1,7 @@
 package com.example.restservice.workgroups.service;
 
 import com.example.restservice.JwtTokenUtil;
-import com.example.restservice.accounts.model.User;
+import com.example.restservice.users.model.User;
 import com.example.restservice.workgroups.repository.WorkgroupsRepository;
 import com.example.restservice.workgroups.model.Workgroup;
 import org.springframework.beans.factory.annotation.Autowired;

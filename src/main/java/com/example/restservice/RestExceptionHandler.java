@@ -1,6 +1,6 @@
 package com.example.restservice;
 
-import com.example.restservice.accounts.exceptions.AccountsException;
+import com.example.restservice.users.exceptions.UsersException;
 import com.example.restservice.apierror.ApiError;
 import com.example.restservice.execptions.EntityAlreadyExistsException;
 import org.springframework.core.Ordered;
@@ -51,9 +51,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     return buildResponseEntity(apiError);
   }
 
-  @ExceptionHandler(AccountsException.class)
+  @ExceptionHandler(UsersException.class)
   protected ResponseEntity<Object> handleAccountsException(
-    AccountsException ex) {
+    UsersException ex) {
     ApiError apiError = new ApiError(INTERNAL_SERVER_ERROR, Messages.ERROR.code, ex.getMessage());
 
     return buildResponseEntity(apiError);

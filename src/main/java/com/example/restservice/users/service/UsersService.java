@@ -1,22 +1,20 @@
-package com.example.restservice.accounts.service;
+package com.example.restservice.users.service;
 
 import com.example.restservice.JwtTokenUtil;
 import com.example.restservice.Messages;
-import com.example.restservice.Response;
 import com.example.restservice.UserTokens;
-import com.example.restservice.accounts.exceptions.AccountsException;
-import com.example.restservice.accounts.model.Account;
-import com.example.restservice.accounts.model.User;
-import com.example.restservice.accounts.repository.UsersRepository;
+import com.example.restservice.users.exceptions.UsersException;
+import com.example.restservice.users.model.Account;
+import com.example.restservice.users.model.User;
+import com.example.restservice.users.repository.UsersRepository;
 import com.example.restservice.execptions.EntityAlreadyExistsException;
 import com.google.gson.Gson;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccountsService {
+public class UsersService {
 
   @Autowired
   UsersRepository usersRepository;
@@ -32,7 +30,7 @@ public class AccountsService {
     return str != null && str.length() >= 6;
   }
 
-  public void addUser(User user) throws EntityAlreadyExistsException, AccountsException {
+  public void addUser(User user) throws EntityAlreadyExistsException, UsersException {
     if (usersRepository.getUserByUserName(user.getUsername()) != null) {
       throw new EntityAlreadyExistsException(User.class);
     }
@@ -41,18 +39,18 @@ public class AccountsService {
     String password = user.getPassword();
 
     if (!hasMinimumSafetyLength(username)) {
-      throw new AccountsException(Messages.ERROR.UNSAFE_USERNAME.message);
+      throw new UsersException(Messages.ERROR.UNSAFE_USERNAME.message);
     }
 
     boolean isPasswordSafe = getPasswordSafety(password);
     if (!isPasswordSafe) {
-      throw new AccountsException(Messages.ERROR.UNSAFE_PASSWORD.message);
+      throw new UsersException(Messages.ERROR.UNSAFE_PASSWORD.message);
     }
 
     usersRepository.addUser(user);
   }
 
-  public UserTokens getTokens(Account account) throws AccountsException {
+  public UserTokens getTokens(Account account) throws UsersException {
     usersRepository.authorizeUser(account.getUsername(), account.getPassword());
 
     UserTokens userTokens = usersRepository.generateUserTokens(account.getUsername());
@@ -67,7 +65,7 @@ public class AccountsService {
     return userTokens;
   }
 
-  public UserTokens refreshTokens(UserTokens tokens) throws AccountsException {
+  public UserTokens refreshTokens(UserTokens tokens) throws UsersException {
     UserTokens refreshedUserTokens;
 
     try {
@@ -84,7 +82,7 @@ public class AccountsService {
 
       usersRepository.updateUserTokens(username, refreshedUserTokens.accessToken, refreshedUserTokens.refreshToken);
     } catch (SignatureException e) {
-      throw new AccountsException(Messages.ERROR.INVALID_TOKEN.message);
+      throw new UsersException(Messages.ERROR.INVALID_TOKEN.message);
     }
 
     return refreshedUserTokens;
