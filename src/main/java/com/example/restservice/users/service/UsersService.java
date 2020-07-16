@@ -31,7 +31,7 @@ public class UsersService {
   }
 
   public void addUser(User user) throws EntityAlreadyExistsException, UsersException {
-    if (usersRepository.getUserByUserName(user.getUsername()) != null) {
+    if (usersRepository.getUser(user.getUsername()) != null) {
       throw new EntityAlreadyExistsException(User.class);
     }
 

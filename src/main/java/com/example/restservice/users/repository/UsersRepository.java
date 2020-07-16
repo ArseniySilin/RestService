@@ -7,8 +7,8 @@ import java.util.UUID;
 
 import com.example.restservice.*;
 import com.example.restservice.users.exceptions.UsersException;
+import com.example.restservice.users.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
 // TODO: move class to ./repository
@@ -64,7 +64,7 @@ public class UsersRepository {
     }
 
     public UserTokens generateUserTokens(String username) {
-        com.example.restservice.users.model.User user = getUser(username);
+        User user = getUser(username);
         String accessToken = jwtTokenUtil.generateAccessToken(username, user.getId());
         String refreshToken  = jwtTokenUtil.generateRefreshToken();
         UserTokens userToken = new UserTokens(accessToken, refreshToken);
@@ -72,8 +72,8 @@ public class UsersRepository {
         return userToken;
     }
 
-    public com.example.restservice.users.model.User getUser(String username) {
-        com.example.restservice.users.model.User user = null;
+    public User getUser(String username) throws UsersException {
+        User user = null;
 
         try {
             Connection con = DBCPDataSource.getConnection();
@@ -86,11 +86,11 @@ public class UsersRepository {
                 String id = rs.getString("id");
                 String password = rs.getString("password");
 
-                user = new com.example.restservice.users.model.User(id, username, password);
+                user = new User(id, username, password);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // throw not found exception
+            throw new UsersException(e.getMessage());
         }
 
         return user;
@@ -122,26 +122,15 @@ public class UsersRepository {
         throw new UsersException(Messages.ERROR.USERNAME_DO_NOT_EXIST.message);
     }
 
-    public User getUserByUserName(String username) {
-        User user = null;
+    public org.springframework.security.core.userdetails.User getUserByUserName(String username) throws UsersException {
+        User user = getUser(username);
+        List authorities = new ArrayList<>();
 
-        try {
-            Connection con = DBCPDataSource.getConnection();
-            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
-            pstmt.setString(1, username);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                String userPassword = rs.getString("password");
-                List authorities = new ArrayList<>();
-                user = new User(username, userPassword, authorities);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return user;
+        return new org.springframework.security.core.userdetails.User(
+          username,
+          user.getPassword(),
+          authorities
+        );
     }
 
     public void addUser(com.example.restservice.users.model.User user) throws UsersException {

@@ -1,5 +1,6 @@
 package com.example.restservice;
 
+import com.example.restservice.users.exceptions.UsersException;
 import com.example.restservice.users.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -15,12 +16,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = usersRepository.getUserByUserName(username);
+    User user;
 
-    if (user != null) {
+    try {
+      user = usersRepository.getUserByUserName(username);
       return user;
-    } else {
-      throw new UsernameNotFoundException("User not found with username: " + username);
+    } catch (UsersException e) {
+      throw new UsernameNotFoundException("User not found: " + username);
     }
   }
 }
