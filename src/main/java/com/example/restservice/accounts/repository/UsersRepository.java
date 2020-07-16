@@ -18,24 +18,25 @@ public class UsersRepository {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    public int updateUserTokens(String username, String accessToken, String refreshToken) {
+    public int updateUserTokens(String username, String accessToken, String refreshToken) throws AccountsException {
         try {
             Connection con = DBCPDataSource.getConnection();
             PreparedStatement pstmt =
               con.prepareStatement("UPDATE users SET access_token = ?, refresh_token = ? WHERE login = ?");
             pstmt.setString(1, accessToken);
             pstmt.setString(2, refreshToken);
-            pstmt.setString(3, username); // TODO: rename login to username in UsersRepository
+            pstmt.setString(3, username);
 
-            if (pstmt.executeUpdate() != 1) return Messages.ERROR.code;
+            if (pstmt.executeUpdate() != 1) throw new AccountsException(Messages.ERROR.message);
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new AccountsException(e.getMessage());
         }
 
         return Messages.SUCCESS.code;
     }
 
-    public int authorizeUser(String login, String password) {
+    public int authorizeUser(String login, String password) throws AccountsException {
         try {
             Connection con = DBCPDataSource.getConnection();
             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
@@ -49,18 +50,17 @@ public class UsersRepository {
                 boolean isPasswordMatches = hasher.isMatches(userPasswordHash, password);
 
                 if (!isPasswordMatches) {
-                    return Messages.ERROR.INCORRECT_PASSWORD.code;
+                    throw new AccountsException(Messages.ERROR.INCORRECT_PASSWORD.message);
                 }
-
 
                 return Messages.SUCCESS.code;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return Messages.ERROR.code;
+            throw new AccountsException(Messages.ERROR.message);
         }
 
-        return Messages.ERROR.USERNAME_DO_NOT_EXIST.code;
+        throw new AccountsException(Messages.ERROR.USERNAME_DO_NOT_EXIST.message);
     }
 
     public UserTokens generateUserTokens(String username) {

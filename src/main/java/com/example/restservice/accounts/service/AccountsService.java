@@ -1,11 +1,16 @@
 package com.example.restservice.accounts.service;
 
 import com.example.restservice.Messages;
+import com.example.restservice.Response;
+import com.example.restservice.UserTokens;
 import com.example.restservice.accounts.exceptions.AccountsException;
+import com.example.restservice.accounts.model.Account;
 import com.example.restservice.accounts.model.User;
 import com.example.restservice.accounts.repository.UsersRepository;
 import com.example.restservice.execptions.EntityAlreadyExistsException;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,4 +46,20 @@ public class AccountsService {
 
     usersRepository.addUser(user);
   }
+
+  public UserTokens getTokens(Account account) throws AccountsException {
+    usersRepository.authorizeUser(account.getUsername(), account.getPassword());
+
+    UserTokens userTokens = usersRepository.generateUserTokens(account.getUsername());
+    String data = new Gson().toJson(userTokens);
+
+    usersRepository.updateUserTokens(
+      account.getUsername(),
+      userTokens.accessToken,
+      userTokens.refreshToken
+    );
+
+    return userTokens;
+  }
+
 }
