@@ -1,5 +1,6 @@
 package com.example.restservice.accounts.service;
 
+import com.example.restservice.JwtTokenUtil;
 import com.example.restservice.Messages;
 import com.example.restservice.Response;
 import com.example.restservice.UserTokens;
@@ -9,6 +10,7 @@ import com.example.restservice.accounts.model.User;
 import com.example.restservice.accounts.repository.UsersRepository;
 import com.example.restservice.execptions.EntityAlreadyExistsException;
 import com.google.gson.Gson;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class AccountsService {
 
   @Autowired
   UsersRepository usersRepository;
+
+  @Autowired
+  private JwtTokenUtil jwtTokenUtil;
 
   private boolean getPasswordSafety(String password) {
     return hasMinimumSafetyLength(password);
@@ -60,6 +65,29 @@ public class AccountsService {
     );
 
     return userTokens;
+  }
+
+  public UserTokens refreshTokens(UserTokens tokens) throws AccountsException {
+    UserTokens refreshedUserTokens;
+
+    try {
+      String accessToken = jwtTokenUtil.getAccessTokenWithoutHeader(tokens.accessToken);
+      String refreshToken = tokens.refreshToken;
+      String username = jwtTokenUtil.getUsernameFromToken(accessToken);
+
+      usersRepository.validateUserTokens(username, accessToken, refreshToken);
+
+      refreshedUserTokens = new UserTokens(
+        jwtTokenUtil.generateAccessToken(username),
+        jwtTokenUtil.generateRefreshToken()
+      );
+
+      usersRepository.updateUserTokens(username, refreshedUserTokens.accessToken, refreshedUserTokens.refreshToken);
+    } catch (SignatureException e) {
+      throw new AccountsException(Messages.ERROR.INVALID_TOKEN.message);
+    }
+
+    return refreshedUserTokens;
   }
 
 }

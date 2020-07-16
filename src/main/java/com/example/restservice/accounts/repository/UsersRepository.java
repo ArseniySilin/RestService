@@ -96,7 +96,7 @@ public class UsersRepository {
         return user;
     }
 
-    public int validateUserTokens(String username, String accessToken, String refreshToken) {
+    public int validateUserTokens(String username, String accessToken, String refreshToken) throws AccountsException {
         try {
             Connection con = DBCPDataSource.getConnection();
             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
@@ -113,14 +113,13 @@ public class UsersRepository {
                     return Messages.SUCCESS.code;
                 }
 
-                return Messages.ERROR.INVALID_TOKEN.code;
+                throw new AccountsException(Messages.ERROR.INVALID_TOKEN.message);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return Messages.ERROR.DATABASE_ERROR.code;
+            throw new AccountsException(e.getMessage());
         }
-
-        return Messages.ERROR.USERNAME_DO_NOT_EXIST.code;
+        throw new AccountsException(Messages.ERROR.USERNAME_DO_NOT_EXIST.message);
     }
 
     public User getUserByUserName(String username) {
