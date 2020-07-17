@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.restservice.workgroups.model.Workgroup;
 import com.example.restservice.execptions.EntityNotFoundException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -24,13 +26,14 @@ public class WorkgroupsController {
   public ResponseEntity<CommonResponse> getWorkgroups(@RequestHeader("authorization") String token)
     throws EntityNotFoundException {
 
-    List<Workgroup> workgroups = workgroupsService.getWorkgroups(token);
+    Map<String, Workgroup> workGroups = workgroupsService.getWorkgroups(token);
+    List<Workgroup> wokGroupsList = new ArrayList<>(workGroups.values());
 
     return ResponseEntity.ok(new CommonResponse(
       Messages.SUCCESS.message,
       Messages.SUCCESS.code,
       null,
-      workgroups
+      wokGroupsList
     ));
   }
 }

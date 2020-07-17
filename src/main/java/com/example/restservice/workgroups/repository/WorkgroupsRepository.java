@@ -9,13 +9,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository
 public class WorkgroupsRepository {
-  public List<Workgroup> getWorkgroups(String userKey) {
-    List<Workgroup> workgroups = new ArrayList<>();
+  public Map<String, Workgroup> getWorkgroups(String userKey) {
+    Map<String, Workgroup> workgroups = new HashMap<>();
 
     try {
       Connection con = DBCPDataSource.getConnection();
@@ -32,10 +32,11 @@ public class WorkgroupsRepository {
         String createdUserKey = rs.getString("createduserkey");
 
         Workgroup workgroup = new Workgroup(key, name, publicId, createdTimeUtc, createdUserKey);
-        workgroups.add(workgroup);
+        workgroups.put(workgroup.getKey(), workgroup);
       }
     } catch (SQLException e) {
       e.printStackTrace();
+      // TODO: add custom exception
     }
 
     return workgroups;
