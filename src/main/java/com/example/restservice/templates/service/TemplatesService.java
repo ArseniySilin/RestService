@@ -40,23 +40,23 @@ public class TemplatesService {
     String orderBy = queryParams.getOrDefault("orderBy", "0");
 
     // check if user exists in workGroup
-    Map<String, Workgroup> workGroups = workgroupsRepository.getWorkgroups(userKey);
+//    Map<String, Workgroup> workGroups = workgroupsRepository.getWorkgroups(userKey);
 
-    if (workGroups.isEmpty()) {
-      throw new EntityNotFoundException(Workgroup.class);
-    }
-//
-//    Workgroup workgroup = workgroups.get(workGroupKey);
-//
-//    if (workgroup == null) {
+//    if (workGroups.isEmpty()) {
 //      throw new EntityNotFoundException(Workgroup.class);
 //    }
 
+    // get all folders in workGroup
+//    if (folderKey != null) {
+//      List<String> = workgroupsRepository.getWorkgroupFolders(folderKey);
+//    }
 
-    // get all folders in workgroup
+
     // get all templates in workgroup
+
     // build TemplatesAllWithFolders
 
+    return null;
   }
 
 }

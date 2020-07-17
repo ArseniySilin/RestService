@@ -154,4 +154,25 @@ public class UsersRepository {
             throw new UsersException(e);
         }
     }
+
+    public String getUserKeyById(Connection con, String userId) throws UsersException {
+        String userKey = null;
+
+        try {
+            con = DBCPDataSource.getConnection();
+            String query = "SELECT * FROM users WHERE id = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, Integer.parseInt(userId));
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                userKey = rs.getString("key");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new UsersException(e);
+        }
+        return userKey;
+    }
 }

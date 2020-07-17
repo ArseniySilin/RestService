@@ -1,7 +1,6 @@
 package com.example.restservice.workgroups.service;
 
 import com.example.restservice.JwtTokenUtil;
-import com.example.restservice.users.model.User;
 import com.example.restservice.workgroups.repository.WorkgroupsRepository;
 import com.example.restservice.workgroups.model.Workgroup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +18,26 @@ public class WorkgroupsService {
   @Autowired
   private WorkgroupsRepository workgroupsRepository;
 
-  public Map<String, Workgroup> getWorkgroups(String token) throws EntityNotFoundException {
-    String userKey = jwtTokenUtil.getUserIdFromBearerToken(token);
-
+  public Map<String, Workgroup> getWorkgroupsCreatedByUser(String userKey) throws EntityNotFoundException {
     if (userKey == null) {
-      throw new EntityNotFoundException(User.class);
+      // TODO: throw InvalidTokenException
     }
 
-    Map<String, Workgroup> workgroups = workgroupsRepository.getWorkgroups(userKey);
+    Map<String, Workgroup> workgroups = workgroupsRepository.getWorkGroupsCreatedByUser(userKey);
 
     if (workgroups.isEmpty()) {
       throw new EntityNotFoundException(Workgroup.class, "userKey", userKey);
     }
+
+    return workgroups;
+  }
+
+  public Map<String, Workgroup> getWorkGroupsIncludingUser(String userId) throws EntityNotFoundException {
+    if (userId == null) {
+      // TODO: throw InvalidTokenException
+    }
+
+    Map<String, Workgroup> workgroups = workgroupsRepository.getWorkGroupsIncludingUser(userId);
 
     return workgroups;
   }

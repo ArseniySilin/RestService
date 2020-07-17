@@ -8,6 +8,7 @@
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/templates/controller/TemplatesController.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/UserTokens.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/users/exceptions/UsersException.java
+/Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/folders/repository/FoldersRepository.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/GenerateURLController.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/workgroups/model/Workgroup.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/users/controller/UsersController.java

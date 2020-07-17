@@ -18,6 +18,7 @@ com/example/restservice/model/ChatMessage$MessageType.class
 com/example/restservice/templates/model/PageInfo.class
 com/example/restservice/WebSecurityConfig.class
 com/example/restservice/Messages$ERROR.class
+com/example/restservice/folders/repository/FoldersRepository.class
 com/example/restservice/WebSocketEventListener.class
 com/example/restservice/UserTokens.class
 com/example/restservice/DBCPDataSource.class

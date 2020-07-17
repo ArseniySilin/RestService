@@ -1,6 +1,7 @@
 package com.example.restservice.workgroups.controller;
 
 import com.example.restservice.CommonResponse;
+import com.example.restservice.JwtTokenUtil;
 import com.example.restservice.Messages;
 import com.example.restservice.workgroups.service.WorkgroupsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,17 @@ import java.util.Map;
 @CrossOrigin
 public class WorkgroupsController {
   @Autowired
+  private JwtTokenUtil jwtTokenUtil;
+
+  @Autowired
   private WorkgroupsService workgroupsService;
 
   @GetMapping("/workgroups")
   public ResponseEntity<CommonResponse> getWorkgroups(@RequestHeader("authorization") String token)
     throws EntityNotFoundException {
+    String userId = jwtTokenUtil.getUserIdFromBearerToken(token);
 
-    Map<String, Workgroup> workGroups = workgroupsService.getWorkgroups(token);
+    Map<String, Workgroup> workGroups = workgroupsService.getWorkGroupsIncludingUser(userId);
     List<Workgroup> wokGroupsList = new ArrayList<>(workGroups.values());
 
     return ResponseEntity.ok(new CommonResponse(
