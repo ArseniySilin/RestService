@@ -18,16 +18,16 @@ public class Folder {
 
   public Folder(
     String key,
-    String parentFolderKey,
-    String parentFolderName,
-    int folderType,
     String name,
-    LocalDateTime createdDateTimeUtc,
-    LocalDateTime updatedDateTimeUtc,
     String createdUserFirstName,
     String createdUserLastName,
-    String createdUserKey,
     String createdUserName,
+    String createdUserKey,
+    LocalDateTime createdDateTimeUtc,
+    LocalDateTime updatedDateTimeUtc,
+    int folderType,
+    String parentFolderKey,
+    String parentFolderName,
     String workGroupKey
   ) {
     this.key = key;

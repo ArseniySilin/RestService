@@ -26,9 +26,9 @@ public class TemplatesService {
 
   public TemplatesAllWithFolders getAllWithFolders(String token, String workGroupKey, Map<String, String> queryParams)
     throws EntityNotFoundException {
-    String userKey = jwtTokenUtil.getUserIdFromBearerToken(token);
+    String userId = jwtTokenUtil.getUserIdFromBearerToken(token);
 
-    if (userKey == null) {
+    if (userId == null) {
       // TODO: replace with invalid token exception
       throw new EntityNotFoundException(com.example.restservice.users.model.User.class);
     }
@@ -40,11 +40,11 @@ public class TemplatesService {
     String orderBy = queryParams.getOrDefault("orderBy", "0");
 
     // check if user exists in workGroup
-//    Map<String, Workgroup> workGroups = workgroupsRepository.getWorkgroups(userKey);
+    Map<String, Workgroup> workGroups = workgroupsRepository.getWorkGroupsIncludingUser(userId);
 
-//    if (workGroups.isEmpty()) {
-//      throw new EntityNotFoundException(Workgroup.class);
-//    }
+    if (workGroups.isEmpty()) {
+      throw new EntityNotFoundException(Workgroup.class);
+    }
 
     // get all folders in workGroup
 //    if (folderKey != null) {

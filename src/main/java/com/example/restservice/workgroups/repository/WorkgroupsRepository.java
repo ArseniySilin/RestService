@@ -91,8 +91,8 @@ public class WorkgroupsRepository {
         return workGroups;
       }
 
-      String inSql = String.join(",", Collections.nCopies(workGroupsKeysIncludingUser.size(), "?"));
-      String sqlQuery = String.format("SELECT * FROM workgroups WHERE key IN (%s)", inSql);
+      String workGroupKeys = String.join(",", Collections.nCopies(workGroupsKeysIncludingUser.size(), "?"));
+      String sqlQuery = String.format("SELECT * FROM workgroups WHERE key IN (%s)", workGroupKeys);
 
       workGroups = jdbcTemplate.query(
         sqlQuery,
