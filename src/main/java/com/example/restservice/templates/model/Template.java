@@ -18,12 +18,12 @@ public class Template {
   public Template(
     String key,
     String name,
-    LocalDateTime createdDateTimeUtc,
-    LocalDateTime updatedDateTimeUtc,
     String createdUserFirstName,
     String createdUserLastName,
-    String createdUserKey,
     String createdUserName,
+    String createdUserKey,
+    LocalDateTime createdDateTimeUtc,
+    LocalDateTime updatedDateTimeUtc,
     String folderKey,
     boolean isPart,
     String workGroupKey
