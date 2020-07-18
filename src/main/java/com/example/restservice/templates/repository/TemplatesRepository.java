@@ -1,9 +1,7 @@
 package com.example.restservice.templates.repository;
 
 import com.example.restservice.DBCPDataSource;
-import com.example.restservice.folders.model.Folder;
 import com.example.restservice.templates.model.Template;
-import com.example.restservice.templates.model.TemplateExtended;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -30,7 +28,7 @@ public class TemplatesRepository {
       ResultSet rs = pstmt.executeQuery();
 
       while(rs.next()) {
-        String folderKey = rs.getString("folderkey");
+        String folderKey = rs.getString("templatekey");
         templatesKeys.add(folderKey);
       }
     } catch (SQLException e) {
@@ -52,7 +50,7 @@ public class TemplatesRepository {
       if (templatesKeys.isEmpty()) return templates;
 
       String templatesKeysForSQLQuery = String.join(",", Collections.nCopies(templatesKeys.size(), "?"));
-      String sqlQuery = String.format("SELECT * FROM folders WHERE key IN (%s)", templatesKeysForSQLQuery);
+      String sqlQuery = String.format("SELECT * FROM templates WHERE key IN (%s)", templatesKeysForSQLQuery);
 
       templates = jdbcTemplate.query(
         sqlQuery,
