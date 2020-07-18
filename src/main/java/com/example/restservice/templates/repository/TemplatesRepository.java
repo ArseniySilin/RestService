@@ -49,8 +49,8 @@ public class TemplatesRepository {
 
       if (templatesKeys.isEmpty()) return templates;
 
-      String templatesKeysForSQLQuery = String.join(",", Collections.nCopies(templatesKeys.size(), "?"));
-      String sqlQuery = String.format("SELECT * FROM templates WHERE key IN (%s)", templatesKeysForSQLQuery);
+      String templatesKeysPlaceholders = String.join(",", Collections.nCopies(templatesKeys.size(), "?"));
+      String sqlQuery = String.format("SELECT * FROM templates WHERE key IN (%s)", templatesKeysPlaceholders);
 
       templates = jdbcTemplate.query(
         sqlQuery,

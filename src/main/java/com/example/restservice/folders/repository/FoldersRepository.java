@@ -39,7 +39,7 @@ public class FoldersRepository {
     return folderKeys;
   }
 
-  public Map<String, Folder> getFolders(String workGroupKey) {
+  public Map<String, Folder> getFolders(String workGroupKey, String parentFolderKey) {
     Map<String, Folder> folders = new HashMap<>();
 
     try {
@@ -49,12 +49,26 @@ public class FoldersRepository {
 
       if (folderKeys.isEmpty()) return folders;
 
-      String folderKeysForSQLQuery = String.join(",", Collections.nCopies(folderKeys.size(), "?"));
-      String sqlQuery = String.format("SELECT * FROM folders WHERE key IN (%s)", folderKeysForSQLQuery);
+      String folderKeysPlaceholders = String.join(",", Collections.nCopies(folderKeys.size(), "?"));
+      List<String> sqlParamsValues = new ArrayList<>(folderKeys);
+      String sqlQuery;
+
+      if (parentFolderKey == null) {
+        sqlQuery = String.format(
+          "SELECT * FROM folders WHERE key IN (%s) AND parentfolderkey IS NULL",
+          folderKeysPlaceholders
+        );
+      } else {
+        sqlQuery = String.format(
+          "SELECT * FROM folders WHERE key IN (%s) AND parentfolderkey = ?",
+          folderKeysPlaceholders
+        );
+        sqlParamsValues.add(parentFolderKey);
+      }
 
       folders = jdbcTemplate.query(
         sqlQuery,
-        folderKeys.toArray(),
+        sqlParamsValues.toArray(),
         (ResultSet rs) -> {
           HashMap<String, Folder> results = new HashMap<>();
 
@@ -68,7 +82,6 @@ public class FoldersRepository {
             LocalDateTime createdDateTimeUtc = rs.getTimestamp("createddatetimeutc").toLocalDateTime();
             LocalDateTime updatedDateTimeUtc = rs.getTimestamp("updateddatetimeutc").toLocalDateTime();
             int folderType = rs.getInt("folderType");
-            String parentFolderKey = rs.getString("parentfolderkey");
             String parentFolderName = rs.getString("parentfoldername");
 
             Folder folder = new Folder(

@@ -2,6 +2,9 @@ package com.example.restservice.templates.service;
 
 import com.example.restservice.JwtTokenUtil;
 import com.example.restservice.execptions.EntityNotFoundException;
+import com.example.restservice.folders.model.Folder;
+import com.example.restservice.folders.repository.FoldersRepository;
+import com.example.restservice.templates.model.Template;
 import com.example.restservice.templates.model.TemplatesAllWithFolders;
 import com.example.restservice.templates.repository.TemplatesRepository;
 import com.example.restservice.workgroups.model.Workgroup;
@@ -9,6 +12,7 @@ import com.example.restservice.workgroups.repository.WorkgroupsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +27,9 @@ public class TemplatesService {
 
   @Autowired
   private TemplatesRepository templatesRepository;
+
+  @Autowired
+  FoldersRepository foldersRepository;
 
   public TemplatesAllWithFolders getAllWithFolders(String token, String workGroupKey, Map<String, String> queryParams)
     throws EntityNotFoundException {
@@ -46,17 +53,20 @@ public class TemplatesService {
       throw new EntityNotFoundException(Workgroup.class);
     }
 
+    // TODO: get folders and templates in parallel
+
     // get all folders in workGroup
-//    if (folderKey != null) {
-//      List<String> = workgroupsRepository.getWorkgroupFolders(folderKey);
-//    }
+    List<Folder> folders;
+    Map<String, Folder> foldersMap = foldersRepository.getFolders(workGroupKey, folderKey);
+    folders = new ArrayList<>(foldersMap.values());
 
 
-    // get all templates in workgroup
+    // get all templates in workGroup
+    List<Template> templates;
+    Map<String, Template> templatesMap = templatesRepository.getTemplates(workGroupKey);
+    templates = new ArrayList<>(templatesMap.values());
 
-    // build TemplatesAllWithFolders
-
-    return null;
+    return new TemplatesAllWithFolders(templates, folders, null);
   }
 
 }

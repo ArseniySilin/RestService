@@ -2,6 +2,7 @@ package com.example.restservice.templates.controller;
 
 import com.example.restservice.CommonResponse;
 import com.example.restservice.Messages;
+import com.example.restservice.templates.model.TemplatesAllWithFolders;
 import com.example.restservice.templates.service.TemplatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,10 @@ public class TemplatesController {
     @RequestParam Map<String, String> queryParams,
     @RequestHeader("authorization") String token) {
 
-    templatesService.getAllWithFolders(token, workGroupKey, queryParams);
+    TemplatesAllWithFolders templatesAllWithFolders = templatesService.getAllWithFolders(token, workGroupKey, queryParams);
 
-    return ResponseEntity.ok(new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, ""));
+    return ResponseEntity.ok(
+      new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, templatesAllWithFolders)
+    );
   }
 }

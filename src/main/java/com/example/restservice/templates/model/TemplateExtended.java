@@ -28,12 +28,12 @@ public class TemplateExtended extends Template {
     super(
       key,
       name,
-      createdDateTimeUtc,
-      updatedDateTimeUtc,
       createdUserFirstName,
       createdUserLastName,
-      createdUserKey,
       createdUserName,
+      createdUserKey,
+      createdDateTimeUtc,
+      updatedDateTimeUtc,
       folderKey,
       isPart,
       workGroupKey

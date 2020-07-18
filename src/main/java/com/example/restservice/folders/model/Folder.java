@@ -43,4 +43,52 @@ public class Folder {
     this.createdUserName = createdUserName;
     this.workGroupKey = workGroupKey;
   }
+
+  public String getKey() {
+    return key;
+  }
+
+  public String getParentFolderKey() {
+    return parentFolderKey;
+  }
+
+  public String getParentFolderName() {
+    return parentFolderName;
+  }
+
+  public int getFolderType() {
+    return folderType;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public LocalDateTime getCreatedDateTimeUtc() {
+    return createdDateTimeUtc;
+  }
+
+  public LocalDateTime getUpdatedDateTimeUtc() {
+    return updatedDateTimeUtc;
+  }
+
+  public String getCreatedUserFirstName() {
+    return createdUserFirstName;
+  }
+
+  public String getCreatedUserLastName() {
+    return createdUserLastName;
+  }
+
+  public String getCreatedUserKey() {
+    return createdUserKey;
+  }
+
+  public String getCreatedUserName() {
+    return createdUserName;
+  }
+
+  public String getWorkGroupKey() {
+    return workGroupKey;
+  }
 }

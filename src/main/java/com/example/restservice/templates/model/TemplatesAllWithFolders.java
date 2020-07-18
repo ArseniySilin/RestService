@@ -14,4 +14,16 @@ public class TemplatesAllWithFolders {
     this.folders = folders;
     this.pageInfo = pageInfo;
   }
+
+  public List<Template> getTemplates() {
+    return templates;
+  }
+
+  public List<Folder> getFolders() {
+    return folders;
+  }
+
+  public PageInfo getPageInfo() {
+    return pageInfo;
+  }
 }
