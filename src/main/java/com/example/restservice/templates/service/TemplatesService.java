@@ -6,6 +6,7 @@ import com.example.restservice.folders.model.Folder;
 import com.example.restservice.folders.repository.FoldersRepository;
 import com.example.restservice.templates.model.Template;
 import com.example.restservice.templates.model.TemplatesAllWithFolders;
+import com.example.restservice.templates.model.TemplatesAllWithFoldersPageBuilder;
 import com.example.restservice.templates.repository.TemplatesRepository;
 import com.example.restservice.workgroups.model.Workgroup;
 import com.example.restservice.workgroups.repository.WorkgroupsRepository;
@@ -64,6 +65,15 @@ public class TemplatesService {
     List<Template> templates;
     Map<String, Template> templatesMap = templatesRepository.getTemplates(workGroupKey, folderKey);
     templates = new ArrayList<>(templatesMap.values());
+
+    TemplatesAllWithFoldersPageBuilder pb = new TemplatesAllWithFoldersPageBuilder(
+      templates,
+      folders,
+      pageNumber,
+      itemsPerPage,
+      columnToOrderBy,
+      orderBy
+    );
 
     return new TemplatesAllWithFolders(templates, folders, null);
   }

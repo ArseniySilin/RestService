@@ -1,8 +1,10 @@
 package com.example.restservice.templates.model;
 
+import com.example.restservice.common.AllWithFoldersEntity;
+
 import java.time.LocalDateTime;
 
-public class Template {
+public class Template extends AllWithFoldersEntity {
   private String key;
   private String name;
   private LocalDateTime createdDateTimeUtc;

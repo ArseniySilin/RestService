@@ -1,8 +1,10 @@
 package com.example.restservice.folders.model;
 
+import com.example.restservice.common.AllWithFoldersEntity;
+
 import java.time.LocalDateTime;
 
-public class Folder {
+public class Folder extends AllWithFoldersEntity {
   String key;
   String parentFolderKey;
   String parentFolderName;
