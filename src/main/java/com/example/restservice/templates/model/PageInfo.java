@@ -28,4 +28,36 @@ public class PageInfo {
     this.totalItemsCount = totalItemsCount;
     this.totalPagesCount = totalPagesCount;
   }
+
+  public boolean isHasNextPage() {
+    return hasNextPage;
+  }
+
+  public boolean isHasPreviousPage() {
+    return hasPreviousPage;
+  }
+
+  public int getNonShownInCurrentPageItemsCount() {
+    return nonShownInCurrentPageItemsCount;
+  }
+
+  public int getNumberOfItemsInCurrentPage() {
+    return numberOfItemsInCurrentPage;
+  }
+
+  public int getPageNumber() {
+    return pageNumber;
+  }
+
+  public int getRequestedItemsPerPageNumber() {
+    return requestedItemsPerPageNumber;
+  }
+
+  public int getTotalItemsCount() {
+    return totalItemsCount;
+  }
+
+  public int getTotalPagesCount() {
+    return totalPagesCount;
+  }
 }

@@ -60,10 +60,9 @@ public class TemplatesService {
     Map<String, Folder> foldersMap = foldersRepository.getFolders(workGroupKey, folderKey);
     folders = new ArrayList<>(foldersMap.values());
 
-
     // get all templates in workGroup
     List<Template> templates;
-    Map<String, Template> templatesMap = templatesRepository.getTemplates(workGroupKey);
+    Map<String, Template> templatesMap = templatesRepository.getTemplates(workGroupKey, folderKey);
     templates = new ArrayList<>(templatesMap.values());
 
     return new TemplatesAllWithFolders(templates, folders, null);
