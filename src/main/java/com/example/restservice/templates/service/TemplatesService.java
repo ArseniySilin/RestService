@@ -32,7 +32,7 @@ public class TemplatesService {
   @Autowired
   FoldersRepository foldersRepository;
 
-  public TemplatesAllWithFoldersPage getAllWithFolders(String token, String workGroupKey, Map<String, String> queryParams)
+  public TemplatesAllWithFoldersPage getAllWithFoldersPage(String token, String workGroupKey, Map<String, String> queryParams)
     throws EntityNotFoundException {
     String userId = jwtTokenUtil.getUserIdFromBearerToken(token);
 

@@ -47,6 +47,7 @@ com/example/restservice/templates/model/TemplatesAllWithFoldersPageBuilder.class
 com/example/restservice/execptions/EntityNotFoundException.class
 com/example/restservice/workgroups/service/WorkgroupsService.class
 com/example/restservice/Messages$ERROR$UNSAFE_USERNAME.class
+com/example/restservice/CorsFilter.class
 com/example/restservice/templates/model/Template.class
 com/example/restservice/templates/service/TemplatesService.class
 com/example/restservice/Messages$ERROR$USERNAME_DO_NOT_EXIST.class

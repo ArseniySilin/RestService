@@ -85,12 +85,18 @@ public class TemplatesAllWithFoldersPageBuilder {
     int startPosition = itemsPerPage * (page - 1);
     int endPosition = totalItems - startPosition + 1 >= itemsPerPage
       ? startPosition + itemsPerPage
-      : totalItems - startPosition + 1;
+      : totalItems - startPosition;
 
     List<Folder> foldersPerPage = new ArrayList<>();
     List<Template> templatesPerPage = new ArrayList<>();
     List<Object> entities = new ArrayList<>(folders);
     entities.addAll(templates);
+
+//    System.out.println("entities.size " + entities.size());
+//    System.out.println("startPosition " + startPosition);
+//    System.out.println("endPosition " + endPosition);
+//    System.out.println("itemsPerPage " + itemsPerPage);
+//    System.out.println("totalItems " + totalItems);
 
     for (int i = startPosition; i < endPosition; i++) {
       Object entity = entities.get(i);
@@ -126,6 +132,6 @@ public class TemplatesAllWithFoldersPageBuilder {
     );
 
 
-    return null;
+    return twfp;
   }
 }

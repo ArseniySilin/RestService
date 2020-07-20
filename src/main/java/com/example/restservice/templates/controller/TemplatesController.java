@@ -3,6 +3,7 @@ package com.example.restservice.templates.controller;
 import com.example.restservice.CommonResponse;
 import com.example.restservice.Messages;
 import com.example.restservice.templates.model.TemplatesAllWithFolders;
+import com.example.restservice.templates.model.TemplatesAllWithFoldersPage;
 import com.example.restservice.templates.service.TemplatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,19 +13,18 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/templates")
 public class TemplatesController {
 
   @Autowired
   private TemplatesService templatesService;
 
-  @GetMapping(value = "/{workGroupKey}/AllWithFolders")
-  public ResponseEntity<CommonResponse> getAllWithFolders(
+  @GetMapping(value = "WorkGroups/{workGroupKey}/Templates/AllWithFolders")
+  public ResponseEntity<CommonResponse> getAllWithFoldersPage(
     @PathVariable("workGroupKey") String workGroupKey,
     @RequestParam Map<String, String> queryParams,
     @RequestHeader("authorization") String token) {
 
-    TemplatesAllWithFolders templatesAllWithFolders = templatesService.getAllWithFolders(token, workGroupKey, queryParams);
+    TemplatesAllWithFoldersPage templatesAllWithFolders = templatesService.getAllWithFoldersPage(token, workGroupKey, queryParams);
 
     return ResponseEntity.ok(
       new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, templatesAllWithFolders)
