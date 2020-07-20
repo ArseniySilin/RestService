@@ -81,20 +81,14 @@ public class TemplatesAllWithFoldersPageBuilder {
   public TemplatesAllWithFoldersPage getPage(int page) {
     int totalFolders = folders.size();
     int totalTemplates = templates.size();
-    List<Folder> foldersPerPage = new ArrayList<>();
-    List<Template> templatesPerPage = new ArrayList<>();
     int totalItems = totalFolders + totalTemplates;
-
-    if (totalItems == 0) {
-//      return new TemplatesAllWithFoldersPage(templates, folders, )
-    }
-
     int startPosition = itemsPerPage * (page - 1);
-
     int endPosition = totalItems - startPosition + 1 >= itemsPerPage
       ? startPosition + itemsPerPage
       : totalItems - startPosition + 1;
 
+    List<Folder> foldersPerPage = new ArrayList<>();
+    List<Template> templatesPerPage = new ArrayList<>();
     List<Object> entities = new ArrayList<>(folders);
     entities.addAll(templates);
 

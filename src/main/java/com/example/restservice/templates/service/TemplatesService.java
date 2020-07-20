@@ -5,7 +5,7 @@ import com.example.restservice.execptions.EntityNotFoundException;
 import com.example.restservice.folders.model.Folder;
 import com.example.restservice.folders.repository.FoldersRepository;
 import com.example.restservice.templates.model.Template;
-import com.example.restservice.templates.model.TemplatesAllWithFolders;
+import com.example.restservice.templates.model.TemplatesAllWithFoldersPage;
 import com.example.restservice.templates.model.TemplatesAllWithFoldersPageBuilder;
 import com.example.restservice.templates.repository.TemplatesRepository;
 import com.example.restservice.workgroups.model.Workgroup;
@@ -32,7 +32,7 @@ public class TemplatesService {
   @Autowired
   FoldersRepository foldersRepository;
 
-  public TemplatesAllWithFolders getAllWithFolders(String token, String workGroupKey, Map<String, String> queryParams)
+  public TemplatesAllWithFoldersPage getAllWithFolders(String token, String workGroupKey, Map<String, String> queryParams)
     throws EntityNotFoundException {
     String userId = jwtTokenUtil.getUserIdFromBearerToken(token);
 
@@ -66,16 +66,17 @@ public class TemplatesService {
     Map<String, Template> templatesMap = templatesRepository.getTemplates(workGroupKey, folderKey);
     templates = new ArrayList<>(templatesMap.values());
 
+    // build page
     TemplatesAllWithFoldersPageBuilder pb = new TemplatesAllWithFoldersPageBuilder(
       templates,
       folders,
-      pageNumber,
       itemsPerPage,
       columnToOrderBy,
       orderBy
     );
+    // TODO: add validation and exception handling
+    TemplatesAllWithFoldersPage page = pb.getPage(Integer.parseInt(pageNumber));
 
-    return new TemplatesAllWithFolders(templates, folders, null);
+    return page;
   }
-
 }
