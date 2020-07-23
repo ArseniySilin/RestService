@@ -15,8 +15,8 @@ public class DBCPDataSource {
         ds.setUsername("admin");
         ds.setPassword("admin");
         ds.setMinIdle(5);
-        ds.setMaxIdle(10);
-        ds.setMaxOpenPreparedStatements(16);
+        ds.setMaxIdle(100);
+        ds.setMaxOpenPreparedStatements(100);
     }
 
     public static Connection getConnection() throws SQLException {

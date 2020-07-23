@@ -28,10 +28,11 @@ public class WorkgroupsRepository {
   public Map<String, Workgroup> getWorkGroupsCreatedByUser(String userKey) {
     Map<String, Workgroup> workgroups = new HashMap<>();
 
-    try {
+    try (
       Connection con = DBCPDataSource.getConnection();
       PreparedStatement pstmt =
-        con.prepareStatement("SELECT * FROM workgroups WHERE createduserkey = ?");
+        con.prepareStatement("SELECT * FROM workgroups WHERE createduserkey = ?")
+      ) {
       pstmt.setString(1, userKey);
       ResultSet rs = pstmt.executeQuery();
 
@@ -56,9 +57,10 @@ public class WorkgroupsRepository {
   private List<String> getWorkGroupsKeysIncludingUser(Connection con, String userKey) throws UsersException {
     List<String> workGroupKeys = new ArrayList();
 
-    try {
+    try (
       PreparedStatement pstmt =
-        con.prepareStatement("SELECT * FROM workgroups_users WHERE userkey = ?");
+        con.prepareStatement("SELECT * FROM workgroups_users WHERE userkey = ?")
+      ) {
       pstmt.setString(1, userKey);
       ResultSet rs = pstmt.executeQuery();
 
@@ -77,8 +79,7 @@ public class WorkgroupsRepository {
   public Map<String, Workgroup> getWorkGroupsIncludingUser(String userId) throws EntityNotFoundException {
     Map<String, Workgroup> workGroups = new HashMap<>();
 
-    try {
-      Connection con = DBCPDataSource.getConnection();
+    try (Connection con = DBCPDataSource.getConnection()) {
       String userKey = usersRepository.getUserKeyById(con, userId);
 
       if (userKey == null) {

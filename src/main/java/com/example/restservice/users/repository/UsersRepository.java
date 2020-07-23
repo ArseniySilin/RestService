@@ -11,18 +11,16 @@ import com.example.restservice.users.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-// TODO: move class to ./repository
-
 @Repository
 public class UsersRepository {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
     public int updateUserTokens(String username, String accessToken, String refreshToken) throws UsersException {
-        try {
-            Connection con = DBCPDataSource.getConnection();
-            PreparedStatement pstmt =
-              con.prepareStatement("UPDATE users SET access_token = ?, refresh_token = ? WHERE login = ?");
+        try (
+          Connection con = DBCPDataSource.getConnection();
+          PreparedStatement pstmt = con.prepareStatement("UPDATE users SET access_token = ?, refresh_token = ? WHERE login = ?")
+          ) {
             pstmt.setString(1, accessToken);
             pstmt.setString(2, refreshToken);
             pstmt.setString(3, username);
@@ -37,9 +35,13 @@ public class UsersRepository {
     }
 
     public int authorizeUser(String login, String password) throws UsersException {
-        try {
-            Connection con = DBCPDataSource.getConnection();
-            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
+        String sqlQuery = "SELECT * FROM users WHERE login = ?";
+        boolean isUserExist = false;
+
+        try (
+          Connection con = DBCPDataSource.getConnection();
+          PreparedStatement pstmt = con.prepareStatement(sqlQuery);
+          ) {
             pstmt.setString(1, login);
             ResultSet rs = pstmt.executeQuery();
             boolean isLoginExist = rs.next();
@@ -49,18 +51,17 @@ public class UsersRepository {
                 HashString hasher = new HashString();
                 boolean isPasswordMatches = hasher.isMatches(userPasswordHash, password);
 
-                if (!isPasswordMatches) {
-                    throw new UsersException(Messages.ERROR.INCORRECT_PASSWORD.message);
+                if (isPasswordMatches) {
+                    isUserExist = true;
                 }
-
-                return Messages.SUCCESS.code;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new UsersException(Messages.ERROR.message);
+            throw new UsersException(e.getMessage());
         }
+        if (isUserExist) return Messages.SUCCESS.code;
 
-        throw new UsersException(Messages.ERROR.USERNAME_DO_NOT_EXIST.message);
+        return Messages.ERROR.INCORRECT_PASSWORD.code;
     }
 
     public UserTokens generateUserTokens(String username) {
@@ -74,10 +75,12 @@ public class UsersRepository {
 
     public User getUser(String username) throws UsersException {
         User user = null;
+        String sqlQuery = "SELECT * FROM users WHERE login = ?";
 
-        try {
-            Connection con = DBCPDataSource.getConnection();
-            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
+        try (
+          Connection con = DBCPDataSource.getConnection();
+          PreparedStatement pstmt = con.prepareStatement(sqlQuery)
+        ) {
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
             boolean isExist = rs.next();
@@ -97,9 +100,10 @@ public class UsersRepository {
     }
 
     public int validateUserTokens(String username, String accessToken, String refreshToken) throws UsersException {
-        try {
-            Connection con = DBCPDataSource.getConnection();
-            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?");
+        try (
+          Connection con = DBCPDataSource.getConnection();
+          PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE login = ?")
+          ) {
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
             boolean isExist = rs.next();
@@ -136,12 +140,12 @@ public class UsersRepository {
     public void addUser(com.example.restservice.users.model.User user) throws UsersException {
         String userName = user.getUsername();
         String password = user.getPassword();
+        String query = "INSERT INTO users (login, password, created_on, key) VALUES (?, ?, ?, ?)";
 
-        try {
-            Connection con = DBCPDataSource.getConnection();
-
-            String query = "INSERT INTO users (login, password, created_on, key) VALUES (?, ?, ?, ?)";
-            PreparedStatement pstmt = con.prepareStatement(query);
+        try (
+          Connection con = DBCPDataSource.getConnection();
+          PreparedStatement pstmt = con.prepareStatement(query)
+          ) {
             pstmt.setString(1, userName);
             pstmt.setString(2, new HashString().getHash(password));
             pstmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
@@ -159,7 +163,6 @@ public class UsersRepository {
         String userKey = null;
 
         try {
-            con = DBCPDataSource.getConnection();
             String query = "SELECT * FROM users WHERE id = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, Integer.parseInt(userId));
@@ -173,6 +176,7 @@ public class UsersRepository {
             e.printStackTrace();
             throw new UsersException(e);
         }
+
         return userKey;
     }
 }

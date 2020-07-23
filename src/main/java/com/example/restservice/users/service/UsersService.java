@@ -8,7 +8,6 @@ import com.example.restservice.users.model.Account;
 import com.example.restservice.users.model.User;
 import com.example.restservice.users.repository.UsersRepository;
 import com.example.restservice.execptions.EntityAlreadyExistsException;
-import com.google.gson.Gson;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +53,6 @@ public class UsersService {
     usersRepository.authorizeUser(account.getUsername(), account.getPassword());
 
     UserTokens userTokens = usersRepository.generateUserTokens(account.getUsername());
-    String data = new Gson().toJson(userTokens);
 
     usersRepository.updateUserTokens(
       account.getUsername(),

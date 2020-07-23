@@ -13,7 +13,6 @@ com/example/restservice/Messages$ERROR$UNSAFE_PASSWORD.class
 com/example/restservice/JwtTokenUtil.class
 com/example/restservice/Messages$ERROR$DATABASE_ERROR.class
 com/example/restservice/common/AllWithFoldersEntity.class
-com/example/restservice/ConnectionPool.class
 com/example/restservice/execptions/EntityAlreadyExistsException.class
 com/example/restservice/model/ChatMessage$MessageType.class
 com/example/restservice/templates/model/PageInfo.class
@@ -30,6 +29,7 @@ com/example/restservice/GenerateURLController.class
 com/example/restservice/Messages$ERROR$USER_ALREADY_EXISTS.class
 com/example/restservice/users/repository/UsersRepository.class
 com/example/restservice/RestExceptionHandler.class
+com/example/restservice/users/repository/UsersCrudRepository.class
 com/example/restservice/model/ChatMessage.class
 com/example/restservice/users/service/UsersService.class
 com/example/restservice/templates/controller/TemplatesController.class
@@ -47,7 +47,6 @@ com/example/restservice/templates/model/TemplatesAllWithFoldersPageBuilder.class
 com/example/restservice/execptions/EntityNotFoundException.class
 com/example/restservice/workgroups/service/WorkgroupsService.class
 com/example/restservice/Messages$ERROR$UNSAFE_USERNAME.class
-com/example/restservice/CorsFilter.class
 com/example/restservice/templates/model/Template.class
 com/example/restservice/templates/service/TemplatesService.class
 com/example/restservice/Messages$ERROR$USERNAME_DO_NOT_EXIST.class

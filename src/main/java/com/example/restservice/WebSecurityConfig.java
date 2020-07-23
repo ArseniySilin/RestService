@@ -31,9 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private JwtRequestFilter jwtRequestFilter;
 
   @Autowired
-  private CorsFilter corsFilter;
-
-  @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
   }
@@ -51,15 +48,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
-    httpSecurity.csrf().disable()
+    httpSecurity
+      .csrf().disable()
       .authorizeRequests()
       .antMatchers(
         UsersController.refreshTokenPath,
         UsersController.tokenPath,
         UsersController.registrationPath
-      ).permitAll().
-      anyRequest().authenticated().and().
-      exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+      )
+      .permitAll().
+      anyRequest()
+      .authenticated()
+      .and()
+      .exceptionHandling()
+      .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+      .and()
+      .sessionManagement()
       .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     httpSecurity.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());

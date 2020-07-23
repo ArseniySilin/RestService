@@ -16,9 +16,7 @@ public class FoldersRepository {
   public Map<String, Folder> getFolders(String workGroupKey, String parentFolderKey) {
     Map<String, Folder> folders = new HashMap<>();
 
-    try {
-      Connection con = DBCPDataSource.getConnection();
-
+    try (Connection con = DBCPDataSource.getConnection()) {
       String sqlQuery;
       PreparedStatement pstmt;
 
@@ -63,6 +61,8 @@ public class FoldersRepository {
 
         folders.put(key, folder);
       }
+
+      pstmt.close();
     } catch (SQLException e) {
       e.printStackTrace();
       // TODO: add custom exception

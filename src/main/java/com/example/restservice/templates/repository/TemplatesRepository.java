@@ -16,9 +16,7 @@ public class TemplatesRepository {
   public Map<String, Template> getTemplates(String workGroupKey, String folderKey) {
     Map<String, Template> templates = new HashMap<>();
 
-    try {
-      Connection con = DBCPDataSource.getConnection();
-
+    try (Connection con = DBCPDataSource.getConnection()) {
       String sqlQuery;
       PreparedStatement pstmt;
 
@@ -61,6 +59,8 @@ public class TemplatesRepository {
 
         templates.put(key, template);
       }
+
+      pstmt.close();
     } catch (SQLException e) {
       e.printStackTrace();
       // TODO: add custom exception
