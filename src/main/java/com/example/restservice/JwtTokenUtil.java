@@ -19,7 +19,7 @@ public class JwtTokenUtil implements Serializable {
 
   public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
-  public String tokenHeader = "Bearer ";
+  public final String tokenHeader = "Bearer ";
 
   public String getAccessTokenWithoutHeader (String accessToken) {
     if (accessToken.startsWith(tokenHeader)) return accessToken.substring(tokenHeader.length());

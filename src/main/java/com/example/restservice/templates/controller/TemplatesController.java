@@ -2,7 +2,7 @@ package com.example.restservice.templates.controller;
 
 import com.example.restservice.CommonResponse;
 import com.example.restservice.Messages;
-import com.example.restservice.templates.model.TemplatesAllWithFolders;
+import com.example.restservice.templates.model.CreateTemplateRequest;
 import com.example.restservice.templates.model.TemplatesAllWithFoldersPage;
 import com.example.restservice.templates.service.TemplatesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +29,13 @@ public class TemplatesController {
     return ResponseEntity.ok(
       new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, templatesAllWithFolders)
     );
+  }
+
+  @PostMapping(value = "WorkGroups/{workGroupKey}/Templates")
+  public ResponseEntity<CommonResponse> createTemplate(
+    @PathVariable("workGroupKey") String workGroupKey,
+    @RequestBody CreateTemplateRequest createTemplateRequest
+  ) {
+    return ResponseEntity.ok(null);
   }
 }
