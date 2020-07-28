@@ -14,6 +14,7 @@ com/example/restservice/JwtTokenUtil.class
 com/example/restservice/Messages$ERROR$DATABASE_ERROR.class
 com/example/restservice/common/AllWithFoldersEntity.class
 com/example/restservice/execptions/EntityAlreadyExistsException.class
+com/example/restservice/foo/Foo.class
 com/example/restservice/model/ChatMessage$MessageType.class
 com/example/restservice/templates/model/PageInfo.class
 com/example/restservice/WebSecurityConfig.class
@@ -43,13 +44,16 @@ com/example/restservice/workgroups/controller/WorkgroupsController.class
 com/example/restservice/Response.class
 com/example/restservice/users/model/Account.class
 com/example/restservice/CommonResponse.class
+com/example/restservice/templates/model/CreateTemplateRequest.class
 com/example/restservice/templates/model/TemplatesAllWithFoldersPageBuilder.class
 com/example/restservice/execptions/EntityNotFoundException.class
 com/example/restservice/workgroups/service/WorkgroupsService.class
+com/example/restservice/utils/HibernateUtil.class
 com/example/restservice/Messages$ERROR$UNSAFE_USERNAME.class
 com/example/restservice/templates/model/Template.class
 com/example/restservice/templates/service/TemplatesService.class
 com/example/restservice/Messages$ERROR$USERNAME_DO_NOT_EXIST.class
+com/example/restservice/foo/FooDao.class
 com/example/restservice/Messages$ERROR$ENTITY_ALREADY_EXISTS.class
 com/example/restservice/JwtAuthenticationEntryPoint.class
 com/example/restservice/users/model/User.class
