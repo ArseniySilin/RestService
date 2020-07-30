@@ -6,7 +6,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.2.2.RELEASE</version>
-    <relativePath/> <!-- lookup parent from repository -->
+    <relativePath/>
   </parent>
   <groupId>com.example</groupId>
   <artifactId>rest-service</artifactId>
@@ -19,7 +19,6 @@
   </properties>
 
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto -->
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-crypto</artifactId>
@@ -36,8 +35,37 @@
       <artifactId>spring-boot-starter-security</artifactId>
       <version>2.2.6.RELEASE</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-websocket</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>5.2.2.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-commons</artifactId>
+      <version>2.2.3.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <version>2.2.4.RELEASE</version>
+    </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
@@ -63,16 +91,11 @@
     </dependency>
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt-gson</artifactId> <!-- or jjwt-gson if Gson is preferred -->
+      <artifactId>jjwt-gson</artifactId>
       <version>0.11.1</version>
       <scope>runtime</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.hibernate.javax.persistence</groupId>
-      <artifactId>hibernate-jpa-2.1-api</artifactId>
-      <version>1.0.0.Final</version>
-    </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
@@ -103,17 +126,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.junit.vintage</groupId>
-          <artifactId>junit-vintage-engine</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-migrationsupport</artifactId>
       <version>5.6.2</version>
@@ -138,52 +150,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-websocket</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-commons</artifactId>
       <version>1.7.0-M1</version>
       <scope>compile</scope>
     </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>5.2.2.RELEASE</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.data</groupId>
-      <artifactId>spring-data-commons</artifactId>
-      <version>2.2.3.RELEASE</version>
-    </dependency>
-
-    <!-- hibernate -->
-    <!--<dependency>-->
-    <!--<groupId>org.hibernate</groupId>-->
-    <!--<artifactId>hibernate-agroal</artifactId>-->
-    <!--<version>5.4.19.Final</version>-->
-    <!--<type>pom</type>-->
-    <!--</dependency>-->
-
-    <!--<dependency>-->
-    <!--<groupId>org.hibernate</groupId>-->
-    <!--<artifactId>hibernate-annotations</artifactId>-->
-    <!--<version>3.5.0-Final</version>-->
-    <!--</dependency>-->
-
-    <!--<dependency>-->
-    <!--<groupId>org.hibernate.common</groupId>-->
-    <!--<artifactId>hibernate-commons-annotations</artifactId>-->
-    <!--<version>5.1.0.Final</version>-->
-    <!--</dependency>-->
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>5.4.14.Final</version>
-    </dependency>
-
-
   </dependencies>
 
   <build>

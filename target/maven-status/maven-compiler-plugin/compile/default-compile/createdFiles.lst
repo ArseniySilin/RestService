@@ -3,6 +3,7 @@ com/example/restservice/apierror/ApiSubError.class
 com/example/restservice/workgroups/repository/WorkgroupsRepository.class
 com/example/restservice/GeneratedURL.class
 com/example/restservice/users/controller/UsersController.class
+com/example/restservice/foo/FooRepository.class
 com/example/restservice/WebSocketConfig.class
 com/example/restservice/workgroups/model/Workgroup.class
 com/example/restservice/RestServiceApplication.class
@@ -24,6 +25,7 @@ com/example/restservice/WebSocketEventListener.class
 com/example/restservice/UserTokens.class
 com/example/restservice/DBCPDataSource.class
 com/example/restservice/folders/model/Folder.class
+com/example/restservice/folders/controller/FoldersController.class
 com/example/restservice/templates/model/TemplateExtended.class
 com/example/restservice/Messages$ERROR$INCORRECT_PASSWORD.class
 com/example/restservice/GenerateURLController.class
@@ -34,6 +36,7 @@ com/example/restservice/users/repository/UsersCrudRepository.class
 com/example/restservice/model/ChatMessage.class
 com/example/restservice/users/service/UsersService.class
 com/example/restservice/templates/controller/TemplatesController.class
+com/example/restservice/folders/repository/FoldersRepositoryOLD.class
 com/example/restservice/apierror/ApiError.class
 com/example/restservice/JwtRequestFilter.class
 com/example/restservice/Messages$ERROR$INVALID_TOKEN.class
@@ -48,15 +51,15 @@ com/example/restservice/templates/model/CreateTemplateRequest.class
 com/example/restservice/templates/model/TemplatesAllWithFoldersPageBuilder.class
 com/example/restservice/execptions/EntityNotFoundException.class
 com/example/restservice/workgroups/service/WorkgroupsService.class
-com/example/restservice/utils/HibernateUtil.class
 com/example/restservice/Messages$ERROR$UNSAFE_USERNAME.class
+com/example/restservice/foo/FooController.class
 com/example/restservice/templates/model/Template.class
 com/example/restservice/templates/service/TemplatesService.class
 com/example/restservice/Messages$ERROR$USERNAME_DO_NOT_EXIST.class
-com/example/restservice/foo/FooDao.class
 com/example/restservice/Messages$ERROR$ENTITY_ALREADY_EXISTS.class
 com/example/restservice/JwtAuthenticationEntryPoint.class
 com/example/restservice/users/model/User.class
 com/example/restservice/Messages$SUCCESS.class
 com/example/restservice/templates/model/TemplatesAllWithFoldersPage.class
 com/example/restservice/templates/model/TemplatesAllWithFolders.class
+com/example/restservice/foo/FooService.class

@@ -1,73 +1,23 @@
 package com.example.restservice.folders.repository;
 
-import com.example.restservice.DBCPDataSource;
 import com.example.restservice.folders.model.Folder;
-import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import java.util.*;
 
 @Repository
-public class FoldersRepository {
-  public Map<String, Folder> getFolders(String workGroupKey, String parentFolderKey) {
-    Map<String, Folder> folders = new HashMap<>();
+public interface FoldersRepository extends JpaRepository<Folder, String> {
+  @Query("SELECT f FROM Folder f WHERE f.workGroupKey = :workGroupKey AND (:parentFolderKey is NULL OR f.parentFolderKey = :parentFolderKey)")
+  List<Folder> findByWorkGroupKeyAndParentFolderKey(
+    @Param("workGroupKey") String workGroupKey,
+    @Param("parentFolderKey") String parentFolderKey
+  );
 
-    try (Connection con = DBCPDataSource.getConnection()) {
-      String sqlQuery;
-      PreparedStatement pstmt;
-
-      if (parentFolderKey == null ) {
-        sqlQuery = "SELECT * FROM folders WHERE workgroupkey = ? AND parentfolderkey IS NULL";
-        pstmt = con.prepareStatement(sqlQuery);
-        pstmt.setString(1, workGroupKey);
-      } else {
-        sqlQuery = "SELECT * FROM folders WHERE workgroupkey = ? AND parentfolderkey = ?";
-        pstmt = con.prepareStatement(sqlQuery);
-        pstmt.setString(1, workGroupKey);
-        pstmt.setString(2, parentFolderKey);
-      }
-      ResultSet rs = pstmt.executeQuery();
-
-      while(rs.next()) {
-        String key = rs.getString("key");
-        String name = rs.getString("name");
-        String createdUserFirstName = rs.getString("createduserfirstname");
-        String createdUserLastName = rs.getString("createduserlastname");
-        String createdUserName = rs.getString("createdusername");
-        String createdUserKey = rs.getString("createduserkey");
-        LocalDateTime createdDateTimeUtc = rs.getTimestamp("createddatetimeutc").toLocalDateTime();
-        LocalDateTime updatedDateTimeUtc = rs.getTimestamp("updateddatetimeutc").toLocalDateTime();
-        int folderType = rs.getInt("folderType");
-        String parentFolderName = rs.getString("parentfoldername");
-
-        Folder folder = new Folder(
-          key,
-          name,
-          createdUserFirstName,
-          createdUserLastName,
-          createdUserName,
-          createdUserKey,
-          createdDateTimeUtc,
-          updatedDateTimeUtc,
-          folderType,
-          parentFolderKey,
-          parentFolderName,
-          workGroupKey
-        );
-
-        folders.put(key, folder);
-      }
-
-      pstmt.close();
-    } catch (SQLException e) {
-      e.printStackTrace();
-      // TODO: add custom exception
-    }
-
-    return folders;
-  }
+  @Query("SELECT f FROM Folder f WHERE f.workGroupKey = :workGroupKey")
+  List<Folder> findByWorkGroupKey(
+    @Param("workGroupKey") String workGroupKey
+  );
 }

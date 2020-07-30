@@ -3,7 +3,7 @@ package com.example.restservice.templates.service;
 import com.example.restservice.JwtTokenUtil;
 import com.example.restservice.execptions.EntityNotFoundException;
 import com.example.restservice.folders.model.Folder;
-import com.example.restservice.folders.repository.FoldersRepository;
+import com.example.restservice.folders.repository.FoldersRepositoryOLD;
 import com.example.restservice.templates.model.Template;
 import com.example.restservice.templates.model.TemplatesAllWithFoldersPage;
 import com.example.restservice.templates.model.TemplatesAllWithFoldersPageBuilder;
@@ -30,7 +30,7 @@ public class TemplatesService {
   private TemplatesRepository templatesRepository;
 
   @Autowired
-  FoldersRepository foldersRepository;
+  FoldersRepositoryOLD foldersRepository;
 
   public TemplatesAllWithFoldersPage getAllWithFoldersPage(String token, String workGroupKey, Map<String, String> queryParams)
     throws EntityNotFoundException {
