@@ -32,6 +32,15 @@ public class JwtTokenUtil implements Serializable {
     return getClaimFromToken(token, Claims::getSubject);
   }
 
+  public String getUsernameFromBearerToken(String token) {
+    if (token.startsWith(tokenHeader)) {
+      String tokenWithoutHeader = token.substring(tokenHeader.length());
+      return getClaimFromToken(tokenWithoutHeader, Claims::getSubject);
+    }
+
+    return null;
+  }
+
   public String getUserIdFromToken(String token) {
     return getClaimFromToken(token, Claims::getId);
   }

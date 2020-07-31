@@ -4,7 +4,6 @@ com/example/restservice/workgroups/repository/WorkgroupsRepository.class
 com/example/restservice/GeneratedURL.class
 com/example/restservice/users/controller/UsersController.class
 com/example/restservice/foo/FooRepository.class
-com/example/restservice/templates/repository/TemplatesRepositoryOLD.class
 com/example/restservice/WebSocketConfig.class
 com/example/restservice/workgroups/model/Workgroup.class
 com/example/restservice/RestServiceApplication.class
@@ -33,7 +32,6 @@ com/example/restservice/GenerateURLController.class
 com/example/restservice/Messages$ERROR$USER_ALREADY_EXISTS.class
 com/example/restservice/users/repository/UsersRepository.class
 com/example/restservice/RestExceptionHandler.class
-com/example/restservice/users/repository/UsersCrudRepository.class
 com/example/restservice/model/ChatMessage.class
 com/example/restservice/users/service/UsersService.class
 com/example/restservice/templates/controller/TemplatesController.class

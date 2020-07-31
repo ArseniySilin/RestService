@@ -1,6 +1,7 @@
 package com.example.restservice.workgroups.service;
 
 import com.example.restservice.JwtTokenUtil;
+import com.example.restservice.users.model.User;
 import com.example.restservice.workgroups.repository.WorkgroupsRepository;
 import com.example.restservice.workgroups.model.Workgroup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,10 @@ public class WorkgroupsService {
     Map<String, Workgroup> workgroups = workgroupsRepository.getWorkGroupsIncludingUser(userId);
 
     return workgroups;
+  }
+
+  public boolean isWorkGroupIncludesUser(String workGroupKey, User user) {
+    // TODO: implement logic
+    return true;
   }
 }

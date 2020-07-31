@@ -88,8 +88,11 @@ public class UsersRepository {
             if (isExist) {
                 String id = rs.getString("id");
                 String password = rs.getString("password");
+                String key = rs.getString("key");
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
 
-                user = new User(id, username, password);
+                user = new User(id, key, username, password, firstName, lastName);
             }
         } catch (SQLException e) {
             e.printStackTrace();

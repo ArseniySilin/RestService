@@ -4,17 +4,24 @@ import com.example.restservice.JwtTokenUtil;
 import com.example.restservice.execptions.EntityNotFoundException;
 import com.example.restservice.folders.model.Folder;
 import com.example.restservice.folders.repository.FoldersRepository;
+import com.example.restservice.templates.model.CreateTemplateRequest;
 import com.example.restservice.templates.model.Template;
 import com.example.restservice.templates.model.TemplatesAllWithFoldersPage;
 import com.example.restservice.templates.model.TemplatesAllWithFoldersPageBuilder;
 import com.example.restservice.templates.repository.TemplatesRepository;
+import com.example.restservice.users.model.User;
+import com.example.restservice.users.service.UsersService;
 import com.example.restservice.workgroups.model.Workgroup;
 import com.example.restservice.workgroups.repository.WorkgroupsRepository;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class TemplatesService {
@@ -31,6 +38,9 @@ public class TemplatesService {
   @Autowired
   FoldersRepository foldersRepository;
 
+  @Autowired
+  UsersService usersService;
+
   public TemplatesAllWithFoldersPage getAllWithFoldersPage(String token, String workGroupKey, Map<String, String> queryParams)
     throws EntityNotFoundException {
     String userId = jwtTokenUtil.getUserIdFromBearerToken(token);
@@ -46,6 +56,7 @@ public class TemplatesService {
     String columnToOrderBy = queryParams.getOrDefault("columnToOrderBy", "2");
     String orderBy = queryParams.getOrDefault("orderBy", "0");
 
+    // TODO: move this validation to some filter
     // check if user exists in workGroup
     Map<String, Workgroup> workGroups = workgroupsRepository.getWorkGroupsIncludingUser(userId);
 
@@ -73,5 +84,36 @@ public class TemplatesService {
     TemplatesAllWithFoldersPage page = pb.getPage(Integer.parseInt(pageNumber));
 
     return page;
+  }
+
+  public void saveTemplate(String token, String workGroupKey, CreateTemplateRequest templateRequest) {
+    User user = usersService.getAuthorizedUser(token, workGroupKey);
+
+    String key = UUID.randomUUID().toString();
+    String name = templateRequest.getName();
+    String createdUserFirstName = user.getFirstName();
+    String createdUserLastName = user.getLastName();
+    String createdUserName = user.getUsername();
+    String createdUserKey = user.getKey();
+    LocalDateTime createdDateTimeUtc = LocalDateTime.now();
+    LocalDateTime updatedDateTimeUtc = LocalDateTime.now();
+    String folderKey = templateRequest.getFolderKey();
+    boolean isPart = templateRequest.isPart();
+
+    Template template = new Template(
+      key,
+      name,
+      createdUserFirstName,
+      createdUserLastName,
+      createdUserName,
+      createdUserKey,
+      createdDateTimeUtc,
+      updatedDateTimeUtc,
+      folderKey,
+      isPart,
+      workGroupKey
+    );
+
+    templatesRepository.save(template);
   }
 }

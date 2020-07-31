@@ -54,7 +54,7 @@ public class TemplatesAllWithFoldersPageBuilder {
 
   private int sort() {
     // use comparing by entity name by default
-    Comparator<AllWithFoldersEntity> comparator = Comparator.comparing(AllWithFoldersEntity::getName);
+      Comparator<AllWithFoldersEntity> comparator = Comparator.comparing(AllWithFoldersEntity::getName);
 
     switch (this.columnToOrderBy) {
       case ORDER_BY_CREATION: {
@@ -71,9 +71,14 @@ public class TemplatesAllWithFoldersPageBuilder {
       }
     }
 
-    if (this.orderBy.equals(DESC)) comparator.reversed();
-    if (templates != null) Collections.sort(templates, comparator);
-    if (folders != null) Collections.sort(folders, comparator);
+    if (templates != null) {
+      if (this.orderBy.equals(DESC)) templates.sort(comparator.reversed());
+      else templates.sort(comparator);
+    }
+    if (folders != null) {
+      if (this.orderBy.equals(DESC)) folders.sort(comparator.reversed());
+      else folders.sort(comparator);
+    }
 
     return 0;
   }
@@ -91,12 +96,6 @@ public class TemplatesAllWithFoldersPageBuilder {
     List<Template> templatesPerPage = new ArrayList<>();
     List<Object> entities = new ArrayList<>(folders);
     entities.addAll(templates);
-
-//    System.out.println("entities.size " + entities.size());
-//    System.out.println("startPosition " + startPosition);
-//    System.out.println("endPosition " + endPosition);
-//    System.out.println("itemsPerPage " + itemsPerPage);
-//    System.out.println("totalItems " + totalItems);
 
     for (int i = startPosition; i < endPosition; i++) {
       Object entity = entities.get(i);
@@ -130,7 +129,6 @@ public class TemplatesAllWithFoldersPageBuilder {
         totalPagesCount
       )
     );
-
 
     return twfp;
   }

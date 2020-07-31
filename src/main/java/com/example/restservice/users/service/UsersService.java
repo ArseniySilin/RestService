@@ -8,6 +8,7 @@ import com.example.restservice.users.model.Account;
 import com.example.restservice.users.model.User;
 import com.example.restservice.users.repository.UsersRepository;
 import com.example.restservice.execptions.EntityAlreadyExistsException;
+import com.example.restservice.workgroups.service.WorkgroupsService;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class UsersService {
 
   @Autowired
   private JwtTokenUtil jwtTokenUtil;
+
+  @Autowired
+  WorkgroupsService workgroupsService;
 
   private boolean getPasswordSafety(String password) {
     return hasMinimumSafetyLength(password);
@@ -84,6 +88,17 @@ public class UsersService {
     }
 
     return refreshedUserTokens;
+  }
+
+  public User getAuthorizedUser(String bearerToken, String workGroupKey) {
+    String userName = jwtTokenUtil.getUsernameFromBearerToken(bearerToken);
+    User user = usersRepository.getUser(userName);
+
+    boolean isWorkGroupIncludesUser = workgroupsService.isWorkGroupIncludesUser(workGroupKey, user);
+
+    if (!isWorkGroupIncludesUser) return null;
+
+    return user;
   }
 
 }
