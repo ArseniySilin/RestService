@@ -4,6 +4,7 @@ com/example/restservice/workgroups/repository/WorkgroupsRepository.class
 com/example/restservice/GeneratedURL.class
 com/example/restservice/users/controller/UsersController.class
 com/example/restservice/foo/FooRepository.class
+com/example/restservice/templates/repository/TemplatesRepositoryOLD.class
 com/example/restservice/WebSocketConfig.class
 com/example/restservice/workgroups/model/Workgroup.class
 com/example/restservice/RestServiceApplication.class
@@ -36,7 +37,6 @@ com/example/restservice/users/repository/UsersCrudRepository.class
 com/example/restservice/model/ChatMessage.class
 com/example/restservice/users/service/UsersService.class
 com/example/restservice/templates/controller/TemplatesController.class
-com/example/restservice/folders/repository/FoldersRepositoryOLD.class
 com/example/restservice/apierror/ApiError.class
 com/example/restservice/JwtRequestFilter.class
 com/example/restservice/Messages$ERROR$INVALID_TOKEN.class

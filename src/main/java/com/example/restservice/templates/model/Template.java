@@ -2,20 +2,51 @@ package com.example.restservice.templates.model;
 
 import com.example.restservice.common.AllWithFoldersEntity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Template extends AllWithFoldersEntity {
+@Entity
+@Table(name = "templates")
+public class Template extends AllWithFoldersEntity implements Serializable {
+  @Id
+  @Column(name = "key")
   private String key;
+
+  @Column(name = "name")
   private String name;
+
+  @Column(name = "createddatetimeutc")
   private LocalDateTime createdDateTimeUtc;
+
+  @Column(name = "updateddatetimeutc")
   private LocalDateTime updatedDateTimeUtc;
+
+  @Column(name = "createduserfirstname")
   private String createdUserFirstName;
+
+  @Column(name = "createduserlastname")
   private String createdUserLastName;
+
+  @Column(name = "createduserkey")
   private String createdUserKey;
+
+  @Column(name = "createdusername")
   private String createdUserName;
-  private String folderKey;
-  private boolean isPart;
+
+  @Column(name = "workgroupkey")
   private String workGroupKey;
+
+  @Column(name = "folderkey")
+  private String folderKey;
+
+  @Column(name = "ispart")
+  private boolean isPart;
+
+  public Template() {}
 
   public Template(
     String key,

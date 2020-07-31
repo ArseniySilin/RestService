@@ -3,7 +3,7 @@ package com.example.restservice.templates.service;
 import com.example.restservice.JwtTokenUtil;
 import com.example.restservice.execptions.EntityNotFoundException;
 import com.example.restservice.folders.model.Folder;
-import com.example.restservice.folders.repository.FoldersRepositoryOLD;
+import com.example.restservice.folders.repository.FoldersRepository;
 import com.example.restservice.templates.model.Template;
 import com.example.restservice.templates.model.TemplatesAllWithFoldersPage;
 import com.example.restservice.templates.model.TemplatesAllWithFoldersPageBuilder;
@@ -13,7 +13,6 @@ import com.example.restservice.workgroups.repository.WorkgroupsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +29,7 @@ public class TemplatesService {
   private TemplatesRepository templatesRepository;
 
   @Autowired
-  FoldersRepositoryOLD foldersRepository;
+  FoldersRepository foldersRepository;
 
   public TemplatesAllWithFoldersPage getAllWithFoldersPage(String token, String workGroupKey, Map<String, String> queryParams)
     throws EntityNotFoundException {
@@ -54,17 +53,13 @@ public class TemplatesService {
       throw new EntityNotFoundException(Workgroup.class);
     }
 
-    // TODO: get folders and templates in parallel
+    // TODO: get folders and templates in parallel using Thread Pool
 
     // get all folders in workGroup
-    List<Folder> folders;
-    Map<String, Folder> foldersMap = foldersRepository.getFolders(workGroupKey, folderKey);
-    folders = new ArrayList<>(foldersMap.values());
+    List<Folder> folders = foldersRepository.findByWorkGroupKeyAndParentFolderKey(workGroupKey, folderKey);
 
     // get all templates in workGroup
-    List<Template> templates;
-    Map<String, Template> templatesMap = templatesRepository.getTemplates(workGroupKey, folderKey);
-    templates = new ArrayList<>(templatesMap.values());
+    List<Template> templates = templatesRepository.findByWorkGroupKeyAndFolderKey(workGroupKey, folderKey);
 
     // build page
     TemplatesAllWithFoldersPageBuilder pb = new TemplatesAllWithFoldersPageBuilder(
