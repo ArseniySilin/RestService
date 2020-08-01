@@ -23,6 +23,7 @@ com/example/restservice/Messages$ERROR.class
 com/example/restservice/folders/repository/FoldersRepository.class
 com/example/restservice/WebSocketEventListener.class
 com/example/restservice/UserTokens.class
+com/example/restservice/folders/service/FoldersService.class
 com/example/restservice/DBCPDataSource.class
 com/example/restservice/folders/model/Folder.class
 com/example/restservice/folders/controller/FoldersController.class
@@ -60,4 +61,5 @@ com/example/restservice/users/model/User.class
 com/example/restservice/Messages$SUCCESS.class
 com/example/restservice/templates/model/TemplatesAllWithFoldersPage.class
 com/example/restservice/templates/model/TemplatesAllWithFolders.class
+com/example/restservice/folders/model/CreateFolderRequest.class
 com/example/restservice/foo/FooService.class

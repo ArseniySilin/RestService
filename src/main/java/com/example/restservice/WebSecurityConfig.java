@@ -1,6 +1,7 @@
 package com.example.restservice;
 
 import com.example.restservice.users.controller.UsersController;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -49,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
     httpSecurity
+      .cors().and()
       .csrf().disable()
       .authorizeRequests()
       .antMatchers(
@@ -58,16 +62,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       )
       .permitAll().
       anyRequest()
-      .authenticated()
-      .and()
+      .authenticated().and()
       .exceptionHandling()
-      .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-      .and()
+      .authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
       .sessionManagement()
       .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-    httpSecurity.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-
     httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+  }
+
+  @Bean
+  public CorsFilter corsFilter() {
+    UrlBasedCorsConfigurationSource source = new
+      UrlBasedCorsConfigurationSource();
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowCredentials(true);
+    config.addAllowedOrigin("*");
+    config.addAllowedHeader("*");
+    config.addAllowedMethod("*");
+    source.registerCorsConfiguration("/**", config);
+    return new CorsFilter(source);
   }
 }

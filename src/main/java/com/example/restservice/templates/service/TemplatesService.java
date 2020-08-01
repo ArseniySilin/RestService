@@ -13,11 +13,9 @@ import com.example.restservice.users.model.User;
 import com.example.restservice.users.service.UsersService;
 import com.example.restservice.workgroups.model.Workgroup;
 import com.example.restservice.workgroups.repository.WorkgroupsRepository;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;

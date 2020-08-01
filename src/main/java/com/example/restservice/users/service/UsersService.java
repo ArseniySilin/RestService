@@ -91,7 +91,11 @@ public class UsersService {
   }
 
   public User getAuthorizedUser(String bearerToken, String workGroupKey) {
+    System.out.println("getAuthorizedUser::bearerToken: " + bearerToken);
+
     String userName = jwtTokenUtil.getUsernameFromBearerToken(bearerToken);
+
+    System.out.println("getAuthorizedUser::userName: " + userName);
     User user = usersRepository.getUser(userName);
 
     boolean isWorkGroupIncludesUser = workgroupsService.isWorkGroupIncludesUser(workGroupKey, user);

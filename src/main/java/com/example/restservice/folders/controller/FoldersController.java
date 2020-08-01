@@ -2,27 +2,52 @@ package com.example.restservice.folders.controller;
 
 import com.example.restservice.CommonResponse;
 import com.example.restservice.Messages;
+import com.example.restservice.folders.model.CreateFolderRequest;
 import com.example.restservice.folders.model.Folder;
-import com.example.restservice.folders.repository.FoldersRepository;
+import com.example.restservice.folders.service.FoldersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
+@RequestMapping("/WorkGroups/{workGroupKey}")
 public class FoldersController {
   @Autowired
-  FoldersRepository foldersRepository;
+  FoldersService foldersService;
 
-  @GetMapping(value = "/WorkGroups/{workGroupKey}/Folders/All")
+  @GetMapping(value = "/TemplateFolder/All")
   public ResponseEntity<CommonResponse> getFolders(@PathVariable String workGroupKey) {
     List<Folder> folderList =
-      foldersRepository.findByWorkGroupKeyAndParentFolderKey(workGroupKey, null);
+      foldersService.getFolders(workGroupKey);
     return ResponseEntity.ok(
       new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, folderList)
     );
+  }
+
+  @PostMapping(value = "/TemplateFolder")
+  public ResponseEntity<CommonResponse> createFolder(
+    @RequestBody CreateFolderRequest createFolderRequest,
+    @RequestHeader("authorization") String token) {
+      foldersService.saveFolder(token, createFolderRequest);
+
+      return ResponseEntity.ok(
+        new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, null)
+      );
+  }
+
+  @DeleteMapping(value = "/TemplateFolder/{key}")
+  public ResponseEntity<CommonResponse> deleteFolder(
+    @RequestHeader("authorization") String token,
+    @PathVariable String workGroupKey,
+    @PathVariable String key) {
+
+      foldersService.deleteFolder(token, key, workGroupKey);
+
+      return ResponseEntity.ok(
+        new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, null)
+      );
   }
 }
