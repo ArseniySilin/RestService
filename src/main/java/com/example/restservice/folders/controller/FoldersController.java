@@ -2,7 +2,7 @@ package com.example.restservice.folders.controller;
 
 import com.example.restservice.CommonResponse;
 import com.example.restservice.Messages;
-import com.example.restservice.folders.model.CreateFolderRequest;
+import com.example.restservice.folders.model.CommonFolderRequest;
 import com.example.restservice.folders.model.Folder;
 import com.example.restservice.folders.service.FoldersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/WorkGroups/{workGroupKey}")
 public class FoldersController {
   @Autowired
@@ -29,9 +28,9 @@ public class FoldersController {
 
   @PostMapping(value = "/TemplateFolder")
   public ResponseEntity<CommonResponse> createFolder(
-    @RequestBody CreateFolderRequest createFolderRequest,
+    @RequestBody CommonFolderRequest commonFolderRequest,
     @RequestHeader("authorization") String token) {
-      foldersService.saveFolder(token, createFolderRequest);
+      foldersService.saveFolder(token, commonFolderRequest);
 
       return ResponseEntity.ok(
         new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, null)
@@ -42,12 +41,25 @@ public class FoldersController {
   public ResponseEntity<CommonResponse> deleteFolder(
     @RequestHeader("authorization") String token,
     @PathVariable String workGroupKey,
-    @PathVariable String key) {
-
+    @PathVariable String key
+  ) {
       foldersService.deleteFolder(token, key, workGroupKey);
 
       return ResponseEntity.ok(
         new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, null)
       );
+  }
+
+  @PutMapping(value = "/TemplateFolder/{key}")
+  public ResponseEntity<CommonResponse> updateFolder(
+    @RequestHeader("authorization") String token,
+    @PathVariable String key,
+    @RequestBody CommonFolderRequest commonFolderRequest
+  ) {
+    Folder updatedFolder = foldersService.updateFolder(token, key, commonFolderRequest);
+
+    return ResponseEntity.ok(
+      new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, updatedFolder)
+    );
   }
 }

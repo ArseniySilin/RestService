@@ -19,6 +19,7 @@ com/example/restservice/foo/Foo.class
 com/example/restservice/model/ChatMessage$MessageType.class
 com/example/restservice/templates/model/PageInfo.class
 com/example/restservice/WebSecurityConfig.class
+com/example/restservice/folders/model/CommonFolderRequest.class
 com/example/restservice/Messages$ERROR.class
 com/example/restservice/folders/repository/FoldersRepository.class
 com/example/restservice/WebSocketEventListener.class
@@ -61,5 +62,4 @@ com/example/restservice/users/model/User.class
 com/example/restservice/Messages$SUCCESS.class
 com/example/restservice/templates/model/TemplatesAllWithFoldersPage.class
 com/example/restservice/templates/model/TemplatesAllWithFolders.class
-com/example/restservice/folders/model/CreateFolderRequest.class
 com/example/restservice/foo/FooService.class

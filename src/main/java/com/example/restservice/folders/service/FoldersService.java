@@ -1,6 +1,6 @@
 package com.example.restservice.folders.service;
 
-import com.example.restservice.folders.model.CreateFolderRequest;
+import com.example.restservice.folders.model.CommonFolderRequest;
 import com.example.restservice.folders.model.Folder;
 import com.example.restservice.folders.repository.FoldersRepository;
 import com.example.restservice.users.model.User;
@@ -26,11 +26,11 @@ public class FoldersService {
     return foldersRepository.findByWorkGroupKeyAndParentFolderKey(workGroupKey, null);
   }
 
-  public void saveFolder(String token, CreateFolderRequest createFolderRequest) {
-    String name = createFolderRequest.getName();
-    int folderType = createFolderRequest.getFolderType();
-    String parentFolderKey = createFolderRequest.getParentFolderKey();
-    String workGroupKey = createFolderRequest.getWorkgroupKey();
+  public void saveFolder(String token, CommonFolderRequest commonFolderRequest) {
+    String name = commonFolderRequest.getName();
+    int folderType = commonFolderRequest.getFolderType();
+    String parentFolderKey = commonFolderRequest.getParentFolderKey();
+    String workGroupKey = commonFolderRequest.getWorkgroupKey();
     User user = usersService.getAuthorizedUser(token, workGroupKey);
     String key = UUID.randomUUID().toString();
     String createdUserFirstName = user.getFirstName();
@@ -66,6 +66,49 @@ public class FoldersService {
     );
 
     foldersRepository.save(folder);
+  }
+
+  public Folder updateFolder(String token, String folderKey, CommonFolderRequest commonFolderRequest) {
+    String name = commonFolderRequest.getName();
+//    int folderType = commonFolderRequest.getFolderType();
+//    String parentFolderKey = commonFolderRequest.getParentFolderKey();
+//    String workGroupKey = commonFolderRequest.getWorkgroupKey();
+//    User user = usersService.getAuthorizedUser(token, workGroupKey);
+//    String key = UUID.randomUUID().toString();
+//    String createdUserFirstName = user.getFirstName();
+//    String createdUserLastName = user.getLastName();
+//    String createdUserName = user.getUsername();
+//    String createdUserKey = user.getKey();
+//    LocalDateTime createdDateTimeUtc = LocalDateTime.now();
+//    LocalDateTime updatedDateTimeUtc = LocalDateTime.now();
+//    String parentFolderName = null;
+//
+//    if (parentFolderKey != null) {
+//      Optional<Folder> optionalParentFolder = foldersRepository.findById(parentFolderKey);
+//
+//      if (optionalParentFolder.isPresent()) {
+//        Folder parentFolder = optionalParentFolder.get();
+//        parentFolderName = parentFolder.getName();
+//      }
+//    }
+//
+//    Folder folder = new Folder(
+//      key,
+//      name,
+//      createdUserFirstName,
+//      createdUserLastName,
+//      createdUserName,
+//      createdUserKey,
+//      createdDateTimeUtc,
+//      updatedDateTimeUtc,
+//      folderType,
+//      parentFolderKey,
+//      parentFolderName,
+//      workGroupKey
+//    );
+    foldersRepository.setFolderNameByKey(name, folderKey);
+
+    return foldersRepository.getOne(folderKey);
   }
 
   public void deleteFolder(String token, String key, String workGroupKey) {
