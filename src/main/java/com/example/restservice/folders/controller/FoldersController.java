@@ -54,9 +54,10 @@ public class FoldersController {
   public ResponseEntity<CommonResponse> updateFolder(
     @RequestHeader("authorization") String token,
     @PathVariable String key,
+    @PathVariable String workGroupKey,
     @RequestBody CommonFolderRequest commonFolderRequest
   ) {
-    Folder updatedFolder = foldersService.updateFolder(token, key, commonFolderRequest);
+    Folder updatedFolder = foldersService.updateFolder(token, workGroupKey, key, commonFolderRequest);
 
     return ResponseEntity.ok(
       new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, updatedFolder)

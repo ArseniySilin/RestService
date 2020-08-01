@@ -24,7 +24,7 @@ public interface FoldersRepository extends JpaRepository<Folder, String> {
     @Param("workGroupKey") String workGroupKey
   );
 
-//  @Transactional
+  @Transactional
   @Modifying
   @Query("UPDATE Folder f SET f.name = :name WHERE f.key = :key")
   void setFolderNameByKey(
