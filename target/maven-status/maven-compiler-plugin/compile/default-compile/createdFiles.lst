@@ -17,7 +17,6 @@ com/example/restservice/entities/templates/model/Template.class
 com/example/restservice/entities/folders/controller/FoldersController.class
 com/example/restservice/entities/common/AllWithFoldersEntity.class
 com/example/restservice/entities/templates/repository/TemplatesRepository.class
-com/example/restservice/ExceptionHandler2.class
 com/example/restservice/execptions/EntityAlreadyExistsException.class
 com/example/restservice/entities/workgroups/controller/WorkgroupsController.class
 com/example/restservice/entities/users/model/UserTokens.class

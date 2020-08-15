@@ -54,7 +54,6 @@ public class TemplatesController {
     @PathVariable("key") String key,
     @RequestBody MoveTemplateToFolderRequest moveTemplateToFolderRequest
   ) {
-    System.out.println(">>>> MOVE TO FOLDER");
     templatesService.moveTemplateToFolder(workGroupKey, key, moveTemplateToFolderRequest.getFolderKey());
 
     return ResponseEntity.ok(
