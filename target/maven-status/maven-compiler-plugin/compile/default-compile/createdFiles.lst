@@ -2,7 +2,6 @@ com/example/restservice/entities/templates/model/PageInfo.class
 com/example/restservice/apierror/ApiSubError.class
 com/example/restservice/utils/jwt/JwtUserDetailsService.class
 com/example/restservice/filters/JwtRequestFilter.class
-com/example/restservice/GeneratedURL.class
 com/example/restservice/entities/chat/model/ChatMessage.class
 com/example/restservice/entities/users/controller/UsersController.class
 com/example/restservice/entities/users/service/UsersService.class
@@ -37,7 +36,6 @@ com/example/restservice/entities/folders/model/Folder.class
 com/example/restservice/entities/users/model/User.class
 com/example/restservice/Messages$ERROR$INCORRECT_PASSWORD.class
 com/example/restservice/entities/folders/model/CommonFolderRequest.class
-com/example/restservice/GenerateURLController.class
 com/example/restservice/Messages$ERROR$USER_ALREADY_EXISTS.class
 com/example/restservice/RestExceptionHandler.class
 com/example/restservice/entities/folders/service/FoldersService.class
@@ -46,7 +44,6 @@ com/example/restservice/Messages$ERROR$INVALID_TOKEN.class
 com/example/restservice/entities/users/exceptions/UsersException.class
 com/example/restservice/apierror/ApiValidationError.class
 com/example/restservice/Messages.class
-com/example/restservice/Response.class
 com/example/restservice/entities/folders/repository/FoldersRepository.class
 com/example/restservice/execptions/EntityNotFoundException.class
 com/example/restservice/entities/workgroups/model/Workgroup.class
