@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-import com.example.restservice.model.ChatMessage;
+import com.example.restservice.entities.chat.model.ChatMessage;
 
 @Component
 public class WebSocketEventListener {

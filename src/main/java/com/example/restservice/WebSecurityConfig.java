@@ -1,7 +1,9 @@
 package com.example.restservice;
 
-import com.example.restservice.users.controller.UsersController;
+import com.example.restservice.filters.JwtRequestFilter;
+import com.example.restservice.entities.users.controller.UsersController;
 
+import com.example.restservice.utils.jwt.JwtAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
