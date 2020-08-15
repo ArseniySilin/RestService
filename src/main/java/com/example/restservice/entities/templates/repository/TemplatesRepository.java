@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface TemplatesRepository extends JpaRepository<Template, String> {
-  @Query("SELECT t FROM Template t WHERE t.workGroupKey = :workGroupKey AND (:folderKey is NULL OR t.folderKey = :folderKey)")
+  @Query("SELECT t FROM Template t WHERE t.workGroupKey = :workGroupKey AND (t.folderKey is NULL OR t.folderKey = :folderKey)")
   List<Template> findByWorkGroupKeyAndFolderKey(
     @Param("workGroupKey") String workGroupKey,
     @Param("folderKey") String folderKey
