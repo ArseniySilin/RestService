@@ -1,5 +1,6 @@
 package com.example.restservice;
 
+import com.example.restservice.entities.common.CommonResponse;
 import com.example.restservice.entities.users.exceptions.UsersException;
 import com.example.restservice.apierror.ApiError;
 import com.example.restservice.execptions.EntityAlreadyExistsException;
@@ -10,12 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-//import javax.persistence.EntityNotFoundException;
 import com.example.restservice.execptions.EntityNotFoundException;
 import static org.springframework.http.HttpStatus.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
@@ -28,11 +28,20 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     HttpStatus status,
     WebRequest request) {
     String error = "Malformed JSON request";
+
     return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex));
   }
 
   private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
-    return new ResponseEntity<>(apiError, apiError.getStatus());
+    return new ResponseEntity<>(
+      new CommonResponse(
+        apiError.getMessage(),
+        -1,
+        null, // TODO: implement sub errors
+        null
+      ),
+      apiError.getStatus()
+    );
   }
 
   @ExceptionHandler(Exception.class)

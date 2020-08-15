@@ -23,4 +23,18 @@ public interface TemplatesRepository extends JpaRepository<Template, String> {
     @Param("workGroupKey") String workGroupKey,
     @Param("key") String key
   );
+
+  @Query("SELECT t FROM Template t WHERE t.workGroupKey = :workGroupKey AND t.key = :key")
+  Template findByWorkGroupKeyAndKey(
+    @Param("workGroupKey") String workGroupKey,
+    @Param("key") String key
+  );
+
+  @Modifying
+  @Query("UPDATE Template t SET t.folderKey = :nextFolderKey WHERE t.workGroupKey = :workGroupKey AND t.key = :key")
+  void moveToFolder(
+    @Param("workGroupKey") String workGroupKey,
+    @Param("key") String key,
+    @Param("nextFolderKey") String nextFolderKey
+  );
 }

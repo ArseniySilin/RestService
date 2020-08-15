@@ -27,7 +27,13 @@ public class FoldersService {
   }
 
   public Folder getFolder(String workGroupKey, String key) {
-    return foldersRepository.findByWorkGroupKeyAndKey(workGroupKey, key);
+    Folder folder = foldersRepository.findByWorkGroupKeyAndKey(workGroupKey, key);
+
+    if (folder == null) {
+      throw new EntityNotFoundException(Folder.class);
+    }
+
+    return folder;
   }
 
   public void saveFolder(String token, CommonFolderRequest commonFolderRequest) {

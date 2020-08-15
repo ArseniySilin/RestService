@@ -11,7 +11,6 @@ import com.example.restservice.entities.templates.model.TemplatesAllWithFoldersP
 import com.example.restservice.entities.templates.repository.TemplatesRepository;
 import com.example.restservice.entities.users.model.User;
 import com.example.restservice.entities.users.service.UsersService;
-import com.example.restservice.entities.workgroups.model.Workgroup;
 import com.example.restservice.entities.workgroups.repository.WorkgroupsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,30 +38,15 @@ public class TemplatesService {
   @Autowired
   UsersService usersService;
 
-  public TemplatesAllWithFoldersPage getAllWithFoldersPage(String token, String workGroupKey, Map<String, String> queryParams)
+  public TemplatesAllWithFoldersPage getAllWithFoldersPage(String workGroupKey, Map<String, String> queryParams)
     throws EntityNotFoundException {
-    String userId = jwtTokenUtil.getUserIdFromBearerToken(token);
-
-    if (userId == null) {
-      // TODO: replace with invalid token exception
-      throw new EntityNotFoundException(com.example.restservice.entities.users.model.User.class);
-    }
-
     String folderKey = queryParams.get("folderKey");
     String pageNumber = queryParams.getOrDefault("pageNumber", "1");
     String itemsPerPage = queryParams.getOrDefault("itemsPerPage", "15");
     String columnToOrderBy = queryParams.getOrDefault("columnToOrderBy", "2");
     String orderBy = queryParams.getOrDefault("orderBy", "0");
 
-    // TODO: move this validation to some filter
-    // check if user exists in workGroup
-    Map<String, Workgroup> workGroups = workgroupsRepository.getWorkGroupsIncludingUser(userId);
-
-    if (workGroups.isEmpty()) {
-      throw new EntityNotFoundException(Workgroup.class);
-    }
-
-    // TODO: get folders and templates in parallel using Thread Pool
+    // TODO: get folders and templates in parallel
 
     // get all folders in workGroup
     List<Folder> folders = foldersRepository.findByWorkGroupKeyAndParentFolderKey(workGroupKey, folderKey);
@@ -116,6 +100,23 @@ public class TemplatesService {
   }
 
   public void deleteTemplate(String workGroupKey, String key) {
-    templatesRepository.deleteByWorkGroupKeyAndKey(workGroupKey, key);
+    Template template = templatesRepository.findByWorkGroupKeyAndKey(workGroupKey, key);
+
+    if (template != null) {
+      templatesRepository.deleteByWorkGroupKeyAndKey(workGroupKey, key);
+    } else {
+      throw new EntityNotFoundException(Template.class);
+    }
+  }
+
+  public void moveTemplateToFolder(String workGroupKey, String key, String nextFolderKey)
+    throws EntityNotFoundException {
+    Template template = templatesRepository.findByWorkGroupKeyAndKey(workGroupKey, key);
+
+    if (template != null) {
+      templatesRepository.moveToFolder(workGroupKey, key, nextFolderKey);
+    } else {
+      throw new EntityNotFoundException(Template.class);
+    }
   }
 }

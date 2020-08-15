@@ -3,6 +3,7 @@ package com.example.restservice.entities.templates.controller;
 import com.example.restservice.entities.common.CommonResponse;
 import com.example.restservice.Messages;
 import com.example.restservice.entities.templates.model.CreateTemplateRequest;
+import com.example.restservice.entities.templates.model.MoveTemplateToFolderRequest;
 import com.example.restservice.entities.templates.model.TemplatesAllWithFoldersPage;
 import com.example.restservice.entities.templates.service.TemplatesService;
 import com.example.restservice.entities.users.service.UsersService;
@@ -25,10 +26,9 @@ public class TemplatesController {
   @GetMapping(value = "WorkGroups/{workGroupKey}/Templates/AllWithFolders")
   public ResponseEntity<CommonResponse> getAllWithFoldersPage(
     @PathVariable("workGroupKey") String workGroupKey,
-    @RequestParam Map<String, String> queryParams,
-    @RequestHeader("authorization") String token) {
+    @RequestParam Map<String, String> queryParams) {
 
-    TemplatesAllWithFoldersPage templatesAllWithFolders = templatesService.getAllWithFoldersPage(token, workGroupKey, queryParams);
+    TemplatesAllWithFoldersPage templatesAllWithFolders = templatesService.getAllWithFoldersPage(workGroupKey, queryParams);
 
     return ResponseEntity.ok(
       new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, templatesAllWithFolders)
@@ -42,6 +42,20 @@ public class TemplatesController {
     @RequestHeader("authorization") String token
   ) {
     templatesService.saveTemplate(token, workGroupKey, createTemplateRequest);
+
+    return ResponseEntity.ok(
+      new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, null)
+    );
+  }
+
+  @PostMapping(value = "WorkGroups/{workGroupKey}/Templates/{key}/moveToFolder")
+  public ResponseEntity<CommonResponse> moveTemplateToFolder(
+    @PathVariable("workGroupKey") String workGroupKey,
+    @PathVariable("key") String key,
+    @RequestBody MoveTemplateToFolderRequest moveTemplateToFolderRequest
+  ) {
+    System.out.println(">>>> MOVE TO FOLDER");
+    templatesService.moveTemplateToFolder(workGroupKey, key, moveTemplateToFolderRequest.getFolderKey());
 
     return ResponseEntity.ok(
       new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, null)

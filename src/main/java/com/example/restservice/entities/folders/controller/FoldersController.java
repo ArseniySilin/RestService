@@ -17,13 +17,14 @@ public class FoldersController {
   @Autowired
   FoldersService foldersService;
 
-  @GetMapping(value = "/TemplateFolder/All")
+  @GetMapping(value = "/TemplateFolder/all")
   public ResponseEntity<CommonResponse> getFoldersAll(
     @PathVariable String workGroupKey,
-    @RequestParam String folderKey
+    @RequestParam(required = false) String folderKey
   ) {
     List<Folder> folderList =
       foldersService.getFolders(workGroupKey, folderKey);
+
     return ResponseEntity.ok(
       new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, folderList)
     );
@@ -36,6 +37,7 @@ public class FoldersController {
   ) {
     Folder folder =
       foldersService.getFolder(workGroupKey, key);
+
     return ResponseEntity.ok(
       new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, folder)
     );

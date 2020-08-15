@@ -7,7 +7,6 @@ com/example/restservice/entities/chat/model/ChatMessage.class
 com/example/restservice/entities/users/controller/UsersController.class
 com/example/restservice/entities/users/service/UsersService.class
 com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPageBuilder.class
-com/example/restservice/filters/RequestResponseLoggingFilter.class
 com/example/restservice/WebSocketConfig.class
 com/example/restservice/RestServiceApplication.class
 com/example/restservice/entities/common/CommonResponse.class
@@ -18,6 +17,7 @@ com/example/restservice/entities/templates/model/Template.class
 com/example/restservice/entities/folders/controller/FoldersController.class
 com/example/restservice/entities/common/AllWithFoldersEntity.class
 com/example/restservice/entities/templates/repository/TemplatesRepository.class
+com/example/restservice/ExceptionHandler2.class
 com/example/restservice/execptions/EntityAlreadyExistsException.class
 com/example/restservice/entities/workgroups/controller/WorkgroupsController.class
 com/example/restservice/entities/users/model/UserTokens.class
@@ -28,6 +28,7 @@ com/example/restservice/Messages$ERROR.class
 com/example/restservice/entities/workgroups/service/WorkgroupsService.class
 com/example/restservice/WebSocketEventListener.class
 com/example/restservice/entities/chat/controller/ChatController.class
+com/example/restservice/entities/templates/model/MoveTemplateToFolderRequest.class
 com/example/restservice/entities/users/model/Account.class
 com/example/restservice/entities/templates/controller/TemplatesController.class
 com/example/restservice/entities/templates/service/TemplatesService.class
@@ -51,6 +52,7 @@ com/example/restservice/entities/folders/repository/FoldersRepository.class
 com/example/restservice/execptions/EntityNotFoundException.class
 com/example/restservice/entities/workgroups/model/Workgroup.class
 com/example/restservice/entities/users/repository/UsersRepository.class
+com/example/restservice/filters/RequestLoggingFilter.class
 com/example/restservice/Messages$ERROR$UNSAFE_USERNAME.class
 com/example/restservice/utils/jwt/JwtAuthenticationEntryPoint.class
 com/example/restservice/entities/workgroups/repository/WorkgroupsRepository.class
