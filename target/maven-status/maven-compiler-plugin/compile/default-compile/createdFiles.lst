@@ -31,7 +31,6 @@ com/example/restservice/entities/users/model/Account.class
 com/example/restservice/entities/templates/controller/TemplatesController.class
 com/example/restservice/entities/templates/service/TemplatesService.class
 com/example/restservice/utils/HashString.class
-com/example/restservice/DBCPDataSource.class
 com/example/restservice/entities/folders/model/Folder.class
 com/example/restservice/entities/users/model/User.class
 com/example/restservice/Messages$ERROR$INCORRECT_PASSWORD.class
