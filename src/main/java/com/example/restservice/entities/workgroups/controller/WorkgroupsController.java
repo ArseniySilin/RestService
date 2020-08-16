@@ -31,7 +31,9 @@ public class WorkgroupsController {
     throws EntityNotFoundException {
     String userId = jwtTokenUtil.getUserIdFromBearerToken(token);
 
-    Map<String, Workgroup> workGroups = workgroupsService.getWorkGroupsIncludingUser(userId);
+    String userKey = jwtTokenUtil.getUserKeyFromToken(token);
+
+    Map<String, Workgroup> workGroups = workgroupsService.getWorkGroupsIncludingUser(userKey);
     List<Workgroup> wokGroupsList = new ArrayList<>(workGroups.values());
 
     return ResponseEntity.ok(new CommonResponse(

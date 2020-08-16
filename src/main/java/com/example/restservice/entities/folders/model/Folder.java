@@ -11,7 +11,7 @@ import com.example.restservice.entities.common.AllWithFoldersEntity;
 
 @Entity
 @Table(name = "folders")
-public class Folder extends AllWithFoldersEntity implements Serializable  {
+public class Folder extends AllWithFoldersEntity implements Serializable {
   @Id
   @Column(name = "key")
   private String key;

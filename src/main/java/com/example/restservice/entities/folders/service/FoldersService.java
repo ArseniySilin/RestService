@@ -1,11 +1,12 @@
 package com.example.restservice.entities.folders.service;
 
+import com.example.restservice.entities.users.service.UsersService;
 import com.example.restservice.execptions.EntityNotFoundException;
 import com.example.restservice.entities.folders.model.CommonFolderRequest;
 import com.example.restservice.entities.folders.model.Folder;
 import com.example.restservice.entities.folders.repository.FoldersRepository;
 import com.example.restservice.entities.users.model.User;
-import com.example.restservice.entities.users.service.UsersService;
+import com.example.restservice.utils.jwt.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,9 @@ public class FoldersService {
 
   @Autowired
   UsersService usersService;
+
+  @Autowired
+  JwtTokenUtil jwtTokenUtil;
 
   public List<Folder> getFolders(String workGroupKey, String parentFolderKey) {
     return foldersRepository.findByWorkGroupKeyAndParentFolderKey(workGroupKey, parentFolderKey);
@@ -41,11 +45,15 @@ public class FoldersService {
     int folderType = commonFolderRequest.getFolderType();
     String parentFolderKey = commonFolderRequest.getParentFolderKey();
     String workGroupKey = commonFolderRequest.getWorkgroupKey();
-    User user = usersService.getAuthorizedUser(token, workGroupKey);
+//    User user = usersService.getAuthorizedUser(token, workGroupKey);
+
+    String userName = jwtTokenUtil.getUsernameFromToken(token);
+    User user = usersService.getUser(userName);
+
     String key = UUID.randomUUID().toString();
     String createdUserFirstName = user.getFirstName();
     String createdUserLastName = user.getLastName();
-    String createdUserName = user.getUsername();
+    String createdUserName = user.getUserName();
     String createdUserKey = user.getKey();
     LocalDateTime createdDateTimeUtc = LocalDateTime.now();
     LocalDateTime updatedDateTimeUtc = LocalDateTime.now();

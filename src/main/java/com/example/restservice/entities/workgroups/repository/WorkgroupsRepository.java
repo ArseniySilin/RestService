@@ -76,11 +76,11 @@ public class WorkgroupsRepository {
     return workGroupKeys;
   }
 
-  public Map<String, Workgroup> getWorkGroupsIncludingUser(String userId) throws EntityNotFoundException {
+  public Map<String, Workgroup> getWorkGroupsIncludingUser(String userKey) throws EntityNotFoundException {
     Map<String, Workgroup> workGroups = new HashMap<>();
 
     try (Connection con = DBCPDataSource.getConnection()) {
-      String userKey = usersRepository.getUserKeyById(con, userId);
+//      String userKey = usersRepository.getUserKeyById(con, userId);
 
       if (userKey == null) {
         throw new EntityNotFoundException(User.class);

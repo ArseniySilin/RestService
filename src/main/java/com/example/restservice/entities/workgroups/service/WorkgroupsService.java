@@ -33,12 +33,12 @@ public class WorkgroupsService {
     return workgroups;
   }
 
-  public Map<String, Workgroup> getWorkGroupsIncludingUser(String userId) throws EntityNotFoundException {
-    if (userId == null) {
-      // TODO: throw InvalidTokenException
-    }
+  public Map<String, Workgroup> getWorkGroupsIncludingUser(String userKey) throws EntityNotFoundException {
+//    if (userId == null) {
+//      // TODO: throw InvalidTokenException
+//    }
 
-    Map<String, Workgroup> workgroups = workgroupsRepository.getWorkGroupsIncludingUser(userId);
+    Map<String, Workgroup> workgroups = workgroupsRepository.getWorkGroupsIncludingUser(userKey);
 
     return workgroups;
   }

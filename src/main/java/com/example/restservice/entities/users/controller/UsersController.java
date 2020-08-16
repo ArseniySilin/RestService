@@ -2,7 +2,6 @@ package com.example.restservice.entities.users.controller;
 
 import com.example.restservice.*;
 import com.example.restservice.entities.common.CommonResponse;
-import com.example.restservice.entities.users.model.User;
 import com.example.restservice.entities.users.model.Account;
 import com.example.restservice.entities.users.model.UserTokens;
 import com.example.restservice.entities.users.service.UsersService;
@@ -29,8 +28,7 @@ public class UsersController {
     produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<CommonResponse> registerAccount(@RequestBody Account account) {
-    User user = new User(account.getUsername(), account.getPassword());
-    usersService.addUser(user);
+    usersService.addUser(account.getUsername(), account.getPassword());
 
     return ResponseEntity.ok(new CommonResponse(
       Messages.SUCCESS.message,

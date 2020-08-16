@@ -1,5 +1,6 @@
 package com.example.restservice.entities.templates.service;
 
+import com.example.restservice.entities.users.service.UsersService;
 import com.example.restservice.utils.jwt.JwtTokenUtil;
 import com.example.restservice.execptions.EntityNotFoundException;
 import com.example.restservice.entities.folders.model.Folder;
@@ -10,7 +11,6 @@ import com.example.restservice.entities.templates.model.TemplatesAllWithFoldersP
 import com.example.restservice.entities.templates.model.TemplatesAllWithFoldersPageBuilder;
 import com.example.restservice.entities.templates.repository.TemplatesRepository;
 import com.example.restservice.entities.users.model.User;
-import com.example.restservice.entities.users.service.UsersService;
 import com.example.restservice.entities.workgroups.repository.WorkgroupsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,13 +69,15 @@ public class TemplatesService {
   }
 
   public void saveTemplate(String token, String workGroupKey, CreateTemplateRequest templateRequest) {
-    User user = usersService.getAuthorizedUser(token, workGroupKey);
+//    User user = usersService.getAuthorizedUser(token, workGroupKey);
+    String userName = jwtTokenUtil.getUsernameFromToken(token);
+    User user = usersService.getUser(userName);
 
     String key = UUID.randomUUID().toString();
     String name = templateRequest.getName();
     String createdUserFirstName = user.getFirstName();
     String createdUserLastName = user.getLastName();
-    String createdUserName = user.getUsername();
+    String createdUserName = user.getUserName();
     String createdUserKey = user.getKey();
     LocalDateTime createdDateTimeUtc = LocalDateTime.now();
     LocalDateTime updatedDateTimeUtc = LocalDateTime.now();
