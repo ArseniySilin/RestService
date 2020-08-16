@@ -45,8 +45,6 @@ public class FoldersService {
     int folderType = commonFolderRequest.getFolderType();
     String parentFolderKey = commonFolderRequest.getParentFolderKey();
     String workGroupKey = commonFolderRequest.getWorkgroupKey();
-//    User user = usersService.getAuthorizedUser(token, workGroupKey);
-
     String userName = jwtTokenUtil.getUsernameFromToken(token);
     User user = usersService.getUser(userName);
 
