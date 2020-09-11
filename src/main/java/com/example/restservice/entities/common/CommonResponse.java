@@ -1,36 +1,19 @@
 package com.example.restservice.entities.common;
 
 import com.example.restservice.apierror.ApiSubError;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.List;
 
+@AllArgsConstructor
 public class CommonResponse {
+  @Getter
   private String code;
+  @Getter
   private int resultCode;
+  @Getter
   private List<ApiSubError> errors;
+  @Getter
   private Object data;
-
-
-  public CommonResponse(String code, int resultCode, List<ApiSubError> errors, Object data) {
-    this.code = code;
-    this.resultCode = resultCode;
-    this.errors = errors;
-    this.data = data;
-  }
-
-  public String getCode() {
-    return code;
-  }
-
-  public int getResultCode() {
-    return resultCode;
-  }
-
-  public List<ApiSubError> getErrors() {
-    return errors;
-  }
-
-  public Object getData() {
-    return data;
-  }
 }

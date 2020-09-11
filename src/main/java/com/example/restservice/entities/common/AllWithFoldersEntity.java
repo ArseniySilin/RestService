@@ -1,26 +1,16 @@
 package com.example.restservice.entities.common;
 
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
 public abstract class AllWithFoldersEntity {
+  @Getter
   String name;
+  @Getter
   String createdUserName;
+  @Getter
   LocalDateTime createdDateTimeUtc;
+  @Getter
   LocalDateTime updatedDateTimeUtc;
-
-  public String getName() {
-    return name;
-  }
-
-  public String getCreatedUserName() {
-    return createdUserName;
-  }
-
-  public LocalDateTime getCreatedDateTimeUtc() {
-    return createdDateTimeUtc;
-  }
-
-  public LocalDateTime getUpdatedDateTimeUtc() {
-    return updatedDateTimeUtc;
-  }
 }

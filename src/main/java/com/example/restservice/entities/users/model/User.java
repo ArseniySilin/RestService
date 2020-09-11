@@ -1,5 +1,8 @@
 package com.example.restservice.entities.users.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,38 +10,46 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
   @Column(name = "id")
+  @Getter
   private Integer id;
 
   @Id
   @Column(name = "key")
+  @Getter
   private String key;
 
   @Column(name = "login")
+  @Getter
   private String userName;
 
   @Column(name = "password")
+  @Getter
   private String password;
 
   @Column(name = "first_name")
+  @Getter
   private String firstName = "Foo";
 
   @Column(name = "last_name")
+  @Getter
   private String lastName = "Bar";
 
   @Column(name = "access_token")
+  @Getter
   private String accessToken;
 
   @Column(name = "refresh_token")
+  @Getter
   private String refreshToken;
 
   @Column(name ="created_on")
+  @Getter
   private LocalDateTime createdOn;
-
-  public User() {}
 
   public User(String userName, String password) {
     this.userName = userName;
@@ -102,28 +113,5 @@ public class User implements Serializable {
     this.password = userWithoutKey.getPassword();
     this.firstName = userWithoutKey.getFirstName();
     this.lastName = userWithoutKey.getLastName();
-  }
-
-  public String getUserName() {
-    return this.userName;
-  }
-  public String getPassword() {
-    return this.password;
-  }
-  public Integer getId() { return this.id; }
-  public String getKey() { return this.key; }
-  public String getFirstName() { return this.firstName; }
-  public String getLastName() { return this.lastName; }
-
-  public String getAccessToken() {
-    return accessToken;
-  }
-
-  public String getRefreshToken() {
-    return refreshToken;
-  }
-
-  public LocalDateTime getCreatedOn() {
-    return createdOn;
   }
 }

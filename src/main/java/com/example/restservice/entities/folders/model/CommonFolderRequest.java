@@ -1,32 +1,16 @@
 package com.example.restservice.entities.folders.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
 public class CommonFolderRequest {
+  @Getter
   private String name;
+  @Getter
   private int folderType;
+  @Getter
   private String parentFolderKey;
+  @Getter
   private String workgroupKey;
-
-
-  public CommonFolderRequest(String name, int folderType, String parentFolderKey, String workgroupKey) {
-    this.name = name;
-    this.folderType = folderType;
-    this.workgroupKey = workgroupKey;
-    this.parentFolderKey = parentFolderKey;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public int getFolderType() {
-    return folderType;
-  }
-
-  public String getWorkgroupKey() {
-    return workgroupKey;
-  }
-
-  public String getParentFolderKey() {
-    return parentFolderKey;
-  }
 }

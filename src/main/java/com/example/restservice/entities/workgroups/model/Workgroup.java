@@ -1,5 +1,7 @@
 package com.example.restservice.entities.workgroups.model;
 
+import lombok.Getter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,18 +13,23 @@ import java.time.LocalDateTime;
 public class Workgroup {
   @Id
   @Column(name = "key")
+  @Getter
   private String key;
 
   @Column(name = "name")
+  @Getter
   private String name;
 
   @Column(name = "publicid")
+  @Getter
   private String publicId;
 
   @Column(name = "createddatetimeutc")
+  @Getter
   private LocalDateTime createdDateTimeUtc;
 
   @Column(name = "createduserkey")
+  @Getter
   private String createdUserKey;
 
   public Workgroup() {}
@@ -43,25 +50,5 @@ public class Workgroup {
     this.publicId = publicId;
     this.createdDateTimeUtc = createdDateTimeUtc;
     this.createdUserKey = createdUserKey;
-  }
-
-  public String getKey() {
-    return key;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public String getPublicId() {
-    return publicId;
-  }
-
-  public LocalDateTime getCreatedDateTimeUtc() {
-    return createdDateTimeUtc;
-  }
-
-  public String getCreatedUserKey() {
-    return createdUserKey;
   }
 }
