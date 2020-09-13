@@ -8,28 +8,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 @Table(name = "workgroups")
 public class Workgroup {
   @Id
   @Column(name = "key")
-  @Getter
   private String key;
 
   @Column(name = "name")
-  @Getter
   private String name;
 
   @Column(name = "publicid")
-  @Getter
   private String publicId;
 
   @Column(name = "createddatetimeutc")
-  @Getter
   private LocalDateTime createdDateTimeUtc;
 
   @Column(name = "createduserkey")
-  @Getter
   private String createdUserKey;
 
   public Workgroup() {}

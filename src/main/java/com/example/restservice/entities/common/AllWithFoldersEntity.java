@@ -24,27 +24,21 @@ public abstract class AllWithFoldersEntity {
   @Column(name = "name")
   String name;
 
-  //  @Getter
   @Column(name = "createduserfirstname")
   String createdUserFirstName;
 
-  //  @Getter
   @Column(name = "createduserlastname")
   String createdUserLastName;
 
-  //  @Getter
   @Column(name = "createdusername")
   String createdUserName;
 
-  //  @Getter
   @Column(name = "createduserkey")
   String createdUserKey;
 
-  //  @Getter
   @Column(name = "createddatetimeutc")
   LocalDateTime createdDateTimeUtc;
 
-  //  @Getter
   @Column(name = "updateddatetimeutc")
   LocalDateTime updatedDateTimeUtc;
 }

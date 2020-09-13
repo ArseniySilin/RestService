@@ -4,13 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
+@Getter
 public class CommonFolderRequest {
-  @Getter
   private String name;
-  @Getter
   private int folderType;
-  @Getter
   private String parentFolderKey;
-  @Getter
   private String workgroupKey;
 }

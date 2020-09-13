@@ -11,44 +11,36 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
+@Getter
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
   @Column(name = "id")
-  @Getter
   private Integer id;
 
   @Id
   @Column(name = "key")
-  @Getter
   private String key;
 
   @Column(name = "login")
-  @Getter
   private String userName;
 
   @Column(name = "password")
-  @Getter
   private String password;
 
   @Column(name = "first_name")
-  @Getter
   private String firstName = "Foo";
 
   @Column(name = "last_name")
-  @Getter
   private String lastName = "Bar";
 
   @Column(name = "access_token")
-  @Getter
   private String accessToken;
 
   @Column(name = "refresh_token")
-  @Getter
   private String refreshToken;
 
   @Column(name ="created_on")
-  @Getter
   private LocalDateTime createdOn;
 
   public User(String userName, String password) {

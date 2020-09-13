@@ -7,13 +7,10 @@ import lombok.Getter;
 import java.util.List;
 
 @AllArgsConstructor
+@Getter
 public class CommonResponse {
-  @Getter
   private String code;
-  @Getter
   private int resultCode;
-  @Getter
   private List<ApiSubError> errors;
-  @Getter
   private Object data;
 }
