@@ -86,6 +86,7 @@ public class TemplatesService {
 
     Template template = new Template(
       key,
+      workGroupKey,
       name,
       createdUserFirstName,
       createdUserLastName,
@@ -94,8 +95,7 @@ public class TemplatesService {
       createdDateTimeUtc,
       updatedDateTimeUtc,
       folderKey,
-      isPart,
-      workGroupKey
+      isPart
     );
 
     templatesRepository.save(template);

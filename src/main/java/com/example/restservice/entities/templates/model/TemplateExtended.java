@@ -27,6 +27,7 @@ public class TemplateExtended extends Template {
   ) {
     super(
       key,
+      workGroupKey,
       name,
       createdUserFirstName,
       createdUserLastName,
@@ -35,8 +36,7 @@ public class TemplateExtended extends Template {
       createdDateTimeUtc,
       updatedDateTimeUtc,
       folderKey,
-      isPart,
-      workGroupKey
+      isPart
     );
 
     this.content = content;

@@ -33,6 +33,7 @@ com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPage2.cl
 com/example/restservice/entities/templates/service/TemplatesService.class
 com/example/restservice/utils/HashString.class
 com/example/restservice/entities/folders/model/Folder.class
+com/example/restservice/entities/templates/model/Template$TemplateBuilder.class
 com/example/restservice/entities/users/model/User.class
 com/example/restservice/Messages$ERROR$INCORRECT_PASSWORD.class
 com/example/restservice/entities/folders/model/CommonFolderRequest.class
@@ -53,6 +54,7 @@ com/example/restservice/Messages$ERROR$UNSAFE_USERNAME.class
 com/example/restservice/utils/jwt/JwtAuthenticationEntryPoint.class
 com/example/restservice/entities/workgroups/repository/WorkgroupsRepository.class
 com/example/restservice/entities/templates/model/TemplatesAllWithFolders.class
+com/example/restservice/entities/folders/model/Folder$FolderBuilder.class
 com/example/restservice/utils/jwt/JwtTokenUtil.class
 com/example/restservice/Messages$ERROR$USERNAME_DO_NOT_EXIST.class
 com/example/restservice/Messages$ERROR$ENTITY_ALREADY_EXISTS.class

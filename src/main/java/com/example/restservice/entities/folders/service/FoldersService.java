@@ -67,6 +67,7 @@ public class FoldersService {
 
     Folder folder = new Folder(
       key,
+      workGroupKey,
       name,
       createdUserFirstName,
       createdUserLastName,
@@ -76,8 +77,7 @@ public class FoldersService {
       updatedDateTimeUtc,
       folderType,
       parentFolderKey,
-      parentFolderName,
-      workGroupKey
+      parentFolderName
     );
 
     foldersRepository.save(folder);
