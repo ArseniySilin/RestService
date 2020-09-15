@@ -20,7 +20,7 @@ public class Template extends AllWithFoldersEntity implements Serializable {
   private String folderKey;
 
   @Column(name = "ispart")
-  private boolean isPart;
+  private Boolean isPart;
 
   @Builder
   public Template(

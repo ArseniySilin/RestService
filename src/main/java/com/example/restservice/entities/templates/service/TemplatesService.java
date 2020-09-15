@@ -1,14 +1,12 @@
 package com.example.restservice.entities.templates.service;
 
+import com.example.restservice.entities.templates.model.*;
+import com.example.restservice.entities.templates.repository.AllWithFoldersRepository;
 import com.example.restservice.entities.users.service.UsersService;
 import com.example.restservice.utils.jwt.JwtTokenUtil;
 import com.example.restservice.execptions.EntityNotFoundException;
 import com.example.restservice.entities.folders.model.Folder;
 import com.example.restservice.entities.folders.repository.FoldersRepository;
-import com.example.restservice.entities.templates.model.CreateTemplateRequest;
-import com.example.restservice.entities.templates.model.Template;
-import com.example.restservice.entities.templates.model.TemplatesAllWithFoldersPage;
-import com.example.restservice.entities.templates.model.TemplatesAllWithFoldersPageBuilder;
 import com.example.restservice.entities.templates.repository.TemplatesRepository;
 import com.example.restservice.entities.users.model.User;
 import com.example.restservice.entities.workgroups.repository.WorkgroupsRepository;
@@ -37,6 +35,13 @@ public class TemplatesService {
 
   @Autowired
   UsersService usersService;
+
+  @Autowired
+  AllWithFoldersRepository allWithFoldersRepository;
+
+  public List<TemplatesAllWithFoldersPage22> getAllWithFoldersPage2() {
+    return allWithFoldersRepository.findAllWithFolders();
+  }
 
   public TemplatesAllWithFoldersPage getAllWithFoldersPage(String workGroupKey, Map<String, String> queryParams)
     throws EntityNotFoundException {

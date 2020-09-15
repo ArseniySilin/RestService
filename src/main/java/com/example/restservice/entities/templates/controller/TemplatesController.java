@@ -2,15 +2,14 @@ package com.example.restservice.entities.templates.controller;
 
 import com.example.restservice.entities.common.CommonResponse;
 import com.example.restservice.Messages;
-import com.example.restservice.entities.templates.model.CreateTemplateRequest;
-import com.example.restservice.entities.templates.model.MoveTemplateToFolderRequest;
-import com.example.restservice.entities.templates.model.TemplatesAllWithFoldersPage;
+import com.example.restservice.entities.templates.model.*;
 import com.example.restservice.entities.templates.service.TemplatesService;
 import com.example.restservice.entities.users.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -32,6 +31,16 @@ public class TemplatesController {
 
     return ResponseEntity.ok(
       new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, templatesAllWithFolders)
+    );
+  }
+
+  @GetMapping(value = "WorkGroups/{workGroupKey}/Templates/AllWithFolders2")
+  public ResponseEntity<CommonResponse> getAllWithFoldersPage2(
+    @PathVariable("workGroupKey") String workGroupKey,
+    @RequestParam Map<String, String> queryParams) {
+
+    return ResponseEntity.ok(
+      new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, templatesService.getAllWithFoldersPage2())
     );
   }
 

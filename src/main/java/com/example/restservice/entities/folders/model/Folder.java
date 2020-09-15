@@ -36,7 +36,7 @@ public class Folder extends AllWithFoldersEntity implements Serializable {
     String createdUserKey,
     LocalDateTime createdDateTimeUtc,
     LocalDateTime updatedDateTimeUtc,
-    int folderType,
+    Integer folderType,
     String parentFolderKey,
     String parentFolderName
     ) {
