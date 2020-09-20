@@ -40,7 +40,7 @@ public class TemplatesService {
   AllWithFoldersRepository allWithFoldersRepository;
 
   public List<TemplatesAllWithFoldersPage22> getAllWithFoldersPage2() {
-    return allWithFoldersRepository.findAllWithFolders();
+    return allWithFoldersRepository.findAllWithFolders("aaaaa111-1a1a-aa11-11a1-11111a111111", "test@docspro.ru");
   }
 
   public TemplatesAllWithFoldersPage getAllWithFoldersPage(String workGroupKey, Map<String, String> queryParams)

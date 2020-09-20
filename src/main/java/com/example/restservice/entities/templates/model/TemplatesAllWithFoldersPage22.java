@@ -26,16 +26,16 @@ import java.util.Date;
     "createduserkey, " +
     "createddatetimeutc, " +
     "updateddatetimeutc, " +
-
+    // templates fields
     "folderkey, " +
     "ispart, " +
-
+    // default fields from folders
     "0 as foldertype, " +
     "NULL as parentfolderkey, " +
     "NULL as parentfoldername, " +
-
+    // entity type
     "'template' as entitytype " +
-    "FROM templates WHERE workgroupkey = 'aaaaa111-1a1a-aa11-11a1-11111a111111' AND createdusername = 'test@docspro.ru' " +
+    "FROM templates WHERE workgroupkey = ?1 AND createdusername = ?2 " +
     "UNION " +
     "SELECT " +
     "key, " +
@@ -47,16 +47,16 @@ import java.util.Date;
     "createduserkey, " +
     "createddatetimeutc, " +
     "updateddatetimeutc, " +
-
+    // default fields from templates
     "NULL as folderkey, " +
     "FALSE as ispart, " +
-
+    // folder fields
     "foldertype, " +
     "parentfolderkey, " +
     "parentfoldername, " +
-
+    // entity type
     "'folder' as entitytype " +
-    "FROM folders WHERE workgroupkey = 'aaaaa111-1a1a-aa11-11a1-11111a111111' AND createdusername = 'test@docspro.ru'",
+    "FROM folders WHERE workgroupkey = ?1 AND createdusername = ?2",
   resultSetMapping="AllWithFoldersMapping"
 )
 @SqlResultSetMapping(
@@ -71,11 +71,11 @@ import java.util.Date;
       @ColumnResult(name="createduserlastname"),
       @ColumnResult(name="createdusername"),
       @ColumnResult(name="createduserkey"),
-      @ColumnResult(name="createddatetimeutc"),
-      @ColumnResult(name="updateddatetimeutc"),
+      @ColumnResult(name="createddatetimeutc", type=Date.class),
+      @ColumnResult(name="updateddatetimeutc", type=Date.class),
       @ColumnResult(name="folderkey"),
       @ColumnResult(name="ispart", type=Boolean.class),
-      @ColumnResult(name="foldertype"),
+      @ColumnResult(name="foldertype", type=Integer.class),
       @ColumnResult(name="parentfolderkey"),
       @ColumnResult(name="parentfoldername"),
       @ColumnResult(name="entitytype")
