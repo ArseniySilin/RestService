@@ -1,0 +1,493 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 10.1
+-- Dumped by pg_dump version 10.1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: bar; Type: TABLE; Schema: public; Owner: arseniysilin
+--
+
+CREATE TABLE bar (
+    key character varying(40) NOT NULL,
+    username character varying(40) NOT NULL
+);
+
+
+ALTER TABLE bar OWNER TO arseniysilin;
+
+--
+-- Name: folders; Type: TABLE; Schema: public; Owner: arseniysilin
+--
+
+CREATE TABLE folders (
+    key character varying(40) NOT NULL,
+    name character varying(40) NOT NULL,
+    createduserfirstname character varying(40) NOT NULL,
+    createduserlastname character varying(40) NOT NULL,
+    createdusername character varying(40) NOT NULL,
+    createduserkey character varying(40) NOT NULL,
+    createddatetimeutc timestamp without time zone,
+    updateddatetimeutc timestamp without time zone,
+    foldertype smallint NOT NULL,
+    parentfolderkey character varying(40),
+    parentfoldername character varying(40),
+    workgroupkey character varying(40) DEFAULT 'aaaaa111-1a1a-aa11-11a1-11111a111111'::character varying NOT NULL
+);
+
+
+ALTER TABLE folders OWNER TO arseniysilin;
+
+--
+-- Name: foo; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE foo (
+    key character varying(255) NOT NULL,
+    username character varying(255)
+);
+
+
+ALTER TABLE foo OWNER TO admin;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: arseniysilin
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    login character varying(50) NOT NULL,
+    password character varying(50) NOT NULL,
+    created_on timestamp without time zone NOT NULL,
+    last_login timestamp without time zone,
+    access_token character varying(1000),
+    refresh_token character varying(256),
+    first_name character varying(40) DEFAULT 'Foo'::character varying NOT NULL,
+    last_name character varying(40) DEFAULT 'Bar'::character varying NOT NULL,
+    key character varying(40) DEFAULT '63ff651a-e2f3-464a-9c43-06860b5eab6c'::character varying NOT NULL
+);
+
+
+ALTER TABLE users OWNER TO arseniysilin;
+
+--
+-- Name: increment_id; Type: SEQUENCE; Schema: public; Owner: arseniysilin
+--
+
+CREATE SEQUENCE increment_id
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE increment_id OWNER TO arseniysilin;
+
+--
+-- Name: increment_id; Type: SEQUENCE OWNED BY; Schema: public; Owner: arseniysilin
+--
+
+ALTER SEQUENCE increment_id OWNED BY users.id;
+
+
+--
+-- Name: templates; Type: TABLE; Schema: public; Owner: arseniysilin
+--
+
+CREATE TABLE templates (
+    key character varying(40) NOT NULL,
+    name character varying(40) NOT NULL,
+    createduserfirstname character varying(40) NOT NULL,
+    createduserlastname character varying(40) NOT NULL,
+    createdusername character varying(40) NOT NULL,
+    createduserkey character varying(40) NOT NULL,
+    createddatetimeutc timestamp without time zone NOT NULL,
+    updateddatetimeutc timestamp without time zone NOT NULL,
+    folderkey character varying(40),
+    ispart boolean,
+    workgroupkey character varying(40) NOT NULL
+);
+
+
+ALTER TABLE templates OWNER TO arseniysilin;
+
+--
+-- Name: workgroups; Type: TABLE; Schema: public; Owner: arseniysilin
+--
+
+CREATE TABLE workgroups (
+    key character varying(40) NOT NULL,
+    name character varying(40) NOT NULL,
+    publicid character varying(40) NOT NULL,
+    createddatetimeutc timestamp without time zone,
+    createduserkey character varying(40) NOT NULL
+);
+
+
+ALTER TABLE workgroups OWNER TO arseniysilin;
+
+--
+-- Name: workgroups_folders; Type: TABLE; Schema: public; Owner: arseniysilin
+--
+
+CREATE TABLE workgroups_folders (
+    id smallint NOT NULL,
+    workgroupkey character varying(40) NOT NULL,
+    folderkey character varying(40) NOT NULL
+);
+
+
+ALTER TABLE workgroups_folders OWNER TO arseniysilin;
+
+--
+-- Name: workgroups_folders_id_seq; Type: SEQUENCE; Schema: public; Owner: arseniysilin
+--
+
+CREATE SEQUENCE workgroups_folders_id_seq
+    AS smallint
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE workgroups_folders_id_seq OWNER TO arseniysilin;
+
+--
+-- Name: workgroups_folders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: arseniysilin
+--
+
+ALTER SEQUENCE workgroups_folders_id_seq OWNED BY workgroups_folders.id;
+
+
+--
+-- Name: workgroups_templates; Type: TABLE; Schema: public; Owner: arseniysilin
+--
+
+CREATE TABLE workgroups_templates (
+    id smallint NOT NULL,
+    workgroupkey character varying(40) NOT NULL,
+    templatekey character varying(40) NOT NULL
+);
+
+
+ALTER TABLE workgroups_templates OWNER TO arseniysilin;
+
+--
+-- Name: workgroups_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: arseniysilin
+--
+
+CREATE SEQUENCE workgroups_templates_id_seq
+    AS smallint
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE workgroups_templates_id_seq OWNER TO arseniysilin;
+
+--
+-- Name: workgroups_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: arseniysilin
+--
+
+ALTER SEQUENCE workgroups_templates_id_seq OWNED BY workgroups_templates.id;
+
+
+--
+-- Name: workgroups_users; Type: TABLE; Schema: public; Owner: arseniysilin
+--
+
+CREATE TABLE workgroups_users (
+    id smallint NOT NULL,
+    workgroupkey character varying(40) NOT NULL,
+    userkey character varying(40) NOT NULL
+);
+
+
+ALTER TABLE workgroups_users OWNER TO arseniysilin;
+
+--
+-- Name: workgroups_users_id_seq; Type: SEQUENCE; Schema: public; Owner: arseniysilin
+--
+
+CREATE SEQUENCE workgroups_users_id_seq
+    AS smallint
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE workgroups_users_id_seq OWNER TO arseniysilin;
+
+--
+-- Name: workgroups_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: arseniysilin
+--
+
+ALTER SEQUENCE workgroups_users_id_seq OWNED BY workgroups_users.id;
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: arseniysilin
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('increment_id'::regclass);
+
+
+--
+-- Name: workgroups_folders id; Type: DEFAULT; Schema: public; Owner: arseniysilin
+--
+
+ALTER TABLE ONLY workgroups_folders ALTER COLUMN id SET DEFAULT nextval('workgroups_folders_id_seq'::regclass);
+
+
+--
+-- Name: workgroups_templates id; Type: DEFAULT; Schema: public; Owner: arseniysilin
+--
+
+ALTER TABLE ONLY workgroups_templates ALTER COLUMN id SET DEFAULT nextval('workgroups_templates_id_seq'::regclass);
+
+
+--
+-- Name: workgroups_users id; Type: DEFAULT; Schema: public; Owner: arseniysilin
+--
+
+ALTER TABLE ONLY workgroups_users ALTER COLUMN id SET DEFAULT nextval('workgroups_users_id_seq'::regclass);
+
+
+--
+-- Data for Name: bar; Type: TABLE DATA; Schema: public; Owner: arseniysilin
+--
+
+COPY bar (key, username) FROM stdin;
+\.
+
+
+--
+-- Data for Name: folders; Type: TABLE DATA; Schema: public; Owner: arseniysilin
+--
+
+COPY folders (key, name, createduserfirstname, createduserlastname, createdusername, createduserkey, createddatetimeutc, updateddatetimeutc, foldertype, parentfolderkey, parentfoldername, workgroupkey) FROM stdin;
+d8fe141f-35bb-4b6d-8fb2-4a973a818cef	Z Folder	Foo	Bar	test@docspro.ru	63ff651a-e2f3-464a-9c43-06860b5eab6c	2020-08-01 11:39:19.043	2020-08-01 11:39:19.043	1	\N	\N	aaaaa111-1a1a-aa11-11a1-11111a111111
+8735a208-c8ed-4356-954e-b1a99fd200e9	D folder	Foo	Bar	test@docspro.ru	63ff651a-e2f3-464a-9c43-06860b5eab6c	2020-08-01 16:30:54.745	2020-08-01 16:30:54.745	1	\N	\N	aaaaa111-1a1a-aa11-11a1-11111a111111
+eb3508a8-5c15-4e5a-90f8-43e7341934cd	Foo2	Foo	Bar	createdUserName	63ff651a-e2f3-464a-9c43-06860b5eab6c	2020-07-16 19:00:16.803373	2020-07-16 19:00:16.803373	1	\N	\N	aaaaa111-1a1a-aa11-11a1-11111a111111
+\.
+
+
+--
+-- Data for Name: foo; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY foo (key, username) FROM stdin;
+goga2	00d0-1111-222-3333
+goga332	10d0-1111-222-3333
+\.
+
+
+--
+-- Data for Name: templates; Type: TABLE DATA; Schema: public; Owner: arseniysilin
+--
+
+COPY templates (key, name, createduserfirstname, createduserlastname, createdusername, createduserkey, createddatetimeutc, updateddatetimeutc, folderkey, ispart, workgroupkey) FROM stdin;
+37e8226d-40e1-43a5-bd5f-d21b41bbabf3	first template	Foo	Bar	first	63ff651a-e2f3-464a-9c43-06860b5eab6c	2020-07-17 09:56:47.351187	2020-07-17 09:56:47.351187	\N	f	aaaaa111-1a1a-aa11-11a1-11111a111111
+3b1be0ed-4c1f-4d40-9df1-a7f8dfc3b766	Новый шаблон	Foo	Bar	test@docspro.ru	63ff651a-e2f3-464a-9c43-06860b5eab6c	2020-07-31 22:14:12.271	2020-07-31 22:14:12.271	eb3508a8-5c15-4e5a-90f8-43e7341934cd	f	aaaaa111-1a1a-aa11-11a1-11111a111111
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: arseniysilin
+--
+
+COPY users (id, login, password, created_on, last_login, access_token, refresh_token, first_name, last_name, key) FROM stdin;
+5	a1a1a1_1	4ed0d5024ee544716bdcb60b07780c98dc381d99e6739beb	2020-05-18 21:16:34.145	\N	\N	\N	Foo	Bar	63ff651a-e2f3-464a-9c43-06860b5eab6c
+6	a1a1a1_2	bde1efc7eac9a2d51450f389928fe27ea66b3d84d840ce94	2020-05-18 21:16:54.606	\N	eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhMWExYTFfMiIsImlhdCI6MTU4OTgyNTg3MiwiZXhwIjoxNTg5ODQzODcyfQ.DbW1rB77D-gs0Pt8Ulkq6G9ADNNodc67slUawhNY1XM	286e82a8-ee01-4a6b-a14e-013825b0a2a8	Foo	Bar	63ff651a-e2f3-464a-9c43-06860b5eab6c
+8	jojoba	225c8308a37e4d93573236e5564d1f408dc662933233e22c	2020-07-16 21:12:22.135	\N	\N	\N	Foo	Bar	da66aced-3555-40dd-8ab2-6e289bf0d3b5
+7	test@docspro.ru	d396adf1a76b498220ff41d8f8cda5ccde67d5a3a528b547	2020-06-27 17:46:13.062	\N	eyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiI2M2ZmNjUxYS1lMmYzLTQ2NGEtOWM0My0wNjg2MGI1ZWFiNmMiLCJzdWIiOiJ0ZXN0QGRvY3Nwcm8ucnUiLCJqdGkiOiI3IiwiaWF0IjoxNTk5OTkxNTY3LCJleHAiOjE2MDAwMDk1Njd9.G8gykkDc0jrqze23FjH0wVp7S39HAMOX1VU1EaoEI7w	9cacdff5-09ff-4c4a-810a-8dc301873347	Foo	Bar	63ff651a-e2f3-464a-9c43-06860b5eab6c
+0	first	63e87a55fff137e53bcbdb69624d8fedb37157264e1e8067	2003-02-01 00:00:00	2003-02-01 00:00:00	eyJhbGciOiJIUzI1NiJ9.eyJrZXkiOiI2M2ZmNjUxYS1lMmYzLTQ2NGEtOWM0My0wNjg2MGI1ZWFiNmMiLCJzdWIiOiJmaXJzdCIsImp0aSI6IjAiLCJpYXQiOjE2MDAxODM4MDMsImV4cCI6MTYwMDIwMTgwM30.CteBIdR4O9WZBqi9uCgRmkYU2mv8wVPFQbZbFbc1jj8	3439c7aa-9b33-462c-9a1d-496cbc92807f	Foo	Bar	63ff651a-e2f3-464a-9c43-06860b5eab6c
+\.
+
+
+--
+-- Data for Name: workgroups; Type: TABLE DATA; Schema: public; Owner: arseniysilin
+--
+
+COPY workgroups (key, name, publicid, createddatetimeutc, createduserkey) FROM stdin;
+aaaaa111-1a1a-aa11-11a1-11111a111111	test_workgroup	aaaaaa111_publicId	2020-07-08 09:26:58.163927	0
+\.
+
+
+--
+-- Data for Name: workgroups_folders; Type: TABLE DATA; Schema: public; Owner: arseniysilin
+--
+
+COPY workgroups_folders (id, workgroupkey, folderkey) FROM stdin;
+1	aaaaa111-1a1a-aa11-11a1-11111a111111	eb3508a8-5c15-4e5a-90f8-43e7341934cd
+\.
+
+
+--
+-- Data for Name: workgroups_templates; Type: TABLE DATA; Schema: public; Owner: arseniysilin
+--
+
+COPY workgroups_templates (id, workgroupkey, templatekey) FROM stdin;
+1	aaaaa111-1a1a-aa11-11a1-11111a111111	37e8226d-40e1-43a5-bd5f-d21b41bbabf3
+\.
+
+
+--
+-- Data for Name: workgroups_users; Type: TABLE DATA; Schema: public; Owner: arseniysilin
+--
+
+COPY workgroups_users (id, workgroupkey, userkey) FROM stdin;
+1	aaaaa111-1a1a-aa11-11a1-11111a111111	63ff651a-e2f3-464a-9c43-06860b5eab6c
+\.
+
+
+--
+-- Name: increment_id; Type: SEQUENCE SET; Schema: public; Owner: arseniysilin
+--
+
+SELECT pg_catalog.setval('increment_id', 8, true);
+
+
+--
+-- Name: workgroups_folders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: arseniysilin
+--
+
+SELECT pg_catalog.setval('workgroups_folders_id_seq', 1, true);
+
+
+--
+-- Name: workgroups_templates_id_seq; Type: SEQUENCE SET; Schema: public; Owner: arseniysilin
+--
+
+SELECT pg_catalog.setval('workgroups_templates_id_seq', 1, true);
+
+
+--
+-- Name: workgroups_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: arseniysilin
+--
+
+SELECT pg_catalog.setval('workgroups_users_id_seq', 1, true);
+
+
+--
+-- Name: bar bar_pkey; Type: CONSTRAINT; Schema: public; Owner: arseniysilin
+--
+
+ALTER TABLE ONLY bar
+    ADD CONSTRAINT bar_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: workgroups firstkey; Type: CONSTRAINT; Schema: public; Owner: arseniysilin
+--
+
+ALTER TABLE ONLY workgroups
+    ADD CONSTRAINT firstkey PRIMARY KEY (key);
+
+
+--
+-- Name: folders folders_pkey; Type: CONSTRAINT; Schema: public; Owner: arseniysilin
+--
+
+ALTER TABLE ONLY folders
+    ADD CONSTRAINT folders_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: foo foo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY foo
+    ADD CONSTRAINT foo_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: templates templates_pkey; Type: CONSTRAINT; Schema: public; Owner: arseniysilin
+--
+
+ALTER TABLE ONLY templates
+    ADD CONSTRAINT templates_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: users users_login_key; Type: CONSTRAINT; Schema: public; Owner: arseniysilin
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_login_key UNIQUE (login);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: arseniysilin
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: workgroups_folders workgroups_folders_pkey; Type: CONSTRAINT; Schema: public; Owner: arseniysilin
+--
+
+ALTER TABLE ONLY workgroups_folders
+    ADD CONSTRAINT workgroups_folders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: workgroups_templates workgroups_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: arseniysilin
+--
+
+ALTER TABLE ONLY workgroups_templates
+    ADD CONSTRAINT workgroups_templates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: workgroups_users workgroups_users_pkey; Type: CONSTRAINT; Schema: public; Owner: arseniysilin
+--
+
+ALTER TABLE ONLY workgroups_users
+    ADD CONSTRAINT workgroups_users_pkey PRIMARY KEY (id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

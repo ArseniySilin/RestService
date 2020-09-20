@@ -1,60 +1,87 @@
 package com.example.restservice.entities.templates.model;
 
 import com.example.restservice.entities.common.AllWithFoldersEntity;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 @NoArgsConstructor
-//@AllArgsConstructor
 @Getter
 @Entity(name = "TemplatesAllWithFoldersPage22")
+@NamedNativeQuery(
+  name="TemplatesAllWithFoldersPage22.findAllWithFolders",
+  query = "" +
+    "SELECT " +
+    "key, " +
+    "workgroupkey, " +
+    "name, " +
+    "createduserfirstname, " +
+    "createduserlastname, " +
+    "createdusername, " +
+    "createduserkey, " +
+    "createddatetimeutc, " +
+    "updateddatetimeutc, " +
+
+    "folderkey, " +
+    "ispart, " +
+
+    "0 as foldertype, " +
+    "NULL as parentfolderkey, " +
+    "NULL as parentfoldername, " +
+
+    "'template' as entitytype " +
+    "FROM templates WHERE workgroupkey = 'aaaaa111-1a1a-aa11-11a1-11111a111111' AND createdusername = 'test@docspro.ru' " +
+    "UNION " +
+    "SELECT " +
+    "key, " +
+    "workgroupkey, " +
+    "name, " +
+    "createduserfirstname, " +
+    "createduserlastname, " +
+    "createdusername, " +
+    "createduserkey, " +
+    "createddatetimeutc, " +
+    "updateddatetimeutc, " +
+
+    "NULL as folderkey, " +
+    "FALSE as ispart, " +
+
+    "foldertype, " +
+    "parentfolderkey, " +
+    "parentfoldername, " +
+
+    "'folder' as entitytype " +
+    "FROM folders WHERE workgroupkey = 'aaaaa111-1a1a-aa11-11a1-11111a111111' AND createdusername = 'test@docspro.ru'",
+  resultSetMapping="AllWithFoldersMapping"
+)
 @SqlResultSetMapping(
   name="AllWithFoldersMapping",
   classes=@ConstructorResult(
     targetClass=TemplatesAllWithFoldersPage22.class,
     columns={
       @ColumnResult(name="key"),
+      @ColumnResult(name="workgroupkey"),
       @ColumnResult(name="name"),
+      @ColumnResult(name="createduserfirstname"),
+      @ColumnResult(name="createduserlastname"),
+      @ColumnResult(name="createdusername"),
+      @ColumnResult(name="createduserkey"),
+      @ColumnResult(name="createddatetimeutc"),
+      @ColumnResult(name="updateddatetimeutc"),
+      @ColumnResult(name="folderkey"),
+      @ColumnResult(name="ispart", type=Boolean.class),
+      @ColumnResult(name="foldertype"),
       @ColumnResult(name="parentfolderkey"),
       @ColumnResult(name="parentfoldername"),
       @ColumnResult(name="entitytype")
     }))
-@NamedNativeQuery(
-  name="TemplatesAllWithFoldersPage22.findAllWithFolders",
-  query = "" +
-    "SELECT " +
-    "key, " +
-    "name, " +
-    "NULL as parentfolderkey, " +
-    "NULL as parentfoldername, " +
-    "'template' as entitytype " +
-    "FROM templates WHERE workgroupkey = 'aaaaa111-1a1a-aa11-11a1-11111a111111' AND createdusername = 'test@docspro.ru' " +
-    "UNION " +
-    "SELECT " +
-    "key, " +
-    "name, " +
-    "parentfolderkey, " +
-    "parentfoldername, " +
-    "'folder' as entitytype " +
-    "FROM folders WHERE workgroupkey = 'aaaaa111-1a1a-aa11-11a1-11111a111111' AND createdusername = 'test@docspro.ru'",
-  resultSetMapping="AllWithFoldersMapping"
-)
-public class TemplatesAllWithFoldersPage22  implements Serializable {//extends AllWithFoldersEntity
-//  @Column(name = "foldertype")
-//  private int folderType;
-
-  @Column(name = "key")
-  private String key;
-
-  @Column(name = "name")
-  private String name;
-
+@IdClass(TemplatesAllWithFoldersPage22.class)
+public class TemplatesAllWithFoldersPage22 extends AllWithFoldersEntity implements Serializable {
   @Id
   @Column(name = "parentfolderkey")
   private String parentFolderKey;
@@ -65,49 +92,51 @@ public class TemplatesAllWithFoldersPage22  implements Serializable {//extends A
   @Column(name = "entitytype")
   private String entityType;
 
-//  @Column(name = "folderkey")
-//  private String folderKey;
-//
-//  @Column(name = "ispart")
-//  private boolean isPart;
-//
-//  @Column(name = "entitytype")
-//  private String entityType;
-//
-//  @Builder
-//  public TemplatesAllWithFoldersPage22(
-//    String key,
-//    String workGroupKey,
-//    String name,
-//    String createdUserFirstName,
-//    String createdUserLastName,
-//    String createdUserName,
-//    String createdUserKey,
-//    LocalDateTime createdDateTimeUtc,
-//    LocalDateTime updatedDateTimeUtc,
-////    String folderKey,
-////    boolean isPart,
-////    Integer folderType,
-//    String parentFolderKey,
-//    String parentFolderName,
-//    String entityType
-//  ) {
-//    super(
-//      key,
-//      workGroupKey,
-//      name,
-//      createdUserFirstName,
-//      createdUserLastName,
-//      createdUserName,
-//      createdUserKey,
-//      createdDateTimeUtc,
-//      updatedDateTimeUtc
-//    );
-////    this.folderKey = folderKey;
-////    this.isPart = isPart;
-////    this.folderType = folderType;
-//    this.parentFolderKey = parentFolderKey;
-//    this.parentFolderName = parentFolderName;
-//    this.entityType = entityType;
-//  }
+  @Column(name = "folderkey")
+  private String folderKey;
+
+  @Column(name = "foldertype")
+  private int folderType;
+
+  @Column(name = "ispart")
+  private boolean isPart;
+
+  @Builder
+  public TemplatesAllWithFoldersPage22(
+    String key,
+    String workGroupKey,
+    String name,
+    String createdUserFirstName,
+    String createdUserLastName,
+    String createdUserName,
+    String createdUserKey,
+    Date createdDateTimeUtc,
+    Date updatedDateTimeUtc,
+    String folderKey,
+    Boolean isPart,
+    Integer folderType,
+    String parentFolderKey,
+    String parentFolderName,
+    String entityType
+  ) {
+    super(
+      key,
+      workGroupKey,
+      name,
+      createdUserFirstName,
+      createdUserLastName,
+      createdUserName,
+      createdUserKey,
+      createdDateTimeUtc.toInstant().atZone(ZoneId.systemDefault())
+        .toLocalDateTime(),
+      updatedDateTimeUtc.toInstant().atZone(ZoneId.systemDefault())
+        .toLocalDateTime()
+    );
+    this.folderKey = folderKey;
+    this.isPart = isPart;
+    this.folderType = folderType;
+    this.parentFolderKey = parentFolderKey;
+    this.parentFolderName = parentFolderName;
+    this.entityType = entityType;
+  }
 }

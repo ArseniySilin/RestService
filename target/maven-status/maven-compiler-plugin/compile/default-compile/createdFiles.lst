@@ -20,6 +20,7 @@ com/example/restservice/execptions/EntityAlreadyExistsException.class
 com/example/restservice/entities/workgroups/controller/WorkgroupsController.class
 com/example/restservice/entities/users/model/UserTokens.class
 com/example/restservice/entities/chat/model/ChatMessage$MessageType.class
+com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPage22$TemplatesAllWithFoldersPage22Builder.class
 com/example/restservice/entities/templates/model/CreateTemplateRequest.class
 com/example/restservice/WebSecurityConfig.class
 com/example/restservice/Messages$ERROR.class
