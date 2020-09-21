@@ -13,14 +13,9 @@ import java.util.List;
 public interface AllWithFoldersRepository extends JpaRepository<TemplatesAllWithFoldersPage22, String> {
   @Query(nativeQuery = true)
   List<TemplatesAllWithFoldersPage22> findAllWithFolders(
-    @Param("workGroupKey") String workGroupKey,
-    @Param("createdUserKey") String createdUserKey,
-    Pageable pageable
-  );
-
-  @Query(nativeQuery = true)
-  List<TemplatesAllWithFoldersPage22> findAllWithFolders(
-    @Param("workGroupKey") String workGroupKey,
-    @Param("createdUserKey") String createdUserKey
-  );
+      @Param("workGroupKey") String workGroupKey,
+      @Param("createdUserKey") String createdUserKey,
+      @Param("folderKey") String folderKey,
+      Pageable pageable
+    );
 }

@@ -11,7 +11,6 @@ import com.example.restservice.entities.templates.repository.TemplatesRepository
 import com.example.restservice.entities.users.model.User;
 import com.example.restservice.entities.workgroups.repository.WorkgroupsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -41,8 +40,12 @@ public class TemplatesService {
   @Autowired
   AllWithFoldersRepository allWithFoldersRepository;
 
-  public List<TemplatesAllWithFoldersPage22> getAllWithFoldersPage2(String workGroupKey, String userKey, Pageable pageable) {
-    return allWithFoldersRepository.findAllWithFolders(workGroupKey, userKey, pageable);
+  public List<TemplatesAllWithFoldersPage22> getAllWithFoldersPage2(
+    String workGroupKey,
+    String userKey,
+    String folderKey,
+    Pageable pageable) {
+    return allWithFoldersRepository.findAllWithFolders(workGroupKey, userKey, folderKey, pageable);
   }
 
   public TemplatesAllWithFoldersPage getAllWithFoldersPage(String workGroupKey, Map<String, String> queryParams)
@@ -76,7 +79,6 @@ public class TemplatesService {
   }
 
   public void saveTemplate(String token, String workGroupKey, CreateTemplateRequest templateRequest) {
-//    User user = usersService.getAuthorizedUser(token, workGroupKey);
     String userName = jwtTokenUtil.getUsernameFromToken(token);
     User user = usersService.getUser(userName);
 
@@ -85,7 +87,6 @@ public class TemplatesService {
     String createdUserFirstName = user.getFirstName();
     String createdUserLastName = user.getLastName();
     String createdUserName = user.getUserName();
-    // TODO: get key from token
     String createdUserKey = user.getKey();
     LocalDateTime createdDateTimeUtc = LocalDateTime.now();
     LocalDateTime updatedDateTimeUtc = LocalDateTime.now();
