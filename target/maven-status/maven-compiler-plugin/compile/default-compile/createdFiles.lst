@@ -6,7 +6,6 @@ com/example/restservice/filters/JwtRequestFilter.class
 com/example/restservice/entities/chat/model/ChatMessage.class
 com/example/restservice/entities/users/controller/UsersController.class
 com/example/restservice/entities/users/service/UsersService.class
-com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPageBuilder.class
 com/example/restservice/WebSocketConfig.class
 com/example/restservice/RestServiceApplication.class
 com/example/restservice/entities/common/CommonResponse.class
@@ -21,7 +20,6 @@ com/example/restservice/execptions/EntityAlreadyExistsException.class
 com/example/restservice/entities/workgroups/controller/WorkgroupsController.class
 com/example/restservice/entities/users/model/UserTokens.class
 com/example/restservice/entities/chat/model/ChatMessage$MessageType.class
-com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPage22$TemplatesAllWithFoldersPage22Builder.class
 com/example/restservice/entities/templates/model/CreateTemplateRequest.class
 com/example/restservice/WebSecurityConfig.class
 com/example/restservice/Messages$ERROR.class
@@ -31,7 +29,6 @@ com/example/restservice/entities/chat/controller/ChatController.class
 com/example/restservice/entities/templates/model/MoveTemplateToFolderRequest.class
 com/example/restservice/entities/users/model/Account.class
 com/example/restservice/entities/templates/controller/TemplatesController.class
-com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPage2.class
 com/example/restservice/entities/templates/service/TemplatesService.class
 com/example/restservice/utils/HashString.class
 com/example/restservice/entities/folders/model/Folder.class
@@ -39,9 +36,7 @@ com/example/restservice/entities/templates/model/Template$TemplateBuilder.class
 com/example/restservice/entities/users/model/User.class
 com/example/restservice/Messages$ERROR$INCORRECT_PASSWORD.class
 com/example/restservice/entities/folders/model/CommonFolderRequest.class
-com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPage22.class
 com/example/restservice/Messages$ERROR$USER_ALREADY_EXISTS.class
-com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPage2$TemplatesAllWithFoldersPage2Builder.class
 com/example/restservice/RestExceptionHandler.class
 com/example/restservice/entities/templates/model/Columns.class
 com/example/restservice/entities/folders/service/FoldersService.class
@@ -57,6 +52,8 @@ com/example/restservice/entities/users/repository/UsersRepository.class
 com/example/restservice/filters/RequestLoggingFilter.class
 com/example/restservice/Messages$ERROR$UNSAFE_USERNAME.class
 com/example/restservice/utils/jwt/JwtAuthenticationEntryPoint.class
+com/example/restservice/entities/templates/model/TemplatesAllWithFoldersEntity.class
+com/example/restservice/entities/templates/model/TemplatesAllWithFoldersEntity$TemplatesAllWithFoldersEntityBuilder.class
 com/example/restservice/entities/workgroups/repository/WorkgroupsRepository.class
 com/example/restservice/entities/templates/model/TemplatesAllWithFolders.class
 com/example/restservice/entities/templates/repository/AllWithFoldersRepository.class

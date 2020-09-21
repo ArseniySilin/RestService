@@ -12,9 +12,9 @@ import java.util.Date;
 
 @NoArgsConstructor
 @Getter
-@Entity(name = "TemplatesAllWithFoldersPage22")
+@Entity(name = "TemplatesAllWithFoldersEntity")
 @NamedNativeQuery(
-  name="TemplatesAllWithFoldersPage22.findAllWithFolders",
+  name="TemplatesAllWithFoldersEntity.findAllWithFolders",
   query = "" +
     "SELECT " +
     "key, " +
@@ -38,7 +38,7 @@ import java.util.Date;
     "FROM templates WHERE " +
       "workgroupkey = ?1 AND " +
       "createduserkey = ?2 AND " +
-      "(folderkey IS NULL OR folderkey = cast(?3 AS VARCHAR)) " +
+      "(CAST(?3 AS VARCHAR) IS NOT DISTINCT FROM folderkey) " +
     "UNION " +
     "SELECT " +
     "key, " +
@@ -62,13 +62,13 @@ import java.util.Date;
     "FROM folders WHERE " +
       "workgroupkey = ?1 AND " +
       "createduserkey = ?2 AND " +
-      "(parentfolderkey IS NULL OR parentfolderkey = cast(?3 AS VARCHAR))",
+      "(CAST(?3 AS VARCHAR) IS NOT DISTINCT FROM parentfolderkey)",
   resultSetMapping="AllWithFoldersMapping"
 )
 @SqlResultSetMapping(
   name="AllWithFoldersMapping",
   classes=@ConstructorResult(
-    targetClass=TemplatesAllWithFoldersPage22.class,
+    targetClass= TemplatesAllWithFoldersEntity.class,
     columns={
       @ColumnResult(name="key"),
       @ColumnResult(name="workgroupkey"),
@@ -86,8 +86,8 @@ import java.util.Date;
       @ColumnResult(name="parentfoldername"),
       @ColumnResult(name="entitytype")
     }))
-@IdClass(TemplatesAllWithFoldersPage22.class)
-public class TemplatesAllWithFoldersPage22 extends AllWithFoldersEntity implements Serializable {
+@IdClass(TemplatesAllWithFoldersEntity.class)
+public class TemplatesAllWithFoldersEntity extends AllWithFoldersEntity implements Serializable {
   @Id
   @Column(name = "parentfolderkey")
   private String parentFolderKey;
@@ -108,7 +108,7 @@ public class TemplatesAllWithFoldersPage22 extends AllWithFoldersEntity implemen
   private boolean isPart;
 
   @Builder
-  public TemplatesAllWithFoldersPage22(
+  public TemplatesAllWithFoldersEntity(
     String key,
     String workGroupKey,
     String name,

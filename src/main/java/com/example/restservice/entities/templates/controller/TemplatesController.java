@@ -29,19 +29,6 @@ public class TemplatesController {
 
   @GetMapping(value = "WorkGroups/{workGroupKey}/Templates/AllWithFolders")
   public ResponseEntity<CommonResponse> getAllWithFoldersPage(
-    @PathVariable("workGroupKey") String workGroupKey,
-    @RequestParam Map<String, String> queryParams) {
-
-    TemplatesAllWithFoldersPage templatesAllWithFolders =
-      templatesService.getAllWithFoldersPage(workGroupKey, queryParams);
-
-    return ResponseEntity.ok(
-      new CommonResponse(Messages.SUCCESS.message, Messages.SUCCESS.code, null, templatesAllWithFolders)
-    );
-  }
-
-  @GetMapping(value = "WorkGroups/{workGroupKey}/Templates/AllWithFolders2")
-  public ResponseEntity<CommonResponse> getAllWithFoldersPage2(
     @RequestHeader("authorization") String token,
     @PathVariable("workGroupKey") String workGroupKey,
     @RequestParam Map<String, String> queryParams) {
@@ -62,23 +49,13 @@ public class TemplatesController {
       Integer.parseInt(itemsPerPage),
       Sort.by(orderBy.equals("0") ? Sort.Direction.DESC : Sort.Direction.ASC, columnNameToOrderBy)
     );
-//
-//    System.out.println();
-//    System.out.println("columnNameToOrderBy: " + columnNameToOrderBy);
-//    System.out.println("workGroupKey: " + workGroupKey);
-//    System.out.println("userKey: " + userKey);
-//    System.out.println("folderKey: " + folderKey);
-//    System.out.println("pageNumber: " + pageNumber);
-//    System.out.println("itemsPerPage: " + itemsPerPage);
-//    System.out.println("columnToOrderBy: " + columnToOrderBy);
-//    System.out.println("orderBy: " + orderBy);
 
     return ResponseEntity.ok(
       new CommonResponse(
         Messages.SUCCESS.message,
         Messages.SUCCESS.code,
         null,
-        templatesService.getAllWithFoldersPage2(
+        templatesService.getAllWithFoldersPage(
           workGroupKey,
           userKey,
           folderKey,

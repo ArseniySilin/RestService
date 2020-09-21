@@ -42,13 +42,13 @@ public class TemplatesService {
   @Autowired
   AllWithFoldersRepository allWithFoldersRepository;
 
-  public TemplatesAllWithFoldersPage getAllWithFoldersPage2(
+  public TemplatesAllWithFoldersPage getAllWithFoldersPage(
     String workGroupKey,
     String userKey,
     String folderKey,
     Pageable pageable) {
 
-    Page<TemplatesAllWithFoldersPage22> page =
+    Page<TemplatesAllWithFoldersEntity> page =
       allWithFoldersRepository.findAllWithFolders(workGroupKey, userKey, folderKey, pageable);
 
     PageInfo pageInfo = new PageInfo(
@@ -64,9 +64,9 @@ public class TemplatesService {
 
     List<Template> templates = new ArrayList<>();
     List<Folder> folders = new ArrayList<>();
-    List<TemplatesAllWithFoldersPage22> result = page.getContent();
+    List<TemplatesAllWithFoldersEntity> result = page.getContent();
 
-    for (TemplatesAllWithFoldersPage22 entity : result) {
+    for (TemplatesAllWithFoldersEntity entity : result) {
       if (entity.getEntityType().equals("template")) {
         Template template = new Template(
           entity.getKey(),
@@ -106,36 +106,6 @@ public class TemplatesService {
       new TemplatesAllWithFoldersPage(templates, folders, pageInfo);
 
     return templatesAllWithFoldersPage;
-  }
-
-  public TemplatesAllWithFoldersPage getAllWithFoldersPage(String workGroupKey, Map<String, String> queryParams)
-    throws EntityNotFoundException {
-    String folderKey = queryParams.get("folderKey");
-    String pageNumber = queryParams.getOrDefault("pageNumber", "1");
-    String itemsPerPage = queryParams.getOrDefault("itemsPerPage", "15");
-    String columnToOrderBy = queryParams.getOrDefault("columnToOrderBy", "2");
-    String orderBy = queryParams.getOrDefault("orderBy", "0");
-
-    // TODO: get folders and templates in parallel
-
-    // get all folders in workGroup
-    List<Folder> folders = foldersRepository.findByWorkGroupKeyAndParentFolderKey(workGroupKey, folderKey);
-
-    // get all templates in workGroup
-    List<Template> templates = templatesRepository.findByWorkGroupKeyAndFolderKey(workGroupKey, folderKey);
-
-    // build page
-    TemplatesAllWithFoldersPageBuilder pb = new TemplatesAllWithFoldersPageBuilder(
-      templates,
-      folders,
-      itemsPerPage,
-      columnToOrderBy,
-      orderBy
-    );
-    // TODO: add validation and exception handling
-    TemplatesAllWithFoldersPage page = pb.getPage(Integer.parseInt(pageNumber));
-
-    return page;
   }
 
   public void saveTemplate(String token, String workGroupKey, CreateTemplateRequest templateRequest) {

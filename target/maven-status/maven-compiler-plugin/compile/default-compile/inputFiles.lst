@@ -1,13 +1,11 @@
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/apierror/ApiSubError.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/TemplatesAllWithFolders.java
-/Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPageBuilder.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/filters/JwtRequestFilter.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/CreateTemplateRequest.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/RestServiceApplication.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/Messages.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/users/repository/UsersRepository.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/workgroups/repository/WorkgroupsRepository.java
-/Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPage2.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/Columns.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/folders/controller/FoldersController.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/WebSocketEventListener.java
@@ -17,6 +15,7 @@
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/users/service/UsersService.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/utils/HashString.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/execptions/EntityNotFoundException.java
+/Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/TemplatesAllWithFoldersEntity.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/filters/RequestLoggingFilter.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/users/model/User.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/TemplateExtended.java
@@ -38,7 +37,6 @@
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/chat/controller/ChatController.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/Template.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/folders/service/FoldersService.java
-/Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPage22.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/apierror/ApiError.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/controller/TemplatesController.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/chat/model/ChatMessage.java
