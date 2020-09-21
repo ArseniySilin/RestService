@@ -8,6 +8,7 @@
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/users/repository/UsersRepository.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/workgroups/repository/WorkgroupsRepository.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPage2.java
+/Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/Columns.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/folders/controller/FoldersController.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/WebSocketEventListener.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/PageInfo.java
@@ -37,11 +38,13 @@
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/chat/controller/ChatController.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/Template.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/folders/service/FoldersService.java
+/Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPage22.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/apierror/ApiError.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/controller/TemplatesController.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/chat/model/ChatMessage.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/WebSocketConfig.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/repository/TemplatesRepository.java
+/Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/templates/repository/AllWithFoldersRepository.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/folders/model/CommonFolderRequest.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/utils/jwt/JwtUserDetailsService.java
 /Users/arseniysilin/Projects/my/Java/RestService/src/main/java/com/example/restservice/entities/users/controller/UsersController.java

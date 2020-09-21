@@ -1,3 +1,4 @@
+com/example/restservice/entities/templates/model/Columns$1.class
 com/example/restservice/entities/templates/model/PageInfo.class
 com/example/restservice/apierror/ApiSubError.class
 com/example/restservice/utils/jwt/JwtUserDetailsService.class
@@ -42,6 +43,7 @@ com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPage22.c
 com/example/restservice/Messages$ERROR$USER_ALREADY_EXISTS.class
 com/example/restservice/entities/templates/model/TemplatesAllWithFoldersPage2$TemplatesAllWithFoldersPage2Builder.class
 com/example/restservice/RestExceptionHandler.class
+com/example/restservice/entities/templates/model/Columns.class
 com/example/restservice/entities/folders/service/FoldersService.class
 com/example/restservice/apierror/ApiError.class
 com/example/restservice/Messages$ERROR$INVALID_TOKEN.class

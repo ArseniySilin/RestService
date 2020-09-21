@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Sort;
 
 import java.util.Map;
 
@@ -47,15 +48,27 @@ public class TemplatesController {
 
     String userKey = jwtTokenUtil.getUserKeyFromToken(token);
     String folderKey = queryParams.get("folderKey");
-    String pageNumber = queryParams.getOrDefault("pageNumber", "0");
+    String pageNumber = queryParams.getOrDefault("pageNumber", "1");
     String itemsPerPage = queryParams.getOrDefault("itemsPerPage", "15");
     String columnToOrderBy = queryParams.getOrDefault("columnToOrderBy", "2");
     String orderBy = queryParams.getOrDefault("orderBy", "0");
 
-    // TODO: implement of params validation
+    // TODO: add params validation
 
-    Pageable firstPageWithTwoElements = PageRequest.of(Integer.parseInt(pageNumber) - 1, Integer.parseInt(itemsPerPage));
+    String columnNameToOrderBy = Columns.indicies.getOrDefault(columnToOrderBy, Columns.indicies.get("2"));
+    Sort sort = Sort.by(columnNameToOrderBy).descending();
 
+//    if (orderBy.equals("0")) sort.descending();
+//    if (orderBy.equals("1")) sort.ascending();
+
+    Pageable firstPageWithTwoElements = PageRequest.of(
+      Integer.parseInt(pageNumber) - 1,
+      Integer.parseInt(itemsPerPage),
+      sort
+    );
+
+    System.out.println();
+    System.out.println("columnNameToOrderBy: " + columnNameToOrderBy);
     System.out.println("workGroupKey: " + workGroupKey);
     System.out.println("userKey: " + userKey);
     System.out.println("folderKey: " + folderKey);

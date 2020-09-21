@@ -11,10 +11,12 @@ import com.example.restservice.entities.templates.repository.TemplatesRepository
 import com.example.restservice.entities.users.model.User;
 import com.example.restservice.entities.workgroups.repository.WorkgroupsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -40,12 +42,71 @@ public class TemplatesService {
   @Autowired
   AllWithFoldersRepository allWithFoldersRepository;
 
-  public List<TemplatesAllWithFoldersPage22> getAllWithFoldersPage2(
+  public TemplatesAllWithFoldersPage getAllWithFoldersPage2(
     String workGroupKey,
     String userKey,
     String folderKey,
     Pageable pageable) {
-    return allWithFoldersRepository.findAllWithFolders(workGroupKey, userKey, folderKey, pageable);
+
+    Page<TemplatesAllWithFoldersPage22> page =
+      allWithFoldersRepository.findAllWithFolders(workGroupKey, userKey, folderKey, pageable);
+
+    PageInfo pageInfo = new PageInfo(
+      page.hasNext(),
+      page.hasPrevious(),
+      0,
+      page.getNumberOfElements(),
+      pageable.getPageNumber() + 1,
+      pageable.getPageNumber() + 1,
+      (int) page.getTotalElements(),
+      page.getTotalPages()
+    );
+
+    List<Template> templates = new ArrayList<>();
+    List<Folder> folders = new ArrayList<>();
+
+    List<TemplatesAllWithFoldersPage22> result = page.getContent();
+
+    for (TemplatesAllWithFoldersPage22 entity : result) {
+      if (entity.getEntityType().equals("template")) {
+        Template template = new Template(
+          entity.getKey(),
+          entity.getWorkGroupKey(),
+          entity.getName(),
+          entity.getCreatedUserFirstName(),
+          entity.getCreatedUserLastName(),
+          entity.getCreatedUserName(),
+          entity.getCreatedUserKey(),
+          entity.getCreatedDateTimeUtc(),
+          entity.getUpdatedDateTimeUtc(),
+          entity.getFolderKey(),
+          entity.isPart()
+        );
+        templates.add(template);
+      }
+      if (entity.getEntityType().equals("folder")) {
+        Folder folder = new Folder(
+          entity.getKey(),
+          entity.getWorkGroupKey(),
+          entity.getName(),
+          entity.getCreatedUserFirstName(),
+          entity.getCreatedUserLastName(),
+          entity.getCreatedUserName(),
+          entity.getCreatedUserKey(),
+          entity.getCreatedDateTimeUtc(),
+          entity.getUpdatedDateTimeUtc(),
+          entity.getFolderType(),
+          entity.getParentFolderKey(),
+          entity.getParentFolderName()
+        );
+        folders.add(folder);
+      }
+    }
+
+    TemplatesAllWithFoldersPage templatesAllWithFoldersPage =
+      new TemplatesAllWithFoldersPage(templates, folders, pageInfo);
+
+    return templatesAllWithFoldersPage;
   }
 
   public TemplatesAllWithFoldersPage getAllWithFoldersPage(String workGroupKey, Map<String, String> queryParams)
