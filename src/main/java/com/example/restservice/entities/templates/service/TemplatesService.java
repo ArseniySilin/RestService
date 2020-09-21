@@ -64,7 +64,6 @@ public class TemplatesService {
 
     List<Template> templates = new ArrayList<>();
     List<Folder> folders = new ArrayList<>();
-
     List<TemplatesAllWithFoldersPage22> result = page.getContent();
 
     for (TemplatesAllWithFoldersPage22 entity : result) {

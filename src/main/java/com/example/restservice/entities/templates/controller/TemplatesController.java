@@ -56,33 +56,35 @@ public class TemplatesController {
     // TODO: add params validation
 
     String columnNameToOrderBy = Columns.indicies.getOrDefault(columnToOrderBy, Columns.indicies.get("2"));
-    Sort sort = Sort.by(columnNameToOrderBy).descending();
 
-//    if (orderBy.equals("0")) sort.descending();
-//    if (orderBy.equals("1")) sort.ascending();
-
-    Pageable firstPageWithTwoElements = PageRequest.of(
+    Pageable pr = PageRequest.of(
       Integer.parseInt(pageNumber) - 1,
       Integer.parseInt(itemsPerPage),
-      sort
+      Sort.by(orderBy.equals("0") ? Sort.Direction.DESC : Sort.Direction.ASC, columnNameToOrderBy)
     );
-
-    System.out.println();
-    System.out.println("columnNameToOrderBy: " + columnNameToOrderBy);
-    System.out.println("workGroupKey: " + workGroupKey);
-    System.out.println("userKey: " + userKey);
-    System.out.println("folderKey: " + folderKey);
-    System.out.println("pageNumber: " + pageNumber);
-    System.out.println("itemsPerPage: " + itemsPerPage);
-    System.out.println("columnToOrderBy: " + columnToOrderBy);
-    System.out.println("orderBy: " + orderBy);
+//
+//    System.out.println();
+//    System.out.println("columnNameToOrderBy: " + columnNameToOrderBy);
+//    System.out.println("workGroupKey: " + workGroupKey);
+//    System.out.println("userKey: " + userKey);
+//    System.out.println("folderKey: " + folderKey);
+//    System.out.println("pageNumber: " + pageNumber);
+//    System.out.println("itemsPerPage: " + itemsPerPage);
+//    System.out.println("columnToOrderBy: " + columnToOrderBy);
+//    System.out.println("orderBy: " + orderBy);
 
     return ResponseEntity.ok(
       new CommonResponse(
         Messages.SUCCESS.message,
         Messages.SUCCESS.code,
         null,
-        templatesService.getAllWithFoldersPage2(workGroupKey, userKey, folderKey, firstPageWithTwoElements))
+        templatesService.getAllWithFoldersPage2(
+          workGroupKey,
+          userKey,
+          folderKey,
+          pr
+        )
+      )
     );
   }
 
