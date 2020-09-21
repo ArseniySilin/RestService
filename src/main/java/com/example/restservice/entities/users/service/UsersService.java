@@ -45,7 +45,7 @@ public class UsersService {
   public UserTokens generateUserTokens(String username) throws EntityNotFoundException {
     User user = getUser(username);
 
-    String accessToken = jwtTokenUtil.generateAccessToken(username, user.getId(), user.getKey());
+    String accessToken = jwtTokenUtil.generateAccessToken(username, user.getKey());
     String refreshToken  = jwtTokenUtil.generateRefreshToken();
     UserTokens userToken = new UserTokens(accessToken, refreshToken);
 
@@ -70,12 +70,6 @@ public class UsersService {
       authorities
     );
   }
-
-//  public void addUser(User user) throws EntityAlreadyExistsException {
-//    if (getUser(user.getUserName()) != null) throw new EntityAlreadyExistsException(User.class);
-//
-//    usersRepository.save(user);
-//  }
 
   public void addUser(String userName, String password) throws EntityAlreadyExistsException, UsersException {
     if (usersRepository.findByUserName(userName) != null) {
@@ -131,11 +125,12 @@ public class UsersService {
       String accessToken = jwtTokenUtil.getAccessTokenWithoutHeader(tokens.accessToken);
       String refreshToken = tokens.refreshToken;
       String username = jwtTokenUtil.getUsernameFromToken(accessToken);
+      String userKey = jwtTokenUtil.getUserKeyFromToken(accessToken);
 
       validateUserTokens(username, accessToken, refreshToken);
 
       refreshedUserTokens = new UserTokens(
-        jwtTokenUtil.generateAccessToken(username),
+        jwtTokenUtil.generateAccessToken(username, userKey),
         jwtTokenUtil.generateRefreshToken()
       );
 

@@ -35,7 +35,7 @@ import java.util.Date;
     "NULL as parentfoldername, " +
     // entity type
     "'template' as entitytype " +
-    "FROM templates WHERE workgroupkey = ?1 AND createdusername = ?2 " +
+    "FROM templates WHERE workgroupkey = ?1 AND createduserkey = ?2 " +
     "UNION " +
     "SELECT " +
     "key, " +
@@ -56,7 +56,7 @@ import java.util.Date;
     "parentfoldername, " +
     // entity type
     "'folder' as entitytype " +
-    "FROM folders WHERE workgroupkey = ?1 AND createdusername = ?2",
+    "FROM folders WHERE workgroupkey = ?1 AND createduserkey = ?2",
   resultSetMapping="AllWithFoldersMapping"
 )
 @SqlResultSetMapping(

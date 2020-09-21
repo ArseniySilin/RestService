@@ -11,6 +11,8 @@ import com.example.restservice.entities.templates.repository.TemplatesRepository
 import com.example.restservice.entities.users.model.User;
 import com.example.restservice.entities.workgroups.repository.WorkgroupsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -39,8 +41,8 @@ public class TemplatesService {
   @Autowired
   AllWithFoldersRepository allWithFoldersRepository;
 
-  public List<TemplatesAllWithFoldersPage22> getAllWithFoldersPage2() {
-    return allWithFoldersRepository.findAllWithFolders("aaaaa111-1a1a-aa11-11a1-11111a111111", "test@docspro.ru");
+  public List<TemplatesAllWithFoldersPage22> getAllWithFoldersPage2(String workGroupKey, String userKey, Pageable pageable) {
+    return allWithFoldersRepository.findAllWithFolders(workGroupKey, userKey, pageable);
   }
 
   public TemplatesAllWithFoldersPage getAllWithFoldersPage(String workGroupKey, Map<String, String> queryParams)
@@ -83,6 +85,7 @@ public class TemplatesService {
     String createdUserFirstName = user.getFirstName();
     String createdUserLastName = user.getLastName();
     String createdUserName = user.getUserName();
+    // TODO: get key from token
     String createdUserKey = user.getKey();
     LocalDateTime createdDateTimeUtc = LocalDateTime.now();
     LocalDateTime updatedDateTimeUtc = LocalDateTime.now();
