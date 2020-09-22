@@ -10,13 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Sort;
 
-import java.util.Map;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @RestController
 @CrossOrigin
+@Validated
 public class TemplatesController {
   @Autowired
   JwtTokenUtil jwtTokenUtil;
@@ -31,17 +34,13 @@ public class TemplatesController {
   public ResponseEntity<CommonResponse> getAllWithFoldersPage(
     @RequestHeader("authorization") String token,
     @PathVariable("workGroupKey") String workGroupKey,
-    @RequestParam Map<String, String> queryParams) {
-
+    @RequestParam(value = "folderKey", required = false) String folderKey,
+    @Min(1) @RequestParam(value = "pageNumber") String pageNumber,
+    @Min(1) @RequestParam(value = "itemsPerPage", required = false, defaultValue = "15") String itemsPerPage,
+    @Min(1) @Max(5) @RequestParam(value = "columnToOrderBy", required = false, defaultValue = "2") String columnToOrderBy,
+    @Min(0) @Max(1) @RequestParam(value = "orderBy", required = false, defaultValue = "0") String orderBy
+  ) {
     String userKey = jwtTokenUtil.getUserKeyFromToken(token);
-    String folderKey = queryParams.get("folderKey");
-    String pageNumber = queryParams.getOrDefault("pageNumber", "1");
-    String itemsPerPage = queryParams.getOrDefault("itemsPerPage", "15");
-    String columnToOrderBy = queryParams.getOrDefault("columnToOrderBy", "2");
-    String orderBy = queryParams.getOrDefault("orderBy", "0");
-
-    // TODO: add params validation
-
     String columnNameToOrderBy = Columns.indicies.getOrDefault(columnToOrderBy, Columns.indicies.get("2"));
 
     Pageable pr = PageRequest.of(

@@ -45,6 +45,7 @@ com/example/restservice/Messages$ERROR$INVALID_TOKEN.class
 com/example/restservice/entities/users/exceptions/UsersException.class
 com/example/restservice/apierror/ApiValidationError.class
 com/example/restservice/Messages.class
+com/example/restservice/entities/templates/validation/ValuesAllowed.class
 com/example/restservice/entities/folders/repository/FoldersRepository.class
 com/example/restservice/execptions/EntityNotFoundException.class
 com/example/restservice/entities/workgroups/model/Workgroup.class
@@ -59,6 +60,7 @@ com/example/restservice/entities/templates/model/TemplatesAllWithFolders.class
 com/example/restservice/entities/templates/repository/AllWithFoldersRepository.class
 com/example/restservice/entities/folders/model/Folder$FolderBuilder.class
 com/example/restservice/utils/jwt/JwtTokenUtil.class
+com/example/restservice/entities/templates/validation/ValuesAllowed$Validator.class
 com/example/restservice/Messages$ERROR$USERNAME_DO_NOT_EXIST.class
 com/example/restservice/Messages$ERROR$ENTITY_ALREADY_EXISTS.class
 com/example/restservice/Messages$SUCCESS.class
